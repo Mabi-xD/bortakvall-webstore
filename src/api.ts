@@ -13,8 +13,3 @@ export const fetchProducts = async () => {
     return await res.json()
 
 } 
-
-export const getProducts = async () => {
-   let products = await fetchProducts ()
-    console.log(products);
-}
