@@ -2,7 +2,7 @@
 API FUNCTIONS FOR EXPORTING
 */
 
-import { IProduct } from "./interfaces"
+// import { IProduct } from "./interfaces"
 
 // Fetch products from bortakvall api.
 export const fetchProducts = async () => {
@@ -12,6 +12,6 @@ export const fetchProducts = async () => {
         throw new Error(`${res.status} ${res.statusText}`)
     }
     
-    return await res.json() as IProduct[]
+    return await res.json()
 
 } 
