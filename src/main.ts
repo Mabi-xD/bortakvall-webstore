@@ -1,5 +1,8 @@
 import {fetchProducts} from './api'
+import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
+
+
 
 let products = []
 
