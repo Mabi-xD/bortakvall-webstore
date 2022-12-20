@@ -25,12 +25,42 @@ const renderProducts = () => {
       <h3>
       ${prod.price}kr
       </h3>
-      <button class="btn btn-success">Lägg i varukorgen</button>
+      <button class="btn btn-success" data-product-id="${prod.id}">Lägg i varukorgen</button>
       <button class="btn btn-info" data-product-id="${prod.id}">Info</button>
     </div>
   `)
   .join('')
   // document.querySelector('#product-container')?.classList.remove('hide')
+
+  // Add product to shopping cart
+  addToCart()
+}
+
+const addToCart = () => {
+
+  const parentElement = document.querySelector('#product-container')!;
+
+  parentElement.addEventListener('click', e => {
+    e.preventDefault()
+    const target = e.target as HTMLElement
+
+    if(target.textContent === "Lägg i varukorgen") {
+
+      const targetNr = Number(target.dataset.productId)
+
+      const prod = products.data
+
+      const findProd = prod.find(product => product.id === targetNr)
+
+      if (findProd){
+        document.querySelector('#cart')!.innerHTML = `
+            <h4>
+            ${findProd.name} ${findProd.price}kr
+            <h4>
+        `
+      }
+    }
+  })
 }
 
 document.querySelector('#product-container')?.addEventListener('click', e => {
