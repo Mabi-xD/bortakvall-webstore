@@ -10,19 +10,26 @@
 
 <body class="container">
 
-    <header>
-      <nav id="navbar-container" class="navbar navbar-dark bg-dark">
-        <img src="images/bortakvall-logo.png" height="30px">
+  <header>
+    <nav id="navbar-container" class="navbar navbar-dark bg-dark">
+      <img src="images/bortakvall-logo.png" height="30px">
+      <div class="cart-icon">
         <i class="icon fa-solid fa-cart-shopping"></i>
-      </nav>
-    </header>
-
-    <main>
-      <div id="product-container" class="row justify-content-around">
+      </div>
+      <div id="info-container">
       </div>
     </main>
+    </nav>
+  </header>
 
-    <footer id="footer-container"></footer>
+  <main>
+    <div id="product-container" class="row justify-content-around">
+    </div>
+
+    <div id="cart"></div>
+  </main>
+
+  <footer id="footer-container"></footer>
 
   <script type="module" src="/src/main.ts"></script>
 </body>

@@ -5,7 +5,7 @@ import './style.css'
 
 
 
-let products: any = []
+let products: {} = []
 
 const getProducts = async () => {
   products = await fetchProducts ()
@@ -18,57 +18,71 @@ const renderProducts = () => {
   document.querySelector('#product-container')!.innerHTML = prod
   .map(prod => `
     <div class="col-6 col-md-4 col-lg-3">
-      <img class="img-fluid img-thumbnail" src="https://www.bortakvall.se/${prod.images.thumbnail}">
+      <img class="img-fluid" src="https://www.bortakvall.se/${prod.images.thumbnail}">
       <h2>
       ${prod.name}
-      </h2>
+      <h2>
       <h3>
       ${prod.price}kr
       </h3>
-      <button id="addButton" class="btn btn-success btn-add">Lägg i varukorgen</button>
+      <button class="btn btn-success">Lägg i varukorgen</button>
+      <button class="btn btn-info" data-product-id="${prod.id}">Info</button>
     </div>
   `)
   .join('')
-
-  // Add product to shopping cart
-  addToCart()
+  // document.querySelector('#product-container')?.classList.remove('hide')
 }
 
-const addToCart = () => {
-  const addButtons = document.querySelectorAll('.btn-add');
+document.querySelector('#product-container')?.addEventListener('click', e => {
+  e.preventDefault()
+  const target = e.target as HTMLElement
+  console.log(e)
+  if(target.textContent === "Info"){
+    console.log(target.id)
+    document.querySelector('#product-container')!.classList.add('hide')
+    const targetNr = Number(target.dataset.productId)
+    console.log(targetNr)
+    const prod = products.data
+    console.log(prod)
+    const findProd = prod.find(product => product.id === targetNr)
+    console.log(findProd)
+    if (findProd){
+      document.querySelector('#info-container')!.innerHTML = `
+        <div class="col-6 col-md-4 col-lg-3">
+          <img class="img-fluid img-thumbnail" src="https://www.bortakvall.se/${findProd.images.large}">
+          <h2>
+          ${findProd.name}
+          <h2>
+          <h3>
+          ${findProd.price}kr
+          </h3>
+          ${findProd.description}
+          <button class="btn btn-success">Lägg i varukorgen</button>
+        </div>
+      `
+    }
 
-  addButtons.forEach(button => {
-    button.addEventListener('click', e => {
-      console.log(e.target);
-    });
-  });
-  // logProducts()
+  }
+})
+
+//cart
+const cartIcon = document.querySelector('#cart-icon')
+
+cartIcon?.addEventListener('click', e => {
+
+  if(e.target === button) {
+  document.querySelector('#cart')!.innerHTML = `
+  <div class="offcanvas offcanvas-start show" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasLabel">Offcanvas</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      Content for the offcanvas goes here. You can place just about any Bootstrap component or custom elements here.
+    </div>
+  </div>`
 }
 
-// const logProducts = () => {
-//   let prod = products.data
-//     document.querySelector('#cart')!.innerHTML = prod
-//   .map(prod => `
-//   <h4>
-//   ${prod.name}
-//   </h4>
-//   `)
-//   .join('')
-// }
-
-// const productsToCart = () => {
-//   let prod = products.data
-//   document.querySelector('#cart')!.innerHTML = prod
-//   .map(prod => `
-//       <h4>
-//       ${prod.name}
-//       <h4>
-//   `)
-//   .join('')
-// }
-
-// const renderProducts = () => {
-//   document.querySelector('#product-container')!.innerHTML = products
-// }
+})
 
 getProducts()
