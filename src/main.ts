@@ -5,6 +5,7 @@ import './style.css'
 
 
 
+
 let products: any = []
 
 const getProducts = async () => {
@@ -33,23 +34,33 @@ const renderProducts = () => {
 
 //cart
 const cartIcon = document.querySelector('#cart-icon')
+const cartContainer = document.querySelector('#cart')
 
 cartIcon?.addEventListener('click', e => {
+  e.preventDefault()
 
-  if(e.target === button) {
-  document.querySelector('#cart')!.innerHTML = `
-
-  <div class="offcanvas offcanvas-start show" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasLabel">Offcanvas</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  cartContainer!.innerHTML = `
+    <div class="offcanvas offcanvas-end show" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">Varukorg</h5>
+        <button id="close-btn" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        Innehåll i varukorg
+      </div>
     </div>
-    <div class="offcanvas-body">
-      Content for the offcanvas goes here. You can place just about any Bootstrap component or custom elements here.
-    </div>
-  </div>`
-}
+    `
+  const closeButton = document.querySelector('#close-btn')
+  closeButton?.addEventListener('click', e => {
+    if (cartContainer!.style.display === "none") {
+      cartContainer!.style.display = "block";
+    } else {
+      cartContainer!.style.display = "none";
+    } 
+  })
 
-})
+  
+  }
+)
 
 getProducts()
