@@ -25,11 +25,20 @@ const renderProducts = () => {
       <h3>
       ${prod.price}kr
       </h3>
-      <button class="btn btn-success">Lägg i varukorgen</button>
+      <button id="addToCart" class="btn btn-success">Lägg i varukorgen</button>
     </div>
   `)
   .join('')
+
+  // Add product to shopping cart
+  productsToCart()
 }
+
+const productsToCart = () => {
+    document.querySelector('#addToCart')?.addEventListener('click', (e) => {
+      console.log('you clicked me', e.target)
+    }
+)}
 
 // const renderProducts = () => {
 //   document.querySelector('#product-container')!.innerHTML = products
