@@ -5,12 +5,34 @@ import './style.css'
 
 
 
-let products = []
-
+let products: any = []
 
 const getProducts = async () => {
   products = await fetchProducts ()
-  console.log(products.data)
+  console.log(products)
+  renderProducts()
 }
+
+const renderProducts = () => {
+  let prod = products.data
+  document.querySelector('#product-container')!.innerHTML = prod
+  .map(prod => `
+    <div class="col-6 col-md-4 col-lg-3">
+      <img class="img-fluid img-thumbnail" src="https://www.bortakvall.se/${prod.images.thumbnail}">
+      <h2>
+      ${prod.name}
+      <h2>
+      <h3>
+      ${prod.price}kr
+      </h3>
+      <button class="btn btn-success">Lägg i varukorgen</button>
+    </div>
+  `)
+  .join('')
+}
+
+// const renderProducts = () => {
+//   document.querySelector('#product-container')!.innerHTML = products
+// }
 
 getProducts()

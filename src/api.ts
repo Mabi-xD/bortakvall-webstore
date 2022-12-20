@@ -2,6 +2,8 @@
 API FUNCTIONS FOR EXPORTING
 */
 
+import { IProduct } from "./interfaces"
+
 // import { IProduct } from "./interfaces"
 
 // Fetch products from bortakvall api.

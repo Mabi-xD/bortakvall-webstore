@@ -1,6 +1,6 @@
-/*
- * IProduct
- */
+
+ // IProduct
+ 
 
 export interface IProduct {
     status: string,
@@ -17,4 +17,5 @@ export interface IProduct {
         stock_status: string,
         stock_quantity: null
     ]
+
 }
