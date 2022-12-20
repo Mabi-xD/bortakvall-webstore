@@ -54,7 +54,7 @@ const addToCart = () => {
 
       if (findProd){
         document.querySelector('#cart')!.innerHTML = `
-            <h4>
+            <h4 class="inCart-${findProd.id}">
             ${findProd.name} ${findProd.price}kr
             <h4>
         `
