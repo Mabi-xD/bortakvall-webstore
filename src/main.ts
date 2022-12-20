@@ -21,24 +21,51 @@ const renderProducts = () => {
       <img class="img-fluid img-thumbnail" src="https://www.bortakvall.se/${prod.images.thumbnail}">
       <h2>
       ${prod.name}
-      <h2>
+      </h2>
       <h3>
       ${prod.price}kr
       </h3>
-      <button id="addToCart" class="btn btn-success">Lägg i varukorgen</button>
+      <button id="addButton" class="btn btn-success btn-add">Lägg i varukorgen</button>
     </div>
   `)
   .join('')
 
   // Add product to shopping cart
-  productsToCart()
+  addToCart()
 }
 
-const productsToCart = () => {
-    document.querySelector('#addToCart')?.addEventListener('click', (e) => {
-      console.log('you clicked me', e.target)
-    }
-)}
+const addToCart = () => {
+  const addButtons = document.querySelectorAll('.btn-add');
+
+  addButtons.forEach(button => {
+    button.addEventListener('click', e => {
+      console.log(e.target);
+    });
+  });
+  // logProducts()
+}
+
+// const logProducts = () => {
+//   let prod = products.data
+//     document.querySelector('#cart')!.innerHTML = prod
+//   .map(prod => `
+//   <h4>
+//   ${prod.name}
+//   </h4>
+//   `)
+//   .join('')
+// }
+
+// const productsToCart = () => {
+//   let prod = products.data
+//   document.querySelector('#cart')!.innerHTML = prod
+//   .map(prod => `
+//       <h4>
+//       ${prod.name}
+//       <h4>
+//   `)
+//   .join('')
+// }
 
 // const renderProducts = () => {
 //   document.querySelector('#product-container')!.innerHTML = products
