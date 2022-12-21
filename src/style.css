@@ -18,6 +18,16 @@ body {
   display: none;
 }
 
+.hide {
+  display: none;
+}
+
+.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .logo {
   display: block;
   margin-left: auto;
