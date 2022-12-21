@@ -103,40 +103,29 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
 /*
 * Shopping cart
 */
-
-const cartIcon = document.querySelector('#cart-icon')
 const cartContainer = document.querySelector('#cart')
 
 /*
 * Show shopping cart
 */
 
-cartIcon?.addEventListener('click', e => {
-  e.preventDefault()
-
-  cartContainer!.innerHTML = `
-    <div class="offcanvas offcanvas-end show" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasRightLabel">Varukorg</h5>
-        <button id="close-btn" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div id="order-container" class="offcanvas-body">
-      </div>
-    </div>
-    `
-  const closeButton = document.querySelector('#close-btn')
-  closeButton?.addEventListener('click', e => {
-    if (cartContainer!.style.display === "none") {
-      cartContainer!.style.display = "block";
-    } else {
-      cartContainer!.style.display = "none";
-    } 
-  })
-
+  cartContainer!.innerHTML = `<button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+  aria-controls="offcanvasRight"><i class="icon fa-solid fa-cart-shopping"></i></button>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">Varukorg</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div id="" class="offcanvas-body">
   renderToCart()
+  </div>
+</div>
+`
 
-  }
-)
+
+
+  
+
 
 /*
 * Render order to shopping cart
