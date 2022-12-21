@@ -54,7 +54,7 @@ const addToCart = () => {
       const targetNr = Number(target.dataset.productId)
       const prod = products.data
       const findProd = prod.find(product => product.id === targetNr)
-      productsOrder.push(`${findProd.name}, ${findProd.price} kr`)
+      productsOrder.push(`${findProd.name}, ${findProd.price} kr, ${findProd.id}<br>`)
       console.log('You have added the following products:', productsOrder)
     }
   })
@@ -139,14 +139,15 @@ cartIcon?.addEventListener('click', e => {
 */
 
 const renderToCart = () => {
-
-  document.querySelector('#order-container')!.innerHTML = `
-      <div class="order-list">
-        <p>
-        ${productsOrder}
-        </p>
-      </div>
-    `
+  document.querySelector('#order-container')!.innerHTML = productsOrder
+  .map(productsOrder => `
+  <div class="order-list">
+  <p>
+  ${productsOrder}
+  </p>
+</div>
+  `)
+  .join('')
 }
 
 /*
