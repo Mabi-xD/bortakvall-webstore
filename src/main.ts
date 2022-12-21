@@ -7,6 +7,7 @@ import './style.css'
 
 
 let products: {} = []
+let productsOrder: [] = []
 
 const getProducts = async () => {
   products = await fetchProducts ()
@@ -33,6 +34,8 @@ const renderProducts = () => {
   .join('')
   // document.querySelector('#product-container')?.classList.remove('hide')
 
+
+
   // Add product to shopping cart
   addToCart()
 }
@@ -52,14 +55,9 @@ const addToCart = () => {
       const prod = products.data
 
       const findProd = prod.find(product => product.id === targetNr)
-
-      if (findProd){
-        document.querySelector('#cart')!.innerHTML = `
-            <h4 class="inCart-${findProd.id}">
-            ${findProd.name} ${findProd.price}kr
-            <h4>
-        `
-      }
+    
+      productsOrder.push(`${findProd.name}, ${findProd.price} kr`)
+      console.log('You have added the following products:', productsOrder)
     }
   })
 }
