@@ -3,16 +3,22 @@ import {fetchProducts} from './api'
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
 
-
-
-
 let products: {} = []
+let productsOrder: [] = []
+
+/*
+* GET all products from API
+*/
 
 const getProducts = async () => {
   products = await fetchProducts ()
   console.log(products)
   renderProducts()
 }
+
+/*
+* RENDER all products to the dom
+*/
 
 const renderProducts = () => {
   let prod = products.data
@@ -31,11 +37,11 @@ const renderProducts = () => {
     </div>
   `)
   .join('')
-  // document.querySelector('#product-container')?.classList.remove('hide')
-
-  // Add product to shopping cart
-  addToCart()
 }
+
+/*
+* Add products to shopping cart
+*/
 
 const addToCart = () => {
 
@@ -44,25 +50,20 @@ const addToCart = () => {
   parentElement.addEventListener('click', e => {
     e.preventDefault()
     const target = e.target as HTMLElement
-
     if(target.textContent === "Lägg i varukorgen") {
-
       const targetNr = Number(target.dataset.productId)
-
       const prod = products.data
-
       const findProd = prod.find(product => product.id === targetNr)
-
-      if (findProd){
-        document.querySelector('#cart')!.innerHTML = `
-            <h4 class="inCart-${findProd.id}">
-            ${findProd.name} ${findProd.price}kr
-            <h4>
-        `
-      }
+      productsOrder.push(`${findProd.name}, ${findProd.price} kr, ${findProd.id}<br>`)
+      console.log('You have added the following products:', productsOrder)
     }
   })
+
 }
+
+/*
+* Show more information about a product
+*/
 
 document.querySelector('#product-container')?.addEventListener('click', e => {
   e.preventDefault()
@@ -96,31 +97,19 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
         </div>
       `
     }
-
   }
 })
 
-document.querySelector('#info-container')?.addEventListener('click', e => {
-  e.preventDefault()
+/*
+* Shopping cart
+*/
 
-  const target = e.target as HTMLElement
-
-  console.log(e)
-
-  if(target.textContent === "Tillbaka"){
-
-  document.querySelector('#info-container')?.classList.add('hide')
-
-  document.querySelector('#product-container')?.classList.remove('hide')
-
-  }
-})
-
-
-
-//cart
 const cartIcon = document.querySelector('#cart-icon')
 const cartContainer = document.querySelector('#cart')
+
+/*
+* Show shopping cart
+*/
 
 cartIcon?.addEventListener('click', e => {
   e.preventDefault()
@@ -131,8 +120,7 @@ cartIcon?.addEventListener('click', e => {
         <h5 class="offcanvas-title" id="offcanvasRightLabel">Varukorg</h5>
         <button id="close-btn" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-      <div class="offcanvas-body">
-        Innehåll i varukorg
+      <div id="order-container" class="offcanvas-body">
       </div>
     </div>
     `
@@ -145,8 +133,35 @@ cartIcon?.addEventListener('click', e => {
     } 
   })
 
-  
+  renderToCart()
+
   }
 )
 
+/*
+* Render order to shopping cart
+*/
+
+const renderToCart = () => {
+  document.querySelector('#order-container')!.innerHTML = productsOrder
+  .map(productsOrder => `
+  <div class="order-list">
+  <p>
+  ${productsOrder}
+  </p>
+</div>
+  `)
+  .join('')
+}
+
+/*
+* GET products when entering the website
+*/
+
 getProducts()
+
+/*
+* ADD product to shopping cart
+*/
+
+addToCart()
