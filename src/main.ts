@@ -5,6 +5,7 @@ import './style.css'
 
 
 
+
 let products: {} = []
 
 const getProducts = async () => {
@@ -25,12 +26,42 @@ const renderProducts = () => {
       <h3>
       ${prod.price}kr
       </h3>
-      <button class="btn btn-success">Lägg i varukorgen</button>
+      <button class="btn btn-success" data-product-id="${prod.id}">Lägg i varukorgen</button>
       <button class="btn btn-info" data-product-id="${prod.id}">Info</button>
     </div>
   `)
   .join('')
   // document.querySelector('#product-container')?.classList.remove('hide')
+
+  // Add product to shopping cart
+  addToCart()
+}
+
+const addToCart = () => {
+
+  const parentElement = document.querySelector('#product-container')!;
+
+  parentElement.addEventListener('click', e => {
+    e.preventDefault()
+    const target = e.target as HTMLElement
+
+    if(target.textContent === "Lägg i varukorgen") {
+
+      const targetNr = Number(target.dataset.productId)
+
+      const prod = products.data
+
+      const findProd = prod.find(product => product.id === targetNr)
+
+      if (findProd){
+        document.querySelector('#cart')!.innerHTML = `
+            <h4 class="inCart-${findProd.id}">
+            ${findProd.name} ${findProd.price}kr
+            <h4>
+        `
+      }
+    }
+  })
 }
 
 document.querySelector('#product-container')?.addEventListener('click', e => {
@@ -67,23 +98,33 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
 
 //cart
 const cartIcon = document.querySelector('#cart-icon')
+const cartContainer = document.querySelector('#cart')
 
 cartIcon?.addEventListener('click', e => {
+  e.preventDefault()
 
-  if(e.target === button) {
-  document.querySelector('#cart')!.innerHTML = `
-
-  <div class="offcanvas offcanvas-start show" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasLabel">Offcanvas</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  cartContainer!.innerHTML = `
+    <div class="offcanvas offcanvas-end show" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">Varukorg</h5>
+        <button id="close-btn" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        Innehåll i varukorg
+      </div>
     </div>
-    <div class="offcanvas-body">
-      Content for the offcanvas goes here. You can place just about any Bootstrap component or custom elements here.
-    </div>
-  </div>`
-}
+    `
+  const closeButton = document.querySelector('#close-btn')
+  closeButton?.addEventListener('click', e => {
+    if (cartContainer!.style.display === "none") {
+      cartContainer!.style.display = "block";
+    } else {
+      cartContainer!.style.display = "none";
+    } 
+  })
 
-})
+  
+  }
+)
 
 getProducts()

@@ -8,28 +8,28 @@
   <title>Bortakväll</title>
 </head>
 
-<body class="container">
+<body>
 
   <header>
     <nav id="navbar-container" class="navbar navbar-dark bg-dark">
-      <img src="images/bortakvall-logo.png" height="30px">
-      <div class="cart-icon">
+      <img class="logo" src="images/bortakvall-logo.png" height="30px">
+      <button class="btn" id="cart-icon" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+        aria-controls="offcanvasRight">
         <i class="icon fa-solid fa-cart-shopping"></i>
-      </div>
-<<<<<<< HEAD
-      <div id="info-container">
-      </div>
-    </main>
-=======
+      </button>
+
     </nav>
   </header>
->>>>>>> 6add83dcf894d7cb088a36eaa111471bdf6584a8
 
-  <main>
+  <main class="container">
     <div id="product-container" class="row justify-content-around">
     </div>
 
-    <div id="cart"></div>
+    <div id="info-container">
+    </div>
+
+    <div id="cart">
+    </div>
   </main>
 
   <footer id="footer-container"></footer>
