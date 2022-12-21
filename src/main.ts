@@ -150,7 +150,7 @@ cartIcon?.addEventListener('click', e => {
   })
 
   renderToCart()
-
+  removeProduct()
   }
 )
 
@@ -168,6 +168,14 @@ const renderToCart = () => {
 </div>
   `)
   .join('')
+}
+
+const removeProduct = () => {
+  const product = document.querySelector<HTMLParagraphElement>('p');
+  product?.addEventListener('click', (e) => {
+    product.remove()
+    console.log('Removed this product:', e.target)
+  })
 }
 
 /*
