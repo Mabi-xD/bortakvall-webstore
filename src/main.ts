@@ -57,6 +57,21 @@ const addToCart = () => {
       productsOrder.push(`${findProd.name}, ${findProd.price} kr, ${findProd.id}<br>`)
       console.log('You have added the following products:', productsOrder)
     }
+    const cartContainer = document.querySelector('#cart')
+
+    cartContainer!.innerHTML = `
+    <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+    aria-controls="offcanvasRight"><i class="icon fa-solid fa-cart-shopping"></i></button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Varukorg</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div id="render-cart" class="offcanvas-body">${productsOrder}
+    </div>
+    <button type="button" class="btn btn-primary" id="checkout">Gå till kassan</button>
+    </div>
+    `
   })
 
 }
@@ -100,27 +115,9 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
   }
 })
 
-/*
-* Shopping cart
-*/
-const cartContainer = document.querySelector('#cart')
 
-/*
-* Show shopping cart
-*/
 
-  cartContainer!.innerHTML = `<button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-  aria-controls="offcanvasRight"><i class="icon fa-solid fa-cart-shopping"></i></button>
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel">Varukorg</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div id="" class="offcanvas-body">
-  renderToCart()
-  </div>
-</div>
-`
+
 
 
 
@@ -133,15 +130,37 @@ const cartContainer = document.querySelector('#cart')
 
 const renderToCart = () => {
   document.querySelector('#order-container')!.innerHTML = productsOrder
-  .map(productsOrder => `
+    .map(productsOrder => `
+  <div 
   <div class="order-list">
   <p>
   ${productsOrder}
   </p>
 </div>
   `)
-  .join('')
+    .join('')
+  
 }
+
+/*
+* Shopping cart
+*/
+/* const cartContainer = document.querySelector('#cart')
+
+  cartContainer!.innerHTML = `<button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+  aria-controls="offcanvasRight"><i class="icon fa-solid fa-cart-shopping"></i></button>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">Varukorg</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div id="render-cart" class="offcanvas-body">
+  </div>
+  <button type="button" class="btn btn-primary" id="checkout">Gå till kassan</button>
+</div>
+` */
+//renderToCart()
+
 
 /*
 * GET products when entering the website
