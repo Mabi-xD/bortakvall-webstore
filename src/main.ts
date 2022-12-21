@@ -66,11 +66,14 @@ const addToCart = () => {
 
 document.querySelector('#product-container')?.addEventListener('click', e => {
   e.preventDefault()
+
   const target = e.target as HTMLElement
   console.log(e)
+  
   if(target.textContent === "Info"){
     console.log(target.id)
     document.querySelector('#product-container')!.classList.add('hide')
+    document.querySelector('#info-container')?.classList.remove('hide')
     const targetNr = Number(target.dataset.productId)
     console.log(targetNr)
     const prod = products.data
@@ -79,8 +82,9 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
     console.log(findProd)
     if (findProd){
       document.querySelector('#info-container')!.innerHTML = `
-        <div class="col-6 col-md-4 col-lg-3">
-          <img class="img-fluid img-thumbnail" src="https://www.bortakvall.se/${findProd.images.large}">
+        <div class="col-6 col-md-4 col-lg-6">
+          <button id="backBtn" class="btn btn-dark btn-small">Tillbaka</button>
+          <img class="img-fluid" src="https://www.bortakvall.se/${findProd.images.large}">
           <h2>
           ${findProd.name}
           <h2>
@@ -95,6 +99,24 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
 
   }
 })
+
+document.querySelector('#info-container')?.addEventListener('click', e => {
+  e.preventDefault()
+
+  const target = e.target as HTMLElement
+
+  console.log(e)
+
+  if(target.textContent === "Tillbaka"){
+
+  document.querySelector('#info-container')?.classList.add('hide')
+
+  document.querySelector('#product-container')?.classList.remove('hide')
+
+  }
+})
+
+
 
 //cart
 const cartIcon = document.querySelector('#cart-icon')
