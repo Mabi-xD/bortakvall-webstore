@@ -3,17 +3,23 @@ import {fetchProducts} from './api'
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
 
-
-
-
 let products: {} = []
 let productsOrder: [] = []
+
+/*
+* GET all products from API
+*/
 
 const getProducts = async () => {
   products = await fetchProducts ()
   console.log(products)
   renderProducts()
 }
+
+/*
+* RENDER all products to the dom
+* and calling a function to ADD products to shopping cart
+*/
 
 const renderProducts = () => {
   let prod = products.data
@@ -32,13 +38,14 @@ const renderProducts = () => {
     </div>
   `)
   .join('')
-  // document.querySelector('#product-container')?.classList.remove('hide')
-
-
 
   // Add product to shopping cart
   addToCart()
 }
+
+/*
+* Add products to shopping cart
+*/
 
 const addToCart = () => {
 
@@ -47,20 +54,20 @@ const addToCart = () => {
   parentElement.addEventListener('click', e => {
     e.preventDefault()
     const target = e.target as HTMLElement
-
     if(target.textContent === "Lägg i varukorgen") {
-
       const targetNr = Number(target.dataset.productId)
-
       const prod = products.data
-
       const findProd = prod.find(product => product.id === targetNr)
-    
       productsOrder.push(`${findProd.name}, ${findProd.price} kr`)
       console.log('You have added the following products:', productsOrder)
     }
   })
+
 }
+
+/*
+* Show more information about a product
+*/
 
 document.querySelector('#product-container')?.addEventListener('click', e => {
   e.preventDefault()
@@ -94,9 +101,16 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
   }
 })
 
-//cart
+/*
+* Shopping cart
+*/
+
 const cartIcon = document.querySelector('#cart-icon')
 const cartContainer = document.querySelector('#cart')
+
+/*
+* Show shopping cart
+*/
 
 cartIcon?.addEventListener('click', e => {
   e.preventDefault()
@@ -121,8 +135,11 @@ cartIcon?.addEventListener('click', e => {
     } 
   })
 
-  
   }
 )
+
+/*
+* GET products when entering the website
+*/
 
 getProducts()
