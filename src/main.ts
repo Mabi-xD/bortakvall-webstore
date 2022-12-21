@@ -18,7 +18,6 @@ const getProducts = async () => {
 
 /*
 * RENDER all products to the dom
-* and calling a function to ADD products to shopping cart
 */
 
 const renderProducts = () => {
@@ -38,9 +37,6 @@ const renderProducts = () => {
     </div>
   `)
   .join('')
-
-  // Add product to shopping cart
-  addToCart()
 }
 
 /*
@@ -97,7 +93,6 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
         </div>
       `
     }
-
   }
 })
 
@@ -121,8 +116,7 @@ cartIcon?.addEventListener('click', e => {
         <h5 class="offcanvas-title" id="offcanvasRightLabel">Varukorg</h5>
         <button id="close-btn" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-      <div class="offcanvas-body">
-        Innehåll i varukorg
+      <div id="order-container" class="offcanvas-body">
       </div>
     </div>
     `
@@ -135,11 +129,34 @@ cartIcon?.addEventListener('click', e => {
     } 
   })
 
+  renderToCart()
+
   }
 )
+
+/*
+* Render order to shopping cart
+*/
+
+const renderToCart = () => {
+
+  document.querySelector('#order-container')!.innerHTML = `
+      <div class="order-list">
+        <p>
+        ${productsOrder}
+        </p>
+      </div>
+    `
+}
 
 /*
 * GET products when entering the website
 */
 
 getProducts()
+
+/*
+* ADD product to shopping cart
+*/
+
+addToCart()
