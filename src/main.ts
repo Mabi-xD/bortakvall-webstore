@@ -40,16 +40,18 @@ const renderProducts = () => {
   let prod = products.data
   document.querySelector('#product-container')!.innerHTML = prod
   .map(prod => `
-    <div class="col-6 col-md-4 col-lg-3">
+    <div class="col-6 col-md-5 col-lg-3 shadow mb-2 m-2 bg-body rounded p-3">
       <img class="img-fluid" src="https://www.bortakvall.se/${prod.images.thumbnail}">
       <h2>
       ${prod.name}
       <h2>
       <h3>
-      ${prod.price}kr
+      ${prod.price} kr
       </h3>
-      <button class="btn btn-success" data-product-id="${prod.id}">Lägg i varukorgen</button>
-      <button class="btn btn-info" data-product-id="${prod.id}">Info</button>
+      <div class="d-flex justify-content-center">
+      <button class="btn btn-success m-1" data-product-id="${prod.id}">Lägg i varukorgen</button>
+      <button class="btn btn-info m-1" data-product-id="${prod.id}">Info</button>
+      </div>
     </div>
   `)
   .join('')
@@ -176,15 +178,9 @@ const total = 0;
 const totalSum = productsOrder.reduce((accumulator,current) => accumulator + current.price, total)
 console.log(totalSum)
 document.querySelector('#total-sum')!.innerHTML = `
-Din totala summa är: ${totalSum}kr
+<p>Din totala summa är: ${totalSum} kr</p>
 `
 }
-
-
-
-
-
-
 
 
 /*

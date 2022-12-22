@@ -4,9 +4,18 @@ body {
   margin: 0;
 }
 
+.hide {
+  display: none;
+}
+
 /*
 * Navigation
 */
+
+.navbar {
+  padding: 20px 0px;
+
+}
 
 .icon {
   color: white;
@@ -14,28 +23,32 @@ body {
   margin-right: 10px;
 }
 
-.hide {
-  display: none;
-}
-
-
 .logo {
-  display: block;
-  margin-left: auto;
+  margin-left: 20px;
   margin-right: auto;
 }
 
-/* .navbar {
-  margin: 0;
-} */
+
 
 #checkout {
   margin: 10px;
 }
 
-
-
 #number-of-products {
-  padding: 10px;
+  padding-top: 10px;
   text-align: center;
+}
+
+h2 {
+  font-size: 22px;
+  text-align: center;
+}
+
+h3 {
+  font-size: 20px;
+  text-align: center;
+}
+
+button {
+  margin-bottom: 10px;
 }
