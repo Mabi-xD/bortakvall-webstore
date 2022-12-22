@@ -160,7 +160,7 @@ const total = 0;
 const totalSum = productsOrder.reduce((accumulator,current) => accumulator + current.price, total)
 console.log(totalSum)
 document.querySelector('#total-sum')!.innerHTML = `
-Din totala summa är: ${totalSum}
+Din totala summa är: ${totalSum}kr
 `
 }
 
