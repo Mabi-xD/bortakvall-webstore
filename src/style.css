@@ -32,3 +32,10 @@ body {
 #checkout {
   margin: 10px;
 }
+
+
+
+#number-of-products {
+  padding: 10px;
+  text-align: center;
+}

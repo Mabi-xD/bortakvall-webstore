@@ -6,6 +6,10 @@ import './style.css'
 let products: {} = []
 let productsOrder: [] = []
 
+ 
+
+
+
 /*
 * GET all products from API
 */
@@ -13,6 +17,18 @@ let productsOrder: [] = []
 const getProducts = async () => {
   products = await fetchProducts ()
   console.log(products)
+
+  /*
+  * Show number of products to the dom
+  */
+  document.querySelector('#number-of-products')!.innerHTML = `
+  <div class="justify-content-center">
+    <p>Antal produkter:
+    ${products.data.length}
+    </p>
+  </div>
+  ` 
+  console.log(products.data.length)
   renderProducts()
 }
 
@@ -163,6 +179,13 @@ document.querySelector('#total-sum')!.innerHTML = `
 Din totala summa är: ${totalSum}kr
 `
 }
+
+
+
+
+
+
+
 
 /*
 * GET products when entering the website
