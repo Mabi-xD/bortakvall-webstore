@@ -138,21 +138,31 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 * Render order to shopping cart
 */
 
-  const renderToCart = () => {
-  document.querySelector('#render-cart')!.innerHTML = productsOrder
-    .map(productsOrder => `
-  <div 
-  <div class="order-list">
-  <p>
-  ${productsOrder.name} </br>
-  ${productsOrder.price}kr
-  </p>
-  <button type="button" class="btn btn-danger">
-  <i class="fa-regular fa-trash-can"></i>
-  </button>
-</div>
-  `)
-    .join('')
+const renderToCart = () => {
+    const iconElements = document.querySelectorAll<HTMLElement>('.icon');
+
+    const iconID = () => {
+  
+      iconElements.forEach((iconElement, index) => {
+        iconElement.setAttribute('id', `icon-${index++}`);
+
+        document.querySelector('#render-cart')!.innerHTML = productsOrder
+          .map(productsOrder => `
+        <div 
+        <div class="order-list">
+        <p>
+        ${productsOrder.name} </br>
+        ${productsOrder.price}kr
+        </p>
+        <button type="button" class="btn btn-danger">
+        <i id="icon-${index++}" class="fa-regular fa-trash-can"></i>
+        </button>
+      </div>
+        `)
+          .join('')
+        });
+      }
+      iconID()
 }
 
 // /*
