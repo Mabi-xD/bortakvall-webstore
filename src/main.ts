@@ -54,7 +54,7 @@ const addToCart = () => {
       productsOrder.push(findProd)
       console.log('You have added the following product:', productsOrder)
     }
-
+    renderToCart()
   })
 }
 
@@ -137,8 +137,8 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 * Render order to shopping cart
 */
 
-/* const renderToCart = () => {
-  document.querySelector('#order-container')!.innerHTML = productsOrder
+  const renderToCart = () => {
+  document.querySelector('#render-cart')!.innerHTML = productsOrder
     .map(productsOrder => `
   <div 
   <div class="order-list">
