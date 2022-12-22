@@ -150,7 +150,7 @@ cartIcon?.addEventListener('click', e => {
   })
 
   renderToCart()
-  removeProduct()
+  // removeProduct()
   }
 )
 
@@ -159,24 +159,44 @@ cartIcon?.addEventListener('click', e => {
 */
 
 const renderToCart = () => {
-  document.querySelector('#order-container')!.innerHTML = productsOrder
-  .map(productsOrder => `
-  <div class="order-list">
-  <p>
-  ${productsOrder}
-  </p>
-</div>
-  `)
-  .join('')
+
+  const iconElements = document.querySelectorAll<HTMLElement>('.icon');
+
+  const iconID = () => {
+
+    iconElements.forEach((iconElement, index) => {
+      iconElement.setAttribute('id', `icon-${index++}`);
+
+      document.querySelector('#order-container')!.innerHTML = productsOrder
+      .map(productsOrder => `
+      <div class="order-list">
+      <p>
+      ${productsOrder}
+      </p>
+      <button type="button" class="btn btn-danger">
+      <i id="icon-${index++}" class="fa-regular fa-trash-can"></i>
+      </button>
+    </div>
+      `)
+      .join('')
+    });
+
+  }
+
+  iconID()
 }
 
-const removeProduct = () => {
-  const product = document.querySelector<HTMLParagraphElement>('p');
-  product?.addEventListener('click', (e) => {
-    product.remove()
-    console.log('Removed this product:', e.target)
-  })
-}
+// /*
+// * REMOVE products from shopping cart (only works for the first p tag)
+// */
+
+// const removeProduct = () => {
+//   const product = document.querySelector<HTMLParagraphElement>('p');
+//   product?.addEventListener('click', (e) => {
+//     product.remove()
+//     console.log('Removed this product:', e.target)
+//   })
+// }
 
 /*
 * GET products when entering the website
