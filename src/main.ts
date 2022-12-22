@@ -42,11 +42,8 @@ const renderProducts = () => {
 /*
 * Add products to shopping cart
 */
-
 const addToCart = () => {
-
   const parentElement = document.querySelector('#product-container')!;
-
   parentElement.addEventListener('click', e => {
     e.preventDefault()
     const target = e.target as HTMLElement
@@ -54,12 +51,28 @@ const addToCart = () => {
       const targetNr = Number(target.dataset.productId)
       const prod = products.data
       const findProd = prod.find(product => product.id === targetNr)
-      productsOrder.push(`${findProd.name}, ${findProd.price} kr, ${findProd.id}<br>`)
-      console.log('You have added the following products:', productsOrder)
+      productsOrder.push(findProd)
+      console.log('You have added the following product:', productsOrder)
     }
-  })
 
+  })
 }
+
+/*
+**  Eventlistener to add product into cart from Info div.
+*/
+
+  document.querySelector('#info-container')!.addEventListener('click', e => {
+      e.preventDefault()
+      const target = e.target as HTMLElement
+      if(target.textContent === "Lägg i varukorgen") {
+        const targetNr = Number(target.dataset.productId)
+        const prod = products.data
+        const findProd = prod.find(product => product.id === targetNr)
+        productsOrder.push(findProd)
+        console.log('You have added the following product:', productsOrder)
+      }
+    })
 
 /*
 * Show more information about a product
@@ -93,12 +106,16 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
           ${findProd.price}kr
           </h3>
           ${findProd.description}
-          <button class="btn btn-success">Lägg i varukorgen</button>
+          <button class="btn btn-success" data-product-id="${findProd.id}">Lägg i varukorgen</button>
         </div>
       `
     }
   }
 })
+
+/*
+** Info Btn
+*/
 
 document.querySelector('#info-container')?.addEventListener('click', e => {
   e.preventDefault()
@@ -117,73 +134,21 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 })
 
 /*
-* Shopping cart
-*/
-
-const cartIcon = document.querySelector('#cart-icon')
-const cartContainer = document.querySelector('#cart')
-
-/*
-* Show shopping cart
-*/
-
-cartIcon?.addEventListener('click', e => {
-  e.preventDefault()
-
-  cartContainer!.innerHTML = `
-    <div class="offcanvas offcanvas-end show" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasRightLabel">Varukorg</h5>
-        <button id="close-btn" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div id="order-container" class="offcanvas-body">
-      </div>
-    </div>
-    `
-  const closeButton = document.querySelector('#close-btn')
-  closeButton?.addEventListener('click', e => {
-    if (cartContainer!.style.display === "none") {
-      cartContainer!.style.display = "block";
-    } else {
-      cartContainer!.style.display = "none";
-    } 
-  })
-
-  renderToCart()
-  // removeProduct()
-  }
-)
-
-/*
 * Render order to shopping cart
 */
 
-const renderToCart = () => {
-
-  const iconElements = document.querySelectorAll<HTMLElement>('.icon');
-
-  const iconID = () => {
-
-    iconElements.forEach((iconElement, index) => {
-      iconElement.setAttribute('id', `icon-${index++}`);
-
-      document.querySelector('#order-container')!.innerHTML = productsOrder
-      .map(productsOrder => `
-      <div class="order-list">
-      <p>
-      ${productsOrder}
-      </p>
-      <button type="button" class="btn btn-danger">
-      <i id="icon-${index++}" class="fa-regular fa-trash-can"></i>
-      </button>
-    </div>
-      `)
-      .join('')
-    });
-
-  }
-
-  iconID()
+/* const renderToCart = () => {
+  document.querySelector('#order-container')!.innerHTML = productsOrder
+    .map(productsOrder => `
+  <div 
+  <div class="order-list">
+  <p>
+  ${productsOrder.name} </br>
+  ${productsOrder.price}kr
+  </p>
+</div>
+  `)
+    .join('')
 }
 
 // /*

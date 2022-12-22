@@ -18,9 +18,6 @@ body {
   display: none;
 }
 
-.hide {
-  display: none;
-}
 
 .logo {
   display: block;
@@ -28,12 +25,10 @@ body {
   margin-right: auto;
 }
 
-.logo {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.navbar {
+/* .navbar {
   margin: 0;
+} */
+
+#checkout {
+  margin: 10px;
 }
