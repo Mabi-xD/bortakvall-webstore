@@ -70,7 +70,6 @@ const addToCart = () => {
         const prod = products.data
         const findProd = prod.find(product => product.id === targetNr)
         productsOrder.push(findProd)
-        console.log(productsOrder)
         console.log('You have added the following product:', productsOrder)
       }
     })
