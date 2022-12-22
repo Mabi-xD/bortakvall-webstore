@@ -147,6 +147,9 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
   ${productsOrder.name} </br>
   ${productsOrder.price}kr
   </p>
+  <button type="button" class="btn btn-danger">
+  <i class="fa-regular fa-trash-can"></i>
+  </button>
 </div>
   `)
     .join('')
