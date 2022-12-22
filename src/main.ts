@@ -6,9 +6,6 @@ import './style.css'
 let products: {} = []
 let productsOrder: [] = []
 
- 
-
-
 
 /*
 * GET all products from API
