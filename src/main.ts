@@ -52,9 +52,9 @@ const addToCart = () => {
       const prod = products.data
       const findProd = prod.find(product => product.id === targetNr)
       productsOrder.push(findProd)
-      console.log(productsOrder)
       console.log('You have added the following product:', productsOrder)
     }
+
   })
 }
 
@@ -134,50 +134,13 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 })
 
 /*
-* Shopping cart
-*/
-
-const cartIcon = document.querySelector('#cart-icon')
-const cartContainer = document.querySelector('#cart')
-
-/*
-* Show shopping cart
-*/
-
-cartIcon?.addEventListener('click', e => {
-  e.preventDefault()
-
-  cartContainer!.innerHTML = `
-    <div class="offcanvas offcanvas-end show" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasRightLabel">Varukorg</h5>
-        <button id="close-btn" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div id="order-container" class="offcanvas-body">
-      </div>
-    </div>
-    `
-  const closeButton = document.querySelector('#close-btn')
-  closeButton?.addEventListener('click', e => {
-    if (cartContainer!.style.display === "none") {
-      cartContainer!.style.display = "block";
-    } else {
-      cartContainer!.style.display = "none";
-    } 
-  })
-
-  renderToCart()
-
-  }
-)
-
-/*
 * Render order to shopping cart
 */
 
-const renderToCart = () => {
+/* const renderToCart = () => {
   document.querySelector('#order-container')!.innerHTML = productsOrder
-  .map(productsOrder => `
+    .map(productsOrder => `
+  <div 
   <div class="order-list">
   <p>
   ${productsOrder.name} </br>
@@ -185,7 +148,7 @@ const renderToCart = () => {
   </p>
 </div>
   `)
-  .join('')
+    .join('')
 }
 
 /*
