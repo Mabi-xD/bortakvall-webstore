@@ -55,6 +55,7 @@ const addToCart = () => {
       console.log('You have added the following product:', productsOrder)
     }
     renderToCart()
+    getTotal()
   })
 }
 
@@ -162,6 +163,18 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 //     console.log('Removed this product:', e.target)
 //   })
 // }
+
+/*
+** Displaying the total sum of product order
+*/
+const getTotal = () => {
+const total = 0;
+const totalSum = productsOrder.reduce((accumulator,current) => accumulator + current.price, total)
+console.log(totalSum)
+document.querySelector('#total-sum')!.innerHTML = `
+Din totala summa är: ${totalSum}kr
+`
+}
 
 /*
 * GET products when entering the website
