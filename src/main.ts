@@ -116,6 +116,21 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
   }
 })
 
+document.querySelector('#info-container')?.addEventListener('click', e => {
+  e.preventDefault()
+
+  const target = e.target as HTMLElement
+
+  console.log(e)
+
+  if(target.textContent === "Tillbaka"){
+
+  document.querySelector('#info-container')?.classList.add('hide')
+
+  document.querySelector('#product-container')?.classList.remove('hide')
+
+  }
+})
 
 /*
 * Render order to shopping cart
