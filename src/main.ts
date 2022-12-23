@@ -6,6 +6,7 @@ import './style.css'
 let products: {} = []
 let productsOrder: [] = []
 
+
 /*
 * GET all products from API
 */
@@ -13,6 +14,18 @@ let productsOrder: [] = []
 const getProducts = async () => {
   products = await fetchProducts ()
   console.log(products)
+
+  /*
+  * Show number of products to the dom
+  */
+  document.querySelector('#number-of-products')!.innerHTML = `
+  <div class="justify-content-center">
+    <p>Antal produkter:
+    ${products.data.length}
+    </p>
+  </div>
+  ` 
+  console.log(products.data.length)
   renderProducts()
 }
 
@@ -24,16 +37,18 @@ const renderProducts = () => {
   let prod = products.data
   document.querySelector('#product-container')!.innerHTML = prod
   .map(prod => `
-    <div class="col-6 col-md-4 col-lg-3">
+    <div class="col-6 col-md-5 col-lg-3 shadow mb-2 m-2 bg-body rounded p-3">
       <img class="img-fluid" src="https://www.bortakvall.se/${prod.images.thumbnail}">
       <h2>
       ${prod.name}
       <h2>
       <h3>
-      ${prod.price}kr
+      ${prod.price} kr
       </h3>
-      <button class="btn btn-success" data-product-id="${prod.id}">Lägg i varukorgen</button>
-      <button class="btn btn-info" data-product-id="${prod.id}">Info</button>
+      <div class="d-flex justify-content-center">
+      <button class="btn btn-success m-1" data-product-id="${prod.id}">Lägg i varukorgen</button>
+      <button class="btn btn-info m-1" data-product-id="${prod.id}">Info</button>
+      </div>
     </div>
   `)
   .join('')
@@ -185,9 +200,49 @@ const total = 0;
 const totalSum = productsOrder.reduce((accumulator,current) => accumulator + current.price, total)
 console.log(totalSum)
 document.querySelector('#total-sum')!.innerHTML = `
-Din totala summa är: ${totalSum}kr
+<p>Din totala summa är: ${totalSum} kr</p>
 `
 }
+
+
+/*
+** Go to order-form event
+*/
+document.querySelector('#checkout-btn')?.addEventListener('click', e => {
+  e.preventDefault()
+
+  const target = e.target as HTMLElement
+
+  console.log(e)
+  if(target.tagName === "BUTTON"){
+
+    document.querySelector('#product-container')?.classList.add('hide')
+    document.querySelector('#cart')?.classList.add('hide')
+    document.querySelector('#number-of-products')?.classList.add('hide')
+    document.querySelector('#checkout-container')?.classList.remove('hide')
+  }
+})
+
+/*
+** Go back from order-form
+*/
+document.querySelector('#checkout-container')?.addEventListener('click', e => {
+  e.preventDefault()
+
+  const target = e.target as HTMLElement
+
+  if(target.textContent === "Tillbaka"){
+
+    document.querySelector('#checkout-container')?.classList.add('hide')
+    document.querySelector('#product-container')?.classList.remove('hide')
+    document.querySelector('#cart')?.classList.remove('hide')
+  }
+})
+
+
+
+
+
 
 /*
 * GET products when entering the website
