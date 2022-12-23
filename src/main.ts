@@ -181,6 +181,45 @@ document.querySelector('#total-sum')!.innerHTML = `
 
 
 /*
+** Go to order-form event
+*/
+document.querySelector('#checkout-btn')?.addEventListener('click', e => {
+  e.preventDefault()
+
+  const target = e.target as HTMLElement
+
+  console.log(e)
+  if(target.tagName === "BUTTON"){
+
+    document.querySelector('#product-container')?.classList.add('hide')
+    document.querySelector('#cart')?.classList.add('hide')
+    document.querySelector('#number-of-products')?.classList.add('hide')
+    document.querySelector('#checkout-container')?.classList.remove('hide')
+  }
+})
+
+/*
+** Go back from order-form
+*/
+document.querySelector('#checkout-container')?.addEventListener('click', e => {
+  e.preventDefault()
+
+  const target = e.target as HTMLElement
+
+  if(target.textContent === "Tillbaka"){
+
+    document.querySelector('#checkout-container')?.classList.add('hide')
+    document.querySelector('#product-container')?.classList.remove('hide')
+    document.querySelector('#cart')?.classList.remove('hide')
+  }
+})
+
+
+
+
+
+
+/*
 * GET products when entering the website
 */
 

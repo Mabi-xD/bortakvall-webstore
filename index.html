@@ -33,7 +33,7 @@
           <div id="render-cart" class="offcanvas-body">
           </div>
           <p id="total-sum" class="offcanvas-body"></p>
-          <button type="button" class="btn btn-primary" id="checkout">Gå till kassan</button>
+          <button type="button" class="btn btn-primary" id="checkout-btn">Gå till kassan</button>
         </div>
       </div>
 
@@ -48,6 +48,49 @@
 
     <!-- Info container -->
     <div id="info-container" class="row justify-content-center">
+    </div>
+
+    <!-- Order form - checkout -->
+    <div id="checkout-container" class="card justify-content-center hide m-4">
+      <div id="order-total" class="col-10 p-4">
+        Alla produkter visas här med summan
+      </div>
+      <div id="order-form" class="col-10 p-4">
+        <form class="row g-3">
+          <div class="col-md-4">
+            <label for="inputFirstName" class="form-label" required>Förnamn</label>
+            <input type="text" class="form-control" id="inputFirstName">
+          </div>
+          <div class="col-md-4">
+            <label for="inputLastName" class="form-label" required>Efternamn</label>
+            <input type="text" class="form-control" id="inputLastName">
+          </div>
+          <div class="col-6">
+            <label for="inputAdress" class="form-label" required>Address</label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="Drottninggatan 4">
+          </div>
+          <div class="col-md-2">
+            <label for="inputZip" class="form-label" required>Postnummer</label>
+            <input type="text" class="form-control" id="inputZip">
+          </div>
+          <div class="col-md-8">
+            <label for="inputCity" class="form-label" required>Ort</label>
+            <input type="text" class="form-control" id="inputCity">
+          </div>
+          <div class="col-md-8">
+            <label for="inputPhone" class="form-label">Telefonnummer</label>
+            <input type="number" class="form-control" id="inputPhone">
+          </div>
+          <div class="col-md-8">
+            <label for="inputEmail" class="form-label" required>E-post</label>
+            <input type="email" class="form-control" id="inputEmail">
+          </div>
+          <div class="col-6">
+            <button id="backBtn" class="btn btn-dark btn-small">Tillbaka</button>
+            <button type="submit" class="btn btn-primary">Köp</button>
+          </div>
+        </form>
+      </div>
     </div>
 
   </main>
