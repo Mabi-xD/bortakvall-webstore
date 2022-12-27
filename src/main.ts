@@ -225,9 +225,7 @@ document.querySelector('#checkout-container')?.addEventListener('click', e => {
   }
 })
 
-/*
-** Go to order confirmation event
-*/
+
 
 const renderSum = () => {
   document.querySelector('#order-total')!.innerHTML = productsOrder
@@ -240,13 +238,22 @@ const renderSum = () => {
     .join('')
 }
 
-// var ska denna vara??
-  console.log(e)
-  if(target.tagName === "BUTTON"){
-    document.querySelector('#checkout-container')?.classList.add('hide')
-    document.querySelector('#confirmation-container')?.classList.remove('hide')
-  }
+/*
+** Go to order confirmation event
+*/
+
+document.querySelector('#buyBtn')?.addEventListener('click', e => {
+  e.preventDefault()
+
+  const target = e.target as HTMLElement
+
+  console.log(e)
+  if(target.tagName === "BUTTON"){
+    document.querySelector('#checkout-container')?.classList.add('hide')
+    document.querySelector('#confirmation-container')?.classList.remove('hide')
+  }
 })
+
 
 /*
 * GET products when entering the website
