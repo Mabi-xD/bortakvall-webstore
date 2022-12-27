@@ -14,6 +14,7 @@ let productsOrder: [] = []
 const getProducts = async () => {
   products = await fetchProducts ()
   console.log(products)
+  products.data.map(prod => (prod.quantity = 0))
 
   /*
   * Show number of products to the dom
@@ -27,6 +28,9 @@ const getProducts = async () => {
   ` 
   console.log(products.data.length)
   renderProducts()
+
+
+  
 }
 
 /*
@@ -37,7 +41,7 @@ const renderProducts = () => {
   let prod = products.data
   document.querySelector('#product-container')!.innerHTML = prod
   .map(prod => `
-    <div class="col-6 col-md-5 col-lg-3 shadow mb-2 m-2 bg-body rounded p-3">
+    <div class="col-6 col-md-5 col-lg-3 col-xxl-2 shadow mb-2 m-2 bg-body rounded p-3">
       <img class="img-fluid" src="https://www.bortakvall.se/${prod.images.thumbnail}">
       <h2>
       ${prod.name}
@@ -68,6 +72,7 @@ const addToCart = () => {
       const findProd = prod.find(product => product.id === targetNr)
       productsOrder.push(findProd)
       console.log('You have added the following product:', productsOrder)
+
     }
     renderToCart()
     getTotal()
@@ -87,7 +92,8 @@ const addToCart = () => {
         const findProd = prod.find(product => product.id === targetNr)
         productsOrder.push(findProd)
         console.log('You have added the following product:', productsOrder)
-      }
+    }
+    
     })
 
 /*
@@ -157,14 +163,34 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
   document.querySelector('#render-cart')!.innerHTML = productsOrder
     .map(productsOrder => `
   <div 
-  <div class="order-list">
+  <div class="order-list card">
   <p>
-  ${productsOrder.name} </br>
-  ${productsOrder.price}kr
-  </p>
+  ${productsOrder.name} 
+  </br>
+  ${productsOrder.price} kr</p>
+  <div class="quantity-controller">
+    <button onClick='reduce(${i})'>
+    <i class="fa-solid fa-square-minus"></i>
+    </button>  
+    <p id="product-quantity">${productsOrder.quantity}
+    <button onClick='increase(${i})'>
+    <i class="fa-solid fa-square-plus"></i>
+  </button> 
+  <p>Summa: ${productsOrder.price * productsOrder.quantity}</p>
+  
 </div>
   `)
-    .join('')
+      .join('')
+    reduce()
+    increase()
+}
+
+const reduce = (index) => {
+  products.data[index].reduce()
+}
+
+const increase = (index) => {
+  products.data[index].increase()
 }
 
 /*
