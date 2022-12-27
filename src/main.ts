@@ -210,6 +210,7 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
 /*
 ** Go back from order-form
 */
+
 document.querySelector('#checkout-container')?.addEventListener('click', e => {
   e.preventDefault()
 
@@ -223,10 +224,21 @@ document.querySelector('#checkout-container')?.addEventListener('click', e => {
   }
 })
 
+/*
+** Go to order confirmation event
+*/
 
+document.querySelector('#buyBtn')?.addEventListener('click', e => {
+  e.preventDefault()
 
+  const target = e.target as HTMLElement
 
-
+  console.log(e)
+  if(target.tagName === "BUTTON"){
+    document.querySelector('#checkout-container')?.classList.add('hide')
+    document.querySelector('#confirmation-container')?.classList.remove('hide')
+  }
+})
 
 /*
 * GET products when entering the website
