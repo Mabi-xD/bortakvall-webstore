@@ -3,7 +3,7 @@ import {fetchProducts} from './api'
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
 
-let products: {} = []
+let products: [] = []
 let productsOrder: [] = []
 
 
@@ -14,7 +14,8 @@ let productsOrder: [] = []
 const getProducts = async () => {
   products = await fetchProducts ()
   console.log(products)
-
+  // add quantity to the objects in the array.
+  let prodQuant = products.data.map(prod => (prod.quantity = 0))
   /*
   * Show number of products to the dom
   */
@@ -66,12 +67,19 @@ const addToCart = () => {
       const targetNr = Number(target.dataset.productId)
       const prod = products.data
       const findProd = prod.find(product => product.id === targetNr)
-      productsOrder.push(findProd)
+      const search = productsOrder.find(prod => prod.id === findProd.id)
+      
+      if(search === undefined){
+        productsOrder.push(findProd)
+        findProd.quantity = 1
+      } else {
+        search.quantity += 1
+      }
       console.log('You have added the following product:', productsOrder)
-    }
-    renderToCart()
-    getTotal()
-  })
+      renderToCart()
+     // getTotal()
+  }
+})
 }
 
 /*
@@ -159,9 +167,10 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
   <div 
   <div class="order-list">
   <p>
-  ${productsOrder.name} </br>
-  ${productsOrder.price}kr
+  ${productsOrder.name}  ${productsOrder.price}kr </br>
+  ${productsOrder.quantity}st
   </p>
+  <p>Summa: ${productsOrder.price * productsOrder.quantity}</p>
 </div>
   `)
     .join('')
@@ -170,14 +179,14 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 /*
 ** Displaying the total sum of product order
 */
-const getTotal = () => {
-const total = 0;
-const totalSum = productsOrder.reduce((accumulator,current) => accumulator + current.price, total)
-console.log(totalSum)
-document.querySelector('#total-sum')!.innerHTML = `
-<p>Din totala summa är: ${totalSum} kr</p>
-`
-}
+// const getTotal = () => {
+// const total = 0;
+// const totalSum = productsOrder.reduce((accumulator,current) => accumulator + current.price, total)
+// console.log(totalSum)
+// document.querySelector('#total-sum')!.innerHTML = `
+// <p>Din totala summa är: ${totalSum} kr</p>
+// `
+// }
 
 
 /*
