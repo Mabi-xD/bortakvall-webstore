@@ -77,7 +77,7 @@ const addToCart = () => {
       }
       console.log('You have added the following product:', productsOrder)
       renderToCart()
-     // getTotal()
+    getTotal()
   }
 })
 }
@@ -179,14 +179,16 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 /*
 ** Displaying the total sum of product order
 */
-// const getTotal = () => {
-// const total = 0;
-// const totalSum = productsOrder.reduce((accumulator,current) => accumulator + current.price, total)
-// console.log(totalSum)
-// document.querySelector('#total-sum')!.innerHTML = `
-// <p>Din totala summa är: ${totalSum} kr</p>
-// `
-// }
+const getTotal = () => {
+let totalPrice = 0
+productsOrder.forEach(value => {
+  totalPrice += value.price * value.quantity;
+});
+console.log(totalPrice)
+document.querySelector('#total-sum')!.innerHTML = `
+<p>Din totala summa är: ${totalPrice} kr</p>
+`
+}
 
 
 /*
