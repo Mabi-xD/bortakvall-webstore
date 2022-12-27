@@ -165,18 +165,18 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
   document.querySelector('#render-cart')!.innerHTML = productsOrder
     .map(productsOrder => ` 
   <div class="order-list">
-  <p>
-  ${productsOrder.name} Pris: ${productsOrder.price}kr/st </br>
-  Antal: ${productsOrder.quantity}st = ${productsOrder.price * productsOrder.quantity}kr
-  </p>
-  <button type="button" class="btn btn-light">
-  <i class="quantity-minus fa-solid fa-square-minus"></i>
-  </button>
-  <p>${productsOrder.quantity}</p>
-  <button type="button" class="btn btn-light">
-  <i class="quantity-plus fa-solid fa-square-plus"></i>
-  </button>
-</div>
+    <p>
+    ${productsOrder.name} Pris: ${productsOrder.price}kr/st </br>
+    Antal: ${productsOrder.quantity}st = ${productsOrder.price * productsOrder.quantity}kr
+    </p>
+    <button type="button" class="btn btn-light">
+    <i class="quantity-minus fa-solid fa-square-minus"></i>
+    </button>
+    <p>${productsOrder.quantity}</p>
+    <button type="button" class="btn btn-light">
+    <i class="quantity-plus fa-solid fa-square-plus"></i>
+    </button>
+  </div>
   `)
     .join('')
 }
