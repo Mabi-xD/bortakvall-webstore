@@ -240,6 +240,7 @@ const renderSum = () => {
     .join('')
 }
 
+// var ska denna vara??
   console.log(e)
   if(target.tagName === "BUTTON"){
     document.querySelector('#checkout-container')?.classList.add('hide')
