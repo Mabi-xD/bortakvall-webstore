@@ -3,7 +3,7 @@ import {fetchProducts} from './api'
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
 
-let products: {} = []
+let products: [] = []
 let productsOrder: [] = []
 
 
@@ -14,8 +14,8 @@ let productsOrder: [] = []
 const getProducts = async () => {
   products = await fetchProducts ()
   console.log(products)
-  products.data.map(prod => (prod.quantity = 0))
-
+  // add quantity to the objects in the array.
+  let prodQuant = products.data.map(prod => (prod.quantity = 0))
   /*
   * Show number of products to the dom
   */
@@ -28,9 +28,6 @@ const getProducts = async () => {
   ` 
   console.log(products.data.length)
   renderProducts()
-
-
-  
 }
 
 /*
@@ -41,7 +38,7 @@ const renderProducts = () => {
   let prod = products.data
   document.querySelector('#product-container')!.innerHTML = prod
   .map(prod => `
-    <div class="col-6 col-md-5 col-lg-3 col-xxl-2 shadow mb-2 m-2 bg-body rounded p-3">
+    <div class="col-6 col-md-5 col-lg-3 shadow mb-2 m-2 bg-body rounded p-3">
       <img class="img-fluid" src="https://www.bortakvall.se/${prod.images.thumbnail}">
       <h2>
       ${prod.name}
@@ -70,13 +67,19 @@ const addToCart = () => {
       const targetNr = Number(target.dataset.productId)
       const prod = products.data
       const findProd = prod.find(product => product.id === targetNr)
-      productsOrder.push(findProd)
+      const search = productsOrder.find(prod => prod.id === findProd.id)
+      
+      if(search === undefined){
+        productsOrder.push(findProd)
+        findProd.quantity = 1
+      } else {
+        search.quantity += 1
+      }
       console.log('You have added the following product:', productsOrder)
-
-    }
-    renderToCart()
+      renderToCart()
     getTotal()
-  })
+  }
+})
 }
 
 /*
@@ -92,8 +95,7 @@ const addToCart = () => {
         const findProd = prod.find(product => product.id === targetNr)
         productsOrder.push(findProd)
         console.log('You have added the following product:', productsOrder)
-    }
-    
+      }
     })
 
 /*
@@ -163,45 +165,28 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
   document.querySelector('#render-cart')!.innerHTML = productsOrder
     .map(productsOrder => `
   <div 
-  <div class="order-list card">
+  <div class="order-list">
   <p>
-  ${productsOrder.name} 
-  </br>
-  ${productsOrder.price} kr</p>
-  <div class="quantity-controller">
-    <button onClick='reduce(${i})'>
-    <i class="fa-solid fa-square-minus"></i>
-    </button>  
-    <p id="product-quantity">${productsOrder.quantity}
-    <button onClick='increase(${i})'>
-    <i class="fa-solid fa-square-plus"></i>
-  </button> 
+  ${productsOrder.name}  ${productsOrder.price}kr </br>
+  ${productsOrder.quantity}st
+  </p>
   <p>Summa: ${productsOrder.price * productsOrder.quantity}</p>
-  
 </div>
   `)
-      .join('')
-    reduce()
-    increase()
-}
-
-const reduce = (index) => {
-  products.data[index].reduce()
-}
-
-const increase = (index) => {
-  products.data[index].increase()
+    .join('')
 }
 
 /*
 ** Displaying the total sum of product order
 */
 const getTotal = () => {
-const total = 0;
-const totalSum = productsOrder.reduce((accumulator,current) => accumulator + current.price, total)
-console.log(totalSum)
+let totalPrice = 0
+productsOrder.forEach(value => {
+  totalPrice += value.price * value.quantity;
+});
+console.log(totalPrice)
 document.querySelector('#total-sum')!.innerHTML = `
-<p>Din totala summa är: ${totalSum} kr</p>
+<p>Din totala summa är: ${totalPrice} kr</p>
 `
 }
 
@@ -221,12 +206,16 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
     document.querySelector('#cart')?.classList.add('hide')
     document.querySelector('#number-of-products')?.classList.add('hide')
     document.querySelector('#checkout-container')?.classList.remove('hide')
+
+
   }
+  productsOrder.forEach( () )
 })
 
 /*
 ** Go back from order-form
 */
+
 document.querySelector('#checkout-container')?.addEventListener('click', e => {
   e.preventDefault()
 
@@ -240,10 +229,21 @@ document.querySelector('#checkout-container')?.addEventListener('click', e => {
   }
 })
 
+/*
+** Go to order confirmation event
+*/
 
+document.querySelector('#buyBtn')?.addEventListener('click', e => {
+  e.preventDefault()
 
+  const target = e.target as HTMLElement
 
-
+  console.log(e)
+  if(target.tagName === "BUTTON"){
+    document.querySelector('#checkout-container')?.classList.add('hide')
+    document.querySelector('#confirmation-container')?.classList.remove('hide')
+  }
+})
 
 /*
 * GET products when entering the website
