@@ -169,22 +169,17 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
   ${productsOrder.name} Pris: ${productsOrder.price}kr/st </br>
   Antal: ${productsOrder.quantity}st = ${productsOrder.price * productsOrder.quantity}kr
   </p>
+  <button type="button" class="btn btn-light">
+  <i class="quantity-minus fa-solid fa-square-minus"></i>
+  </button>
+  <p>${productsOrder.quantity}</p>
+  <button type="button" class="btn btn-light">
+  <i class="quantity-plus fa-solid fa-square-plus"></i>
+  </button>
 </div>
   `)
     .join('')
 }
-
-// /*
-// * REMOVE products from shopping cart (only works for the first p tag)
-// */
-
-// const removeProduct = () => {
-//   const product = document.querySelector<HTMLParagraphElement>('p');
-//   product?.addEventListener('click', (e) => {
-//     product.remove()
-//     console.log('Removed this product:', e.target)
-//   })
-// }
 
 /*
 ** Displaying the total sum of product order
