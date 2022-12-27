@@ -163,14 +163,12 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 
   const renderToCart = () => {
   document.querySelector('#render-cart')!.innerHTML = productsOrder
-    .map(productsOrder => `
-  <div 
+    .map(productsOrder => ` 
   <div class="order-list">
   <p>
-  ${productsOrder.name}  ${productsOrder.price}kr </br>
-  ${productsOrder.quantity}st
+  ${productsOrder.name} Pris: ${productsOrder.price}kr/st </br>
+  Antal: ${productsOrder.quantity}st = ${productsOrder.price * productsOrder.quantity}kr
   </p>
-  <p>Summa: ${productsOrder.price * productsOrder.quantity}</p>
 </div>
   `)
     .join('')
@@ -207,6 +205,7 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
     document.querySelector('#number-of-products')?.classList.add('hide')
     document.querySelector('#checkout-container')?.classList.remove('hide')
   }
+  renderSum()
 })
 
 /*
@@ -230,10 +229,16 @@ document.querySelector('#checkout-container')?.addEventListener('click', e => {
 ** Go to order confirmation event
 */
 
-document.querySelector('#buyBtn')?.addEventListener('click', e => {
-  e.preventDefault()
-
-  const target = e.target as HTMLElement
+const renderSum = () => {
+  document.querySelector('#order-total')!.innerHTML = productsOrder
+    .map(productsOrder => ` 
+  <p>
+  ${productsOrder.name} Pris: ${productsOrder.price}kr/st </br>
+  Antal: ${productsOrder.quantity}st = ${productsOrder.price * productsOrder.quantity}kr
+  </p>
+  `)
+    .join('')
+}
 
   console.log(e)
   if(target.tagName === "BUTTON"){
