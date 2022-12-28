@@ -1,4 +1,5 @@
 import {fetchProducts} from './api'
+// import {postOrder} from './api'
 // import {IProduct} from './interfaces'
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'

@@ -15,3 +15,18 @@ export const fetchProducts = async () => {
     }
     return await res.json()
 } 
+
+// export const postOrder = async (newTodo: ITodo) => {
+//     const res = await fetch('https://www.bortakvall.se/api/products', {
+//         method: 'POST', 
+//         headers: {
+//             'Content-Type': 'application/json',
+//         }, 
+//         body: JSON.stringify(newTodo),})
+
+//         if (!res.ok) {
+//             throw new Error(`${res.status} ${res.statusText}`)
+//         }
+    
+//         return await res.json() as ITodo
+// }
