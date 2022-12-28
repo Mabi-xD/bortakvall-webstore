@@ -11,19 +11,36 @@ let productsOrder: [] = []
 */
 const getProducts = async () => {
   products = await fetchProducts ()
-  // Add quantity to the objects in the array.
   let prodQuant = products.data.map(prod => (prod.quantity = 0))
-  // Show number of products to the dom
+  let prod = products.data
+  let instock = prod.filter(stock => stock.stock_status === "instock" )
+  console.log(instock)
+
   document.querySelector('#number-of-products')!.innerHTML = `
   <div class="justify-content-center">
     <p>Antal produkter:
-    ${products.data.length}
+    ${products.data.length} och ${instock.length} finns i lager.
     </p>
   </div>
   ` 
-  console.log(products.data.length)
   renderProducts()
 }
+
+
+/*
+** Function to sort our lists.
+*/
+
+const sortProds = ( a, b ) => {
+  if ( a.name < b.name ){
+    return -1;
+  }
+  if ( a.name > b.name ){
+    return 1;
+  }
+  return 0;
+}
+
 
 /*
 * RENDER all products to the dom
@@ -31,6 +48,8 @@ const getProducts = async () => {
 
 const renderProducts = () => {
   let prod = products.data
+  prod.sort( sortProds )  
+  console.log(prod)
   document.querySelector('#product-container')!.innerHTML = prod
   .map(prod => `
     <div class="col-6 col-md-5 col-lg-3 shadow mb-2 m-2 bg-body rounded p-3">
@@ -150,7 +169,8 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 * Render order to shopping cart
 */
 
-  const renderToCart = () => {
+const renderToCart = () => {
+  productsOrder.sort( sortProds )
   document.querySelector('#render-cart')!.innerHTML = productsOrder
     .map(productsOrder => ` 
   <div class="product-list">
