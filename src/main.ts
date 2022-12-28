@@ -217,8 +217,6 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
 
   console.log(e)
   if(target.tagName === "BUTTON"){
-    document.querySelector('#product-container')?.classList.add('hide')
-    document.querySelector('#cart')?.classList.add('hide')
     document.querySelector('#number-of-products')?.classList.add('hide')
     document.querySelector('#checkout-container')?.classList.remove('hide')
   }
