@@ -227,6 +227,25 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
 })
 
 /*
+* Get value from form
+*/
+
+document.querySelector('#form-input')?.addEventListener('click', e => {
+    const form = document.querySelector('#form-input')
+
+    // Prevent the default form submission behavior
+    e.preventDefault();
+
+    // Get the value of the input field
+    const inputValue = (form.querySelector('input') as HTMLInputElement).value
+
+    console.log(inputValue)
+  
+    // Do something with the input value (e.g. send it to the server)
+    // ...
+})
+
+/*
 ** Go back from order-form
 */
 
