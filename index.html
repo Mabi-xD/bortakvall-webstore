@@ -46,6 +46,7 @@
   </header>
 
   <!-- Modal -->
+<div id="modal-container">
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -55,6 +56,14 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+
+              <!-- Order confirmation -->
+    <div id="confirmation-container" class="justify-content-center hide m-4">
+      <div id="info-confirmation" class="col-10 p-4">
+        Thank you for your purchase. YOUR ORDER WENT WELL!<br>
+        You have order number:<br>
+      </div>
+    </div>
 
           <!-- Order form - checkout -->
           <div id="checkout-container" class="justify-content-center hide m-4">
@@ -98,64 +107,22 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backBtn">Tillbaka</button>
-          <button type="submit" class="btn btn-primary">Köp</button>
+          <button type="submit" class="btn btn-primary" id="buyBtn">Köp</button>
         </div>
       </div>
     </div>
   </div>
+</div>
 
   <!-- Product container -->
   <main class="container">
+
     <div id="number-of-products"></div>
-    <div id="product-container" class="row justify-content-center">
-    </div>
+
+    <div id="product-container" class="row justify-content-center"></div>
 
     <!-- Info container -->
-    <div id="info-container" class="row justify-content-center">
-    </div>
-
-    <!-- Order form - checkout -->
-    <div id="checkout-container" class="card justify-content-center hide m-4">
-      <div id="order-total" class="col-10 p-4">
-        Alla produkter visas här med summan
-      </div>
-      <div id="order-form" class="col-10 p-4">
-        <form class="row g-3">
-          <div class="col-md-4">
-            <label for="inputFirstName" class="form-label" required>Förnamn</label>
-            <input type="text" class="form-control" id="inputFirstName">
-          </div>
-          <div class="col-md-4">
-            <label for="inputLastName" class="form-label" required>Efternamn</label>
-            <input type="text" class="form-control" id="inputLastName">
-          </div>
-          <div class="col-6">
-            <label for="inputAdress" class="form-label" required>Address</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="Drottninggatan 4">
-          </div>
-          <div class="col-md-2">
-            <label for="inputZip" class="form-label" required>Postnummer</label>
-            <input type="text" class="form-control" id="inputZip">
-          </div>
-          <div class="col-md-8">
-            <label for="inputCity" class="form-label" required>Ort</label>
-            <input type="text" class="form-control" id="inputCity">
-          </div>
-          <div class="col-md-8">
-            <label for="inputPhone" class="form-label">Telefonnummer</label>
-            <input type="number" class="form-control" id="inputPhone">
-          </div>
-          <div class="col-md-8">
-            <label for="inputEmail" class="form-label" required>E-post</label>
-            <input type="email" class="form-control" id="inputEmail">
-          </div>
-          <div class="col-6">
-            <button id="backBtn" class="btn btn-dark btn-small">Tillbaka</button>
-            <button type="submit" class="btn btn-primary">Köp</button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <div id="info-container" class="row justify-content-center"></div>
 
   </main>
 
