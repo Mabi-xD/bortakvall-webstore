@@ -3,6 +3,7 @@ import {fetchProducts} from './api'
 // import {IProduct} from './interfaces'
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
+import {IOrder} from './interfaces'
 
 let products: [] = []
 let productsOrder: [] = []
@@ -260,6 +261,7 @@ const renderSum = () => {
   </p>
   `)
     .join('')
+  console.log(productsOrder)
 }
 
 /*
@@ -274,6 +276,38 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
     document.querySelector('#buyBtn')?.classList.add('hide')
   }
 })
+
+document.querySelector('#form-input')?.addEventListener('submit', async e => {
+	e.preventDefault()
+
+  const firstName = document.querySelector<HTMLInputElement>('#inputFirstName')?.value
+	// Create a new Todo object
+	const order: IOrder = {
+    customer_first_name: firstName
+	}
+
+	// POST todo to server
+	await createOrder(order)
+
+
+})
+
+export const createOrder = async (newOrder: IOrder) => {
+	const res = await fetch('https://www.bortakvall.se/api/products', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(newOrder),
+	})
+
+	if (!res.ok) {
+		throw new Error(`${res.status} ${res.statusText}`)
+	}
+
+	return await res.json() as IOrder
+}
+
 
 /*
 * GET products when entering the website
