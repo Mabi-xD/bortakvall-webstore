@@ -33,12 +33,76 @@
           <div id="render-cart" class="offcanvas-body">
           </div>
           <p id="total-sum" class="offcanvas-body"></p>
-          <button type="button" class="btn btn-primary" id="checkout">Gå till kassan</button>
+
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+            id="checkout-btn">
+            Gå till kassan
+          </button>
         </div>
       </div>
 
     </nav>
   </header>
+
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Din varukorg</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <!-- Order form - checkout -->
+          <div id="checkout-container" class="justify-content-center hide m-4">
+            <div id="order-total" class="col-10 p-4">
+              Alla produkter visas här med summan
+            </div>
+            <div id="order-form" class="col-10 p-4">
+              <form class="row g-3">
+                <div class="mb-3">
+                  <label for="inputFirstName" class="form-label" required>Förnamn</label>
+                  <input type="text" class="form-control" id="inputFirstName">
+                </div>
+                <div class="mb-3">
+                  <label for="inputLastName" class="form-label" required>Efternamn</label>
+                  <input type="text" class="form-control" id="inputLastName">
+                </div>
+                <div class="mb-3">
+                  <label for="inputAdress" class="form-label" required>Address</label>
+                  <input type="text" class="form-control" id="inputAddress" placeholder="Drottninggatan 4">
+                </div>
+                <div class="mb-2">
+                  <label for="inputZip" class="form-label" required>Postnummer</label>
+                  <input type="text" class="form-control" id="inputZip">
+                </div>
+                <div class="mb-3">
+                  <label for="inputCity" class="form-label" required>Ort</label>
+                  <input type="text" class="form-control" id="inputCity">
+                </div>
+                <div class="mb-3">
+                  <label for="inputPhone" class="form-label">Telefonnummer</label>
+                  <input type="number" class="form-control" id="inputPhone">
+                </div>
+                <div class="mb-3">
+                  <label for="inputEmail" class="form-label" required>E-post</label>
+                  <input type="email" class="form-control" id="inputEmail">
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backBtn">Tillbaka</button>
+          <button type="submit" class="btn btn-primary">Köp</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Product container -->
   <main class="container">
