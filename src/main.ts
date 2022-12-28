@@ -214,20 +214,24 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
 * Get value from form
 */
 
-document.querySelector('#form-input')?.addEventListener('click', e => {
-    const form = document.querySelector('#form-input')
 
-    // Prevent the default form submission behavior
-    e.preventDefault();
+// document.querySelector('#form-input')?.addEventListener('click', e => {
+//     const form = document.querySelector('#form-input')
+//     const firstName = (form.querySelector('#inputFirstName') as HTMLInputElement).value
+//     const lastName = (form.querySelector('#inputLastName') as HTMLInputElement).value
 
-    // Get the value of the input field
-    const inputValue = (form.querySelector('input') as HTMLInputElement).value
+//     // Prevent the default form submission behavior
+//     e.preventDefault();
 
-    console.log(inputValue)
+//     // Get the value of the input field
+//     const inputValue = (form.querySelector('input') as HTMLInputElement).value
+
+//     console.log(firstName)
+//     console.log(lastName)
   
-    // Do something with the input value (e.g. send it to the server)
-    // ...
-})
+//     // Do something with the input value (e.g. send it to the server)
+//     // ...
+// })
 
 /*
 ** Go back from order-form
