@@ -170,6 +170,18 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
   Antal: ${productsOrder.quantity}st = ${productsOrder.price * productsOrder.quantity}kr
   </p>
 </div>
+    <p>
+    ${productsOrder.name} Pris: ${productsOrder.price}kr/st </br>
+    Antal: ${productsOrder.quantity}st = ${productsOrder.price * productsOrder.quantity}kr
+    </p>
+    <button type="button" class="btn btn-light">
+    <i class="quantity-minus fa-solid fa-square-minus"></i>
+    </button>
+    <p>${productsOrder.quantity}</p>
+    <button type="button" class="btn btn-light">
+    <i class="quantity-plus fa-solid fa-square-plus"></i>
+    </button>
+  </div>
   `)
     .join('')
 }
@@ -203,6 +215,9 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
     //document.querySelector('#product-container')?.classList.add('hide')
     //document.querySelector('#cart')?.classList.add('hide')
     //document.querySelector('#number-of-products')?.classList.add('hide')
+    document.querySelector('#product-container')?.classList.add('hide')
+    document.querySelector('#cart')?.classList.add('hide')
+    document.querySelector('#number-of-products')?.classList.add('hide')
     document.querySelector('#checkout-container')?.classList.remove('hide')
   }
   renderSum()
@@ -224,6 +239,10 @@ document.querySelector('#checkout-container')?.addEventListener('click', e => {
     //document.querySelector('#cart')?.classList.remove('hide')
   }
 }) 
+    document.querySelector('#product-container')?.classList.remove('hide')
+    document.querySelector('#cart')?.classList.remove('hide')
+  }
+})
 
 
 
