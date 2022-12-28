@@ -164,23 +164,24 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
   const renderToCart = () => {
   document.querySelector('#render-cart')!.innerHTML = productsOrder
     .map(productsOrder => ` 
-  <div class="order-list">
-  <p>
-  ${productsOrder.name} Pris: ${productsOrder.price}kr/st </br>
-  Antal: ${productsOrder.quantity}st = ${productsOrder.price * productsOrder.quantity}kr
+  <div class="product-list">
+  <p><strong>
+  ${productsOrder.name}
+  </strong> 
+  <br>
+  Styckpris: ${productsOrder.price} kr
+  <br>
+  Summa: ${productsOrder.price * productsOrder.quantity} kr
   </p>
-</div>
-    <p>
-    ${productsOrder.name} Pris: ${productsOrder.price}kr/st </br>
-    Antal: ${productsOrder.quantity}st = ${productsOrder.price * productsOrder.quantity}kr
-    </p>
-    <button type="button" class="btn btn-light">
-    <i class="quantity-minus fa-solid fa-square-minus"></i>
-    </button>
-    <p>${productsOrder.quantity}</p>
-    <button type="button" class="btn btn-light">
-    <i class="quantity-plus fa-solid fa-square-plus"></i>
-    </button>
+  </div>
+  <div class="quantity-list">
+  <button type="button" class="btn btn-light">
+  <i class="quantity-minus fa-solid fa-square-minus"></i>
+  </button>
+  <p>${productsOrder.quantity}</p>
+  <button type="button" class="btn btn-light">
+  <i class="quantity-plus fa-solid fa-square-plus"></i>
+  </button>
   </div>
   `)
     .join('')
@@ -196,7 +197,12 @@ productsOrder.forEach(value => {
 });
 console.log(totalPrice)
 document.querySelector('#total-sum')!.innerHTML = `
-<p>Din totala summa är: ${totalPrice} kr</p>
+<hr>
+<strong> 
+<p>
+Total summa: ${totalPrice} kr
+</p>
+</strong> 
 `
 }
 
@@ -211,10 +217,6 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
 
   console.log(e)
   if(target.tagName === "BUTTON"){
-
-    //document.querySelector('#product-container')?.classList.add('hide')
-    //document.querySelector('#cart')?.classList.add('hide')
-    //document.querySelector('#number-of-products')?.classList.add('hide')
     document.querySelector('#product-container')?.classList.add('hide')
     document.querySelector('#cart')?.classList.add('hide')
     document.querySelector('#number-of-products')?.classList.add('hide')
@@ -235,23 +237,19 @@ document.querySelector('#checkout-container')?.addEventListener('click', e => {
   if(target.textContent === "Tillbaka"){
 
     document.querySelector('#checkout-container')?.classList.add('hide')
-    //document.querySelector('#product-container')?.classList.remove('hide')
-    //document.querySelector('#cart')?.classList.remove('hide')
-  }
-}) 
     document.querySelector('#product-container')?.classList.remove('hide')
     document.querySelector('#cart')?.classList.remove('hide')
   }
 })
 
-
-
 const renderSum = () => {
   document.querySelector('#order-total')!.innerHTML = productsOrder
     .map(productsOrder => ` 
-  <p>
-  ${productsOrder.name} Pris: ${productsOrder.price}kr/st </br>
-  Antal: ${productsOrder.quantity}st = ${productsOrder.price * productsOrder.quantity}kr
+  <p><strong>
+  ${productsOrder.name}
+  </strong><br>
+  Styckpris: ${productsOrder.price} kr <br>
+  Summa: ${productsOrder.price * productsOrder.quantity} kr
   </p>
   `)
     .join('')

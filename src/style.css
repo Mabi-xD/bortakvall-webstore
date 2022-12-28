@@ -40,6 +40,24 @@ body {
 }
 
 /*
+* Shopping cart
+*/
+
+.product-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+}
+
+.quantity-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 25%;
+}
+
+/*
 * Text
 */
 
