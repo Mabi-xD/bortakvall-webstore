@@ -7,19 +7,14 @@ import './style.css'
 let products: [] = []
 let productsOrder: [] = []
 
-
 /*
 * GET all products from API
 */
-
 const getProducts = async () => {
   products = await fetchProducts ()
-  console.log(products)
-  // add quantity to the objects in the array.
+  // Add quantity to the objects in the array.
   let prodQuant = products.data.map(prod => (prod.quantity = 0))
-  /*
-  * Show number of products to the dom
-  */
+  // Show number of products to the dom
   document.querySelector('#number-of-products')!.innerHTML = `
   <div class="justify-content-center">
     <p>Antal produkter:
@@ -87,9 +82,9 @@ const addToCart = () => {
 **  Eventlistener to add product into cart from Info div.
 */
 
-  document.querySelector('#info-container')!.addEventListener('click', e => {
-      e.preventDefault()
-      const target = e.target as HTMLElement
+document.querySelector('#info-container')!.addEventListener('click', e => {
+  e.preventDefault()
+  const target = e.target as HTMLElement
       if(target.textContent === "Lägg i varukorgen") {
         const targetNr = Number(target.dataset.productId)
         const prod = products.data
@@ -97,7 +92,7 @@ const addToCart = () => {
         productsOrder.push(findProd)
         console.log('You have added the following product:', productsOrder)
       }
-    })
+})
 
 /*
 * Show more information about a product
@@ -107,7 +102,6 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
   e.preventDefault()
 
   const target = e.target as HTMLElement
-  console.log(e)
   
   if(target.textContent === "Info"){
     console.log(target.id)
@@ -147,14 +141,9 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 
   const target = e.target as HTMLElement
 
-  console.log(e)
-
   if(target.textContent === "Tillbaka"){
-
   document.querySelector('#info-container')?.classList.add('hide')
-
   document.querySelector('#product-container')?.classList.remove('hide')
-
   }
 })
 
@@ -192,19 +181,19 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 ** Displaying the total sum of product order
 */
 const getTotal = () => {
-let totalPrice = 0
-productsOrder.forEach(value => {
-  totalPrice += value.price * value.quantity;
-});
-console.log(totalPrice)
-document.querySelector('#total-sum')!.innerHTML = `
-<hr>
-<strong> 
-<p>
-Total summa: ${totalPrice} kr
-</p>
-</strong> 
-`
+  let totalPrice = 0
+  productsOrder.forEach(value => {
+    totalPrice += value.price * value.quantity;
+  });
+  console.log(totalPrice)
+  document.querySelector('#total-sum')!.innerHTML = `
+  <hr>
+  <strong> 
+  <p>
+  Total summa: ${totalPrice} kr
+  </p>
+  </strong> 
+  `
 }
 
 
@@ -213,10 +202,7 @@ Total summa: ${totalPrice} kr
 */
 document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   e.preventDefault()
-
   const target = e.target as HTMLElement
-
-  console.log(e)
   if(target.tagName === "BUTTON"){
     document.querySelector('#number-of-products')?.classList.add('hide')
     document.querySelector('#checkout-container')?.classList.remove('hide')
@@ -246,20 +232,19 @@ document.querySelector('#form-input')?.addEventListener('click', e => {
 /*
 ** Go back from order-form
 */
-
 document.querySelector('#checkout-container')?.addEventListener('click', e => {
   e.preventDefault()
-
   const target = e.target as HTMLElement
-
   if(target.textContent === "Tillbaka"){
-
     document.querySelector('#checkout-container')?.classList.add('hide')
     document.querySelector('#product-container')?.classList.remove('hide')
     document.querySelector('#cart')?.classList.remove('hide')
   }
 })
 
+/*
+** Render product sum
+*/
 const renderSum = () => {
   document.querySelector('#order-total')!.innerHTML = productsOrder
     .map(productsOrder => ` 
@@ -276,28 +261,22 @@ const renderSum = () => {
 /*
 ** Go to order confirmation event
 */
-
 document.querySelector('#buyBtn')?.addEventListener('click', e => {
   e.preventDefault()
-
   const target = e.target as HTMLElement
-
-  console.log(e)
   if(target.tagName === "BUTTON"){
     document.querySelector('#checkout-container')?.classList.add('hide')
     document.querySelector('#confirmation-container')?.classList.remove('hide')
+    document.querySelector('#buyBtn')?.classList.add('hide')
   }
 })
-
 
 /*
 * GET products when entering the website
 */
-
 getProducts()
 
 /*
 * ADD product to shopping cart
 */
-
 addToCart()
