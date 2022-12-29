@@ -43,24 +43,8 @@ const orderInfo = {
   ]
 }
 
-// document.getElementById('buyBtn')!.onclick = async () => {
-
-//   await fetch('https://www.bortakvall.se/api/orders', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(orderInfo)
-//   });
-
-// }
 
 document.getElementById('buyBtn')!.onclick = async () => {
-  const form = new FormData();
-  form.append('customer_first_name', orderInfo.customer_first_name);
-  form.append('customer_last_name', orderInfo.customer_last_name);
-  form.append('customer_adress', orderInfo.customer_address);
-
   const res = await fetch('https://www.bortakvall.se/api/orders', {
     method: 'POST',
     headers: {
@@ -266,8 +250,8 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   document.querySelector('#order-sum')!.innerHTML = `
   <hr>
   <strong> 
-  <p>
-  Total summa: ${totalPrice} kr
+  <p id="totala-summan">
+  ${totalPrice}
   </p>
   </strong> 
   `
