@@ -1,58 +1,11 @@
 import {fetchProducts} from './api'
-// import {postOrder} from './api'
-// import {IProduct} from './interfaces'
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
-import {IOrder} from './interfaces'
 
 let products: [] = []
 let productsOrder: [] = []
-
-// First name
-const input_first_name = (document.getElementById('inputFirstName') as HTMLInputElement).value
-// Last name
-const input_last_name = (document.getElementById('inputLastName') as HTMLInputElement).value
-// Adress
-const input_address = (document.getElementById('inputAddress') as HTMLInputElement).value
-// Zipcode
-const input_zip = (document.getElementById('inputZip') as HTMLInputElement).value
-// City
-const input_city = (document.getElementById('inputCity') as HTMLInputElement).value
-// Phonenumber
-const input_phone = (document.getElementById('inputPhone') as HTMLInputElement).value
-// Email
-const input_email = (document.getElementById('inputEmail') as HTMLInputElement).value
-
-// const form = document.getElementById('form-input');
-const orderInfo = {
-  customer_first_name: input_first_name,
-  customer_last_name: input_last_name,
-  customer_address: input_address,
-  customer_postcode: input_zip,
-  customer_city: input_city,
-  customer_phone: input_phone,
-  customer_email: input_email,
-  order_total: "",
-  order_items: [
-    {
-      product_id: "",
-      qty: "",
-      item_price: "",
-      item_total: "",
-    }
-  ]
-}
-
-
-document.getElementById('buyBtn')!.onclick = async () => {
-  const res = await fetch('https://www.bortakvall.se/api/orders', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(orderInfo)
-  });
-}
+let totalSum = 0
+let input_total_sum: number[] = [];
 
 /*
 * GET all products from API
@@ -230,7 +183,6 @@ const getTotal = () => {
   `
 }
 
-
 /*
 ** Go to order-form event
 */
@@ -243,52 +195,80 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   }
   renderSum()
 
-  let totalPrice = 0
   productsOrder.forEach(value => {
-    totalPrice += value.price * value.quantity;
+    totalSum += value.price * value.quantity;
   });
   document.querySelector('#order-sum')!.innerHTML = `
   <hr>
   <strong> 
   <p id="totala-summan">
-  ${totalPrice}
+  ${totalSum}
   </p>
   </strong> 
   `
+
+  input_total_sum.push(totalSum);
 })
 
 /*
-* Get value from form
+* POST order to API
 */
+// First name
+const input_first_name = (document.getElementById('inputFirstName') as HTMLInputElement).value
+// Last name
+const input_last_name = (document.getElementById('inputLastName') as HTMLInputElement).value
+// Adress
+const input_address = (document.getElementById('inputAddress') as HTMLInputElement).value
+// Zipcode
+const input_zip = (document.getElementById('inputZip') as HTMLInputElement).value
+// City
+const input_city = (document.getElementById('inputCity') as HTMLInputElement).value
+// Phonenumber
+const input_phone = (document.getElementById('inputPhone') as HTMLInputElement).value
+// Email
+const input_email = (document.getElementById('inputEmail') as HTMLInputElement).value
 
-// document.querySelector('#form-input')?.addEventListener('click', e => {
-//     const form = document.querySelector('#form-input')
-//     const firstName = (form.querySelector('#inputFirstName') as HTMLInputElement).value
-//     const lastName = (form.querySelector('#inputLastName') as HTMLInputElement).value
+// const form = document.getElementById('form-input');
+const orderInfo = {
+  customer_first_name: input_first_name,
+  customer_last_name: input_last_name,
+  customer_address: input_address,
+  customer_postcode: input_zip,
+  customer_city: input_city,
+  customer_phone: input_phone,
+  customer_email: input_email,
+  order_total: input_total_sum,
+  order_items: [
+    {
+      product_id: "",
+      qty: "",
+      item_price: "",
+      item_total: "",
+    }
+  ]
+}
 
-//     // Prevent the default form submission behavior
-//     e.preventDefault();
-
-//     // Get the value of the input field
-//     const inputValue = (form.querySelector('input') as HTMLInputElement).value
-
-//     console.log(firstName)
-//     console.log(lastName)
-  
-//     // Do something with the input value (e.g. send it to the server)
-//     // ...
-// })
+document.getElementById('buyBtn')!.onclick = async () => {
+  const res = await fetch('https://www.bortakvall.se/api/orders', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(orderInfo)
+  });
+}
 
 /*
-** Go back from order-form
+** Go to order confirmation event
 */
-document.querySelector('#checkout-container')?.addEventListener('click', e => {
+document.querySelector('#buyBtn')?.addEventListener('click', e => {
   e.preventDefault()
+  console.log(orderInfo)
   const target = e.target as HTMLElement
-  if(target.textContent === "Tillbaka"){
+  if(target.tagName === "BUTTON"){
     document.querySelector('#checkout-container')?.classList.add('hide')
-    document.querySelector('#product-container')?.classList.remove('hide')
-    document.querySelector('#cart')?.classList.remove('hide')
+    document.querySelector('#confirmation-container')?.classList.remove('hide')
+    document.querySelector('#buyBtn')?.classList.add('hide')
   }
 })
 
@@ -309,16 +289,15 @@ const renderSum = () => {
 }
 
 /*
-** Go to order confirmation event
+** Go back from order-form
 */
-document.querySelector('#buyBtn')?.addEventListener('click', e => {
+document.querySelector('#checkout-container')?.addEventListener('click', e => {
   e.preventDefault()
-  console.log(orderInfo)
   const target = e.target as HTMLElement
-  if(target.tagName === "BUTTON"){
+  if(target.textContent === "Tillbaka"){
     document.querySelector('#checkout-container')?.classList.add('hide')
-    document.querySelector('#confirmation-container')?.classList.remove('hide')
-    document.querySelector('#buyBtn')?.classList.add('hide')
+    document.querySelector('#product-container')?.classList.remove('hide')
+    document.querySelector('#cart')?.classList.remove('hide')
   }
 })
 
