@@ -12,46 +12,82 @@ let input_total_sum: number[] = [];
 */
 const getProducts = async () => {
   products = await fetchProducts ()
-  // Add quantity to the objects in the array.
   let prodQuant = products.data.map(prod => (prod.quantity = 0))
-  // Show number of products to the dom
+  let prod = products.data
+  let instock = prod.filter(stock => stock.stock_status === "instock" )
+  console.log(instock)
   document.querySelector('#number-of-products')!.innerHTML = `
   <div class="justify-content-center">
     <p>Antal produkter:
-    ${products.data.length}
+    ${products.data.length} och ${instock.length} finns i lager.
     </p>
   </div>
   ` 
   renderProducts()
 }
 
+
+/*
+** Function to sort our lists.
+*/
+
+const sortProds = ( a, b ) => {
+  if ( a.name < b.name ){
+    return -1;
+  }
+  if ( a.name > b.name ){
+    return 1;
+  }
+  return 0;
+}
+
+
 /*
 * RENDER all products to the dom
 */
 const renderProducts = () => {
   let prod = products.data
-  document.querySelector('#product-container')!.innerHTML = prod
-  .map(prod => `
+  prod.sort( sortProds )  
+  console.log(prod)
+  prod.forEach(prod => {
+  if(prod.stock_status === "instock"){
+    document.querySelector('#product-container')!.innerHTML += `
     <div class="col-6 col-md-5 col-lg-3 shadow mb-2 m-2 bg-body rounded p-3">
-      <img class="img-fluid" src="https://www.bortakvall.se/${prod.images.thumbnail}">
-      <h2>
-      ${prod.name}
-      <h2>
-      <h3>
-      ${prod.price} kr
-      </h3>
-      <div class="d-flex justify-content-center">
-      <button class="btn btn-success m-1" data-product-id="${prod.id}">Lägg i varukorgen</button>
-      <button class="btn btn-info m-1" data-product-id="${prod.id}">Info</button>
-      </div>
+       <img class="img-fluid" src="https://www.bortakvall.se/${prod.images.thumbnail}">
+       <h2>
+       ${prod.name}
+       <h2>
+       <h3>
+       ${prod.price} kr
+       </h3>
+       <div class="d-flex justify-content-center">
+       <button class="btn btn-success m-1" data-product-id="${prod.id}">Lägg i varukorgen</button>
+       <button class="btn btn-info m-1" data-product-id="${prod.id}">Info</button>
+       </div>
     </div>
-  `)
-  .join('')
+   `
+  } else {
+    document.querySelector('#product-container')!.innerHTML += `
+    <div class="col-6 col-md-5 col-lg-3 shadow mb-2 m-2 bg-body rounded p-3">
+       <img class="img-fluid" src="https://www.bortakvall.se/${prod.images.thumbnail}">
+       <h2>
+       ${prod.name}
+       <h2>
+       <h3>
+       ${prod.price} kr
+       </h3>
+       <div class="d-flex justify-content-center">
+       <button class="btn btn-danger m-1" disabled data-product-id="${prod.id}">Lägg i varukorgen</button>
+       <button class="btn btn-info m-1" data-product-id="${prod.id}">Info</button>
+       </div>
+    </div>`  
 }
+})}
 
 /*
 * Add products to shopping cart
 */
+
 const addToCart = () => {
   const parentElement = document.querySelector('#product-container')!;
   parentElement.addEventListener('click', e => {
@@ -81,12 +117,22 @@ const addToCart = () => {
 document.querySelector('#info-container')!.addEventListener('click', e => {
   e.preventDefault()
   const target = e.target as HTMLElement
-      if(target.textContent === "Lägg i varukorgen") {
-        const targetNr = Number(target.dataset.productId)
-        const prod = products.data
-        const findProd = prod.find(product => product.id === targetNr)
-        productsOrder.push(findProd)
-      }
+  if(target.textContent === "Lägg i varukorgen") {
+    const targetNr = Number(target.dataset.productId)
+    const prod = products.data
+    const findProd = prod.find(product => product.id === targetNr)
+    const search = productsOrder.find(prod => prod.id === findProd.id)
+    
+    if(search === undefined){
+      productsOrder.push(findProd)
+      findProd.quantity = 1
+    } else {
+      search.quantity += 1
+    }
+    console.log('You have added the following product:', productsOrder)
+    renderToCart()
+  getTotal()
+}
 })
 
 /*
@@ -103,7 +149,8 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
     const targetNr = Number(target.dataset.productId)
     const prod = products.data
     const findProd = prod.find(product => product.id === targetNr)
-    if (findProd){
+    console.log(findProd)
+    if (findProd && findProd.stock_status === "instock"){
       document.querySelector('#info-container')!.innerHTML = `
         <div class="col-6 col-md-4 col-lg-6">
           <button id="backBtn" class="btn btn-dark btn-small">Tillbaka</button>
@@ -118,6 +165,21 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
           <button class="btn btn-success" data-product-id="${findProd.id}">Lägg i varukorgen</button>
         </div>
       `
+    } else {
+      document.querySelector('#info-container')!.innerHTML = `
+      <div class="col-6 col-md-4 col-lg-6">
+        <button id="backBtn" class="btn btn-dark btn-small">Tillbaka</button>
+        <img class="img-fluid" src="https://www.bortakvall.se/${findProd.images.large}">
+        <h2>
+        ${findProd.name}
+        <h2>
+        <h3>
+        ${findProd.price}kr
+        </h3>
+        ${findProd.description}
+        <button class="btn btn-danger" disabled data-product-id="${findProd.id}">Lägg i varukorgen</button>
+      </div>
+    `
     }
   }
 })
@@ -139,7 +201,9 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 /*
 * Render order to shopping cart
 */
-  const renderToCart = () => {
+
+const renderToCart = () => {
+  productsOrder.sort( sortProds )
   document.querySelector('#render-cart')!.innerHTML = productsOrder
     .map(productsOrder => ` 
   <div class="product-list">
