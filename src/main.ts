@@ -8,6 +8,43 @@ import {IOrder} from './interfaces'
 let products: [] = []
 let productsOrder: [] = []
 
+// let first_name = (document.getElementById('firstName') as HTMLInputElement).value
+
+const form = document.getElementById('form-input');
+const orderInfo = {
+  customer_first_name: "",
+  customer_last_name: "",
+  customer_address: "",
+  customer_postcode: "",
+  customer_city: "",
+  customer_phone: "",
+  customer_email: "",
+  order_total: "",
+  order_items: [
+    {
+      product_id: "",
+      qty: "",
+      item_price: "",
+      item_total: "",
+    }
+  ]
+}
+
+document.getElementById('buyBtn')!.onclick = async () => {
+  const form = new FormData();
+  form.append('customer_first_name', orderInfo.customer_first_name);
+  form.append('customer_last_name', orderInfo.customer_last_name);
+  form.append('customer_adress', orderInfo.customer_address);
+
+  const res = await fetch('https://www.bortakvall.se/api/orders', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(form)
+  });
+}
+
 /*
 * GET all products from API
 */
@@ -23,7 +60,6 @@ const getProducts = async () => {
     </p>
   </div>
   ` 
-  console.log(products.data.length)
   renderProducts()
 }
 
@@ -72,9 +108,8 @@ const addToCart = () => {
       } else {
         search.quantity += 1
       }
-      console.log('You have added the following product:', productsOrder)
       renderToCart()
-    getTotal()
+      getTotal()
   }
 })
 }
@@ -91,7 +126,6 @@ document.querySelector('#info-container')!.addEventListener('click', e => {
         const prod = products.data
         const findProd = prod.find(product => product.id === targetNr)
         productsOrder.push(findProd)
-        console.log('You have added the following product:', productsOrder)
       }
 })
 
@@ -105,15 +139,11 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
   const target = e.target as HTMLElement
   
   if(target.textContent === "Info"){
-    console.log(target.id)
     document.querySelector('#product-container')!.classList.add('hide')
     document.querySelector('#info-container')?.classList.remove('hide')
     const targetNr = Number(target.dataset.productId)
-    console.log(targetNr)
     const prod = products.data
-    console.log(prod)
     const findProd = prod.find(product => product.id === targetNr)
-    console.log(findProd)
     if (findProd){
       document.querySelector('#info-container')!.innerHTML = `
         <div class="col-6 col-md-4 col-lg-6">
@@ -186,7 +216,6 @@ const getTotal = () => {
   productsOrder.forEach(value => {
     totalPrice += value.price * value.quantity;
   });
-  console.log(totalPrice)
   document.querySelector('#total-sum')!.innerHTML = `
   <hr>
   <strong> 
@@ -209,6 +238,19 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
     document.querySelector('#checkout-container')?.classList.remove('hide')
   }
   renderSum()
+
+  let totalPrice = 0
+  productsOrder.forEach(value => {
+    totalPrice += value.price * value.quantity;
+  });
+  document.querySelector('#order-sum')!.innerHTML = `
+  <hr>
+  <strong> 
+  <p>
+  Total summa: ${totalPrice} kr
+  </p>
+  </strong> 
+  `
 })
 
 /*
@@ -261,7 +303,6 @@ const renderSum = () => {
   </p>
   `)
     .join('')
-  console.log(productsOrder)
 }
 
 /*
@@ -307,7 +348,6 @@ export const createOrder = async (newOrder: IOrder) => {
 
 	return await res.json() as IOrder
 }
-
 
 /*
 * GET products when entering the website
