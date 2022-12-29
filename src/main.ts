@@ -211,7 +211,9 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 
 const renderToCart = () => {
   productsOrder.sort( sortProds )
-  document.querySelector('#render-cart')!.innerHTML = productsOrder
+  let filterOrder = productsOrder.filter(prods => prods.quantity !== 0)
+  console.log(filterOrder)
+  document.querySelector('#render-cart')!.innerHTML = filterOrder
     .map(productsOrder => ` 
   <div class="product-list">
   <p><strong>
