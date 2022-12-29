@@ -8,17 +8,30 @@ import {IOrder} from './interfaces'
 let products: [] = []
 let productsOrder: [] = []
 
-// let first_name = (document.getElementById('firstName') as HTMLInputElement).value
+// First name
+const input_first_name = (document.getElementById('inputFirstName') as HTMLInputElement).value
+// Last name
+const input_last_name = (document.getElementById('inputLastName') as HTMLInputElement).value
+// Adress
+const input_address = (document.getElementById('inputAddress') as HTMLInputElement).value
+// Zipcode
+const input_zip = (document.getElementById('inputZip') as HTMLInputElement).value
+// City
+const input_city = (document.getElementById('inputCity') as HTMLInputElement).value
+// Phonenumber
+const input_phone = (document.getElementById('inputPhone') as HTMLInputElement).value
+// Email
+const input_email = (document.getElementById('inputEmail') as HTMLInputElement).value
 
-const form = document.getElementById('form-input');
+// const form = document.getElementById('form-input');
 const orderInfo = {
-  customer_first_name: "",
-  customer_last_name: "",
-  customer_address: "",
-  customer_postcode: "",
-  customer_city: "",
-  customer_phone: "",
-  customer_email: "",
+  customer_first_name: input_first_name,
+  customer_last_name: input_last_name,
+  customer_address: input_address,
+  customer_postcode: input_zip,
+  customer_city: input_city,
+  customer_phone: input_phone,
+  customer_email: input_email,
   order_total: "",
   order_items: [
     {
@@ -29,6 +42,18 @@ const orderInfo = {
     }
   ]
 }
+
+// document.getElementById('buyBtn')!.onclick = async () => {
+
+//   await fetch('https://www.bortakvall.se/api/orders', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(orderInfo)
+//   });
+
+// }
 
 document.getElementById('buyBtn')!.onclick = async () => {
   const form = new FormData();
@@ -41,7 +66,7 @@ document.getElementById('buyBtn')!.onclick = async () => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(form)
+    body: JSON.stringify(orderInfo)
   });
 }
 
@@ -66,7 +91,6 @@ const getProducts = async () => {
 /*
 * RENDER all products to the dom
 */
-
 const renderProducts = () => {
   let prod = products.data
   document.querySelector('#product-container')!.innerHTML = prod
@@ -117,7 +141,6 @@ const addToCart = () => {
 /*
 **  Eventlistener to add product into cart from Info div.
 */
-
 document.querySelector('#info-container')!.addEventListener('click', e => {
   e.preventDefault()
   const target = e.target as HTMLElement
@@ -132,7 +155,6 @@ document.querySelector('#info-container')!.addEventListener('click', e => {
 /*
 * Show more information about a product
 */
-
 document.querySelector('#product-container')?.addEventListener('click', e => {
   e.preventDefault()
 
@@ -166,7 +188,6 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
 /*
 ** Info Btn
 */
-
 document.querySelector('#info-container')?.addEventListener('click', e => {
   e.preventDefault()
 
@@ -181,7 +202,6 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 /*
 * Render order to shopping cart
 */
-
   const renderToCart = () => {
   document.querySelector('#render-cart')!.innerHTML = productsOrder
     .map(productsOrder => ` 
@@ -256,7 +276,6 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
 /*
 * Get value from form
 */
-
 
 // document.querySelector('#form-input')?.addEventListener('click', e => {
 //     const form = document.querySelector('#form-input')
