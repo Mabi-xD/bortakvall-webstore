@@ -313,6 +313,7 @@ const renderSum = () => {
 */
 document.querySelector('#buyBtn')?.addEventListener('click', e => {
   e.preventDefault()
+  console.log(orderInfo)
   const target = e.target as HTMLElement
   if(target.tagName === "BUTTON"){
     document.querySelector('#checkout-container')?.classList.add('hide')
@@ -320,37 +321,6 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
     document.querySelector('#buyBtn')?.classList.add('hide')
   }
 })
-
-document.querySelector('#form-input')?.addEventListener('submit', async e => {
-	e.preventDefault()
-
-  const firstName = document.querySelector<HTMLInputElement>('#inputFirstName')?.value
-	// Create a new Todo object
-	const order: IOrder = {
-    customer_first_name: firstName
-	}
-
-	// POST todo to server
-	await createOrder(order)
-
-
-})
-
-export const createOrder = async (newOrder: IOrder) => {
-	const res = await fetch('https://www.bortakvall.se/api/products', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(newOrder),
-	})
-
-	if (!res.ok) {
-		throw new Error(`${res.status} ${res.statusText}`)
-	}
-
-	return await res.json() as IOrder
-}
 
 /*
 * GET products when entering the website
