@@ -112,9 +112,9 @@ const addToCart = () => {
         search.quantity += 1
       }
       console.log('You have added the following product:', productsOrder)
-      renderToCart()
-    getTotal()
   }
+  renderToCart()
+  getTotal()
 })
 }
 
@@ -217,7 +217,9 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 
 const renderToCart = () => {
   productsOrder.sort( sortProds )
-  document.querySelector('#render-cart')!.innerHTML = productsOrder
+  let filterOrder = productsOrder.filter(prods => prods.quantity !== 0)
+  console.log(filterOrder)
+  document.querySelector('#render-cart')!.innerHTML = filterOrder
     .map(productsOrder => ` 
   <div class="product-list">
   <p><strong>
@@ -237,10 +239,32 @@ const renderToCart = () => {
   <button type="button" class="btn btn-light">
   <i class="quantity-plus fa-solid fa-square-plus"></i>
   </button>
+  <button type="button" class ="btn btn-danger btn-sm" data-product-id="${productsOrder.id}">Ta bort</button>
   </div>
   `)
     .join('')
 }
+
+/*
+** Remove product from cart
+*/
+
+document.querySelector('#render-cart')?.addEventListener('click', e =>{
+  e.preventDefault()
+  console.log(e)
+  const target = e.target as HTMLElement
+  if(target.textContent === "Ta bort") {
+    const targetNr = Number(target.dataset.productId)
+    console.log(targetNr)
+    const order = productsOrder
+    console.log(order)
+    const findProd = order.find(product => product.id === targetNr)
+    console.log(findProd)
+    findProd.quantity = 0
+  }
+renderToCart()
+getTotal()
+})
 
 /*
 ** Displaying the total sum of product order
