@@ -5,7 +5,7 @@ import './style.css'
 
 let products: [] = []
 let productsOrder: [] = []
-let totalSum = 0
+let totalPrice: number
 
 
 /*
@@ -269,7 +269,7 @@ getTotal()
 ** Displaying the total sum of product order
 */
 const getTotal = () => {
-  let totalPrice = 0
+  totalPrice = 0
   productsOrder.forEach(value => {
     totalPrice += value.price * value.quantity;
   });
@@ -297,15 +297,15 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
  /*  } */
   renderSum()
   
-
+  totalPrice = 0
   productsOrder.forEach(value => {
-    totalSum += value.price * value.quantity;
+    totalPrice += value.price * value.quantity;
   });
   document.querySelector('#order-sum')!.innerHTML = `
   <hr>
   <strong> 
   <p id="totala-summan">
-  Total summa: ${totalSum}
+  Total summa: ${totalPrice}
   </p>
   </strong> 
   `
@@ -387,7 +387,7 @@ document.getElementById('buyBtn')!.onclick = async () => {
     customer_city: input_city,
     customer_phone: input_phone,
     customer_email: input_email,
-    order_total: totalSum,
+    order_total: totalPrice,
     order_items: [
       {
         product_id: "",
