@@ -5,10 +5,7 @@ import './style.css'
 let products: [] = []
 let productsOrder: [] = []
 let totalPrice: number
-let productId: number
-let productQty: number
-let productPrice: number
-let productTotal: number
+let totalOrder: any [] = []
 
 /*
 * GET all products from API
@@ -40,7 +37,6 @@ const sortProds = ( a, b ) => {
   }
   return 0;
 }
-
 
 /*
 * RENDER all products to the dom
@@ -262,7 +258,10 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   e.preventDefault()
   document.querySelector('#number-of-products')?.classList.add('hide')
   document.querySelector('#checkout-container')?.classList.remove('hide')
+
   renderSum()
+  renderOrder()
+  
   totalPrice = 0
   productsOrder.forEach(value => {
     totalPrice += value.price * value.quantity;
@@ -318,39 +317,26 @@ const renderSum = () => {
 */
 document.getElementById('buyBtn')!.onclick = async () => {
   
-  // First name
-  const inputFirstName = (document.getElementById('inputFirstName') as HTMLInputElement).value
-  // Last name
-  const inputLastName = (document.getElementById('inputLastName') as HTMLInputElement).value
-  // Adress
-  const inputAddress = (document.getElementById('inputAddress') as HTMLInputElement).value
-  // Zipcode
-  const inputZip = (document.getElementById('inputZip') as HTMLInputElement).value
-  // City
-  const inputCity = (document.getElementById('inputCity') as HTMLInputElement).value
-  // Phonenumber
-  const inputPhone = (document.getElementById('inputPhone') as HTMLInputElement).value
-  // Email
-  const inputEmail = (document.getElementById('inputEmail') as HTMLInputElement).value
+  const inputFirstName = (document.getElementById('inputFirstName') as HTMLInputElement).value    // First name
+  const inputLastName = (document.getElementById('inputLastName') as HTMLInputElement).value      // Last name
+  const inputAdress = (document.getElementById('inputAddress') as HTMLInputElement).value         // Adress
+  const inputZip = (document.getElementById('inputZip') as HTMLInputElement).value                // Zipcode
+  const inputCity = (document.getElementById('inputCity') as HTMLInputElement).value              // City
+  const inputPhone = (document.getElementById('inputPhone') as HTMLInputElement).value            // Phonenumber
+  const inputEmail = (document.getElementById('inputEmail') as HTMLInputElement).value            // Email
 
   const orderInfo = {
     customer_first_name: inputFirstName,
     customer_last_name: inputLastName,
-    customer_address: inputAddress,
+    customer_address: inputAdress,
     customer_postcode: inputZip,
     customer_city: inputCity,
     customer_phone: inputPhone,
     customer_email: inputEmail,
     order_total: totalPrice,
-    order_items: [
-      {
-        product_id: productId,
-        qty: productQty,
-        item_price: productPrice,
-        item_total: productTotal,
-      }
-    ]
+    order_items: totalOrder
   }
+
   const res = await fetch('https://www.bortakvall.se/api/orders', {
     method: 'POST',
     headers: {
@@ -374,6 +360,24 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
     document.querySelector('#buyBtn')?.classList.add('hide')
   }
 })
+
+/*
+** Render productOrder so we can send it to the API
+*/
+const renderOrder = () => {
+  console.log(productsOrder)
+  productsOrder.forEach(prod => {
+  totalOrder.push(
+      {
+        product_id: prod.id,
+        qty: prod.quantity,
+        item_price: prod.price,
+        item_total: prod.price * prod.quantity,
+      }
+  )
+    })
+  console.log(totalOrder)  
+}
 
 /*
 * GET products when entering the website
