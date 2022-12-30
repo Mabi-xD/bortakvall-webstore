@@ -7,6 +7,7 @@ let products: [] = []
 let productsOrder: [] = []
 let totalPrice: number
 let totalOrder: any [] = []
+let orderResponse: [] = []
 
 /*
 * GET all products from API
@@ -27,6 +28,7 @@ const getProducts = async () => {
   ` 
   renderProducts()
 }
+
 
 /*
 ** Function to sort our lists.
@@ -374,6 +376,11 @@ document.getElementById('buyBtn')!.onclick = async () => {
     body: JSON.stringify(orderInfo)
   });
   console.log("Resultat av POST", res)
+  orderResponse = await res.json()
+  console.log(orderResponse)
+
+  document.querySelector('#info-confirmation')!.innerHTML = `
+  Tack för din order! Din order nummer är: ${orderResponse.data.id}`
 
 }
 
