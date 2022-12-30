@@ -324,6 +324,11 @@ const renderSum = () => {
   </p>
   `)
     .join('')
+  
+    productId = Number(productsOrder.map(productsOrder => productsOrder.id))
+    productQty = Number(productsOrder.map(productsOrder => productsOrder.quantity))
+    productPrice = Number(productsOrder.map(productsOrder => productsOrder.price))
+    productTotal = Number(productsOrder.map(productsOrder => productsOrder.price * productsOrder.quantity))
 }
 
 /*
