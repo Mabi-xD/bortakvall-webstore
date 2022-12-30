@@ -17,11 +17,9 @@ let productTotal: number
 */
 const getProducts = async () => {
   products = await fetchProducts()
-  console.log(products)
   let prodQuant = products.data.map(prod => (prod.quantity = 0))
   let prod = products.data
   let instock = prod.filter(stock => stock.stock_status === "instock" )
-  console.log(instock)
   document.querySelector('#number-of-products')!.innerHTML = `
   <div class="justify-content-center">
     <p>Antal produkter:
@@ -55,7 +53,6 @@ const sortProds = ( a, b ) => {
 const renderProducts = () => {
   let prod = products.data
   prod.sort( sortProds )  
-  console.log(prod)
   prod.forEach(prod => {
   if(prod.stock_status === "instock"){
     document.querySelector('#product-container')!.innerHTML += `
@@ -91,12 +88,9 @@ const renderProducts = () => {
 }
 })}
 
-
-
 /*
 * Add products to shopping cart
 */
-
 const addToCart = () => {
   const parentElement = document.querySelector('#product-container')!;
   parentElement.addEventListener('click', e => {
@@ -107,14 +101,12 @@ const addToCart = () => {
       const prod = products.data
       const findProd = prod.find(product => product.id === targetNr)
       const search = productsOrder.find(prod => prod.id === findProd.id)
-      console.log(findProd)
       if(search === undefined){
         productsOrder.push(findProd)
         findProd.quantity = 1
       } else {
         search.quantity += 1
       }
-      console.log('You have added the following product:', productsOrder)
   }
   renderToCart()
   getTotal()
@@ -140,7 +132,6 @@ document.querySelector('#info-container')!.addEventListener('click', e => {
     } else {
       search.quantity += 1
     }
-    console.log('You have added the following product:', productsOrder)
     renderToCart()
     getTotal()
 }
@@ -156,15 +147,11 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
   const target = e.target as HTMLElement
   
   if(target.textContent === "Info"){
-    console.log(target.id)
     document.querySelector('#product-container')!.classList.add('hide')
     document.querySelector('#info-container')?.classList.remove('hide')
     const targetNr = Number(target.dataset.productId)
-    console.log(targetNr)
     const prod = products.data
-    console.log(prod)
     const findProd = prod.find(product => product.id === targetNr)
-    console.log(findProd)
     if (findProd && findProd.stock_status === "instock"){
       document.querySelector('#info-container')!.innerHTML = `
         <div class="col-6 col-md-4 col-lg-6">
@@ -221,7 +208,6 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 const renderToCart = () => {
   productsOrder.sort( sortProds )
   let filterOrder = productsOrder.filter(prods => prods.quantity !== 0)
-  console.log(filterOrder)
   document.querySelector('#render-cart')!.innerHTML = filterOrder
     .map(productsOrder => ` 
   <div class="product-list">
@@ -254,15 +240,11 @@ const renderToCart = () => {
 
 document.querySelector('#render-cart')?.addEventListener('click', e =>{
   e.preventDefault()
-  console.log(e)
   const target = e.target as HTMLElement
   if(target.textContent === "Ta bort") {
     const targetNr = Number(target.dataset.productId)
-    console.log(targetNr)
     const order = productsOrder
-    console.log(order)
     const findProd = order.find(product => product.id === targetNr)
-    console.log(findProd)
     findProd.quantity = 0
   }
 renderToCart()
@@ -277,7 +259,6 @@ const getTotal = () => {
   productsOrder.forEach(value => {
     totalPrice += value.price * value.quantity;
   });
-  console.log(totalPrice)
   document.querySelector('#total-sum')!.innerHTML = `
   <hr>
   <strong> 
@@ -346,26 +327,8 @@ const renderSum = () => {
 }
 
 /*
-** Go to order confirmation event
-*/
-document.querySelector('#buyBtn')?.addEventListener('click', e => {
-  e.preventDefault()
-  const target = e.target as HTMLElement
-  if(target.tagName === "BUTTON"){
-    document.querySelector('#checkout-container')?.classList.add('hide')
-    document.querySelector('#confirmation-container')?.classList.remove('hide')
-    document.querySelector('#buyBtn')?.classList.add('hide')
-  }
-})
-
-
-/*
 * POST order to API
 */
-
-
-
-
 document.getElementById('buyBtn')!.onclick = async () => {
   
   // First name
