@@ -1,5 +1,4 @@
 import {fetchProducts} from './api'
-// import {IProduct} from './interfaces'
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
 
@@ -10,7 +9,6 @@ let productId: number
 let productQty: number
 let productPrice: number
 let productTotal: number
-
 
 /*
 * GET all products from API
@@ -30,11 +28,9 @@ const getProducts = async () => {
   renderProducts()
 }
 
-
 /*
 ** Function to sort our lists.
 */
-
 const sortProds = ( a, b ) => {
   if ( a.name < b.name ){
     return -1;
@@ -49,7 +45,6 @@ const sortProds = ( a, b ) => {
 /*
 * RENDER all products to the dom
 */
-
 const renderProducts = () => {
   let prod = products.data
   prod.sort( sortProds )  
@@ -116,7 +111,6 @@ const addToCart = () => {
 /*
 **  Eventlistener to add product into cart from Info div.
 */
-
 document.querySelector('#info-container')!.addEventListener('click', e => {
   e.preventDefault()
   const target = e.target as HTMLElement
@@ -140,12 +134,9 @@ document.querySelector('#info-container')!.addEventListener('click', e => {
 /*
 * Show more information about a product
 */
-
 document.querySelector('#product-container')?.addEventListener('click', e => {
   e.preventDefault()
-
   const target = e.target as HTMLElement
-  
   if(target.textContent === "Info"){
     document.querySelector('#product-container')!.classList.add('hide')
     document.querySelector('#info-container')?.classList.remove('hide')
@@ -189,12 +180,9 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
 /*
 ** Info Btn
 */
-
 document.querySelector('#info-container')?.addEventListener('click', e => {
   e.preventDefault()
-
   const target = e.target as HTMLElement
-
   if(target.textContent === "Tillbaka"){
   document.querySelector('#info-container')?.classList.add('hide')
   document.querySelector('#product-container')?.classList.remove('hide')
@@ -204,7 +192,6 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 /*
 * Render order to shopping cart
 */
-
 const renderToCart = () => {
   productsOrder.sort( sortProds )
   let filterOrder = productsOrder.filter(prods => prods.quantity !== 0)
@@ -237,7 +224,6 @@ const renderToCart = () => {
 /*
 ** Remove product from cart
 */
-
 document.querySelector('#render-cart')?.addEventListener('click', e =>{
   e.preventDefault()
   const target = e.target as HTMLElement
@@ -269,19 +255,14 @@ const getTotal = () => {
   `
 }
 
-
 /*
 ** Go to order-form event
 */
 document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   e.preventDefault()
-/*   const target = e.target as HTMLElement
-  if(target.tagName === "BUTTON"){ */
-    document.querySelector('#number-of-products')?.classList.add('hide')
-    document.querySelector('#checkout-container')?.classList.remove('hide')
- /*  } */
+  document.querySelector('#number-of-products')?.classList.add('hide')
+  document.querySelector('#checkout-container')?.classList.remove('hide')
   renderSum()
-  
   totalPrice = 0
   productsOrder.forEach(value => {
     totalPrice += value.price * value.quantity;
@@ -325,6 +306,7 @@ const renderSum = () => {
   `)
     .join('')
   
+    // Find product object information to POST to server
     productId = Number(productsOrder.map(productsOrder => productsOrder.id))
     productQty = Number(productsOrder.map(productsOrder => productsOrder.quantity))
     productPrice = Number(productsOrder.map(productsOrder => productsOrder.price))
@@ -337,28 +319,28 @@ const renderSum = () => {
 document.getElementById('buyBtn')!.onclick = async () => {
   
   // First name
-  const input_first_name = (document.getElementById('inputFirstName') as HTMLInputElement).value
+  const inputFirstName = (document.getElementById('inputFirstName') as HTMLInputElement).value
   // Last name
-  const input_last_name = (document.getElementById('inputLastName') as HTMLInputElement).value
+  const inputLastName = (document.getElementById('inputLastName') as HTMLInputElement).value
   // Adress
-  const input_address = (document.getElementById('inputAddress') as HTMLInputElement).value
+  const inputAddress = (document.getElementById('inputAddress') as HTMLInputElement).value
   // Zipcode
-  const input_zip = (document.getElementById('inputZip') as HTMLInputElement).value
+  const inputZip = (document.getElementById('inputZip') as HTMLInputElement).value
   // City
-  const input_city = (document.getElementById('inputCity') as HTMLInputElement).value
+  const inputCity = (document.getElementById('inputCity') as HTMLInputElement).value
   // Phonenumber
-  const input_phone = (document.getElementById('inputPhone') as HTMLInputElement).value
+  const inputPhone = (document.getElementById('inputPhone') as HTMLInputElement).value
   // Email
-  const input_email = (document.getElementById('inputEmail') as HTMLInputElement).value
+  const inputEmail = (document.getElementById('inputEmail') as HTMLInputElement).value
 
   const orderInfo = {
-    customer_first_name: input_first_name,
-    customer_last_name: input_last_name,
-    customer_address: input_address,
-    customer_postcode: input_zip,
-    customer_city: input_city,
-    customer_phone: input_phone,
-    customer_email: input_email,
+    customer_first_name: inputFirstName,
+    customer_last_name: inputLastName,
+    customer_address: inputAddress,
+    customer_postcode: inputZip,
+    customer_city: inputCity,
+    customer_phone: inputPhone,
+    customer_email: inputEmail,
     order_total: totalPrice,
     order_items: [
       {
