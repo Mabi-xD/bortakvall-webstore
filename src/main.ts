@@ -1,4 +1,5 @@
 import {fetchProducts} from './api'
+// import {IProduct} from './interfaces'
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
 
@@ -132,7 +133,9 @@ document.querySelector('#info-container')!.addEventListener('click', e => {
 */
 document.querySelector('#product-container')?.addEventListener('click', e => {
   e.preventDefault()
+
   const target = e.target as HTMLElement
+  
   if(target.textContent === "Info"){
     document.querySelector('#product-container')!.classList.add('hide')
     document.querySelector('#info-container')?.classList.remove('hide')
@@ -178,7 +181,9 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
 */
 document.querySelector('#info-container')?.addEventListener('click', e => {
   e.preventDefault()
+
   const target = e.target as HTMLElement
+
   if(target.textContent === "Tillbaka"){
   document.querySelector('#info-container')?.classList.add('hide')
   document.querySelector('#product-container')?.classList.remove('hide')
@@ -304,13 +309,21 @@ const renderSum = () => {
   </p>
   `)
     .join('')
-  
-    // Find product object information to POST to server
-    productId = Number(productsOrder.map(productsOrder => productsOrder.id))
-    productQty = Number(productsOrder.map(productsOrder => productsOrder.quantity))
-    productPrice = Number(productsOrder.map(productsOrder => productsOrder.price))
-    productTotal = Number(productsOrder.map(productsOrder => productsOrder.price * productsOrder.quantity))
 }
+
+/*
+** Go to order confirmation event
+*/
+document.querySelector('#buyBtn')?.addEventListener('click', e => {
+  e.preventDefault()
+  const target = e.target as HTMLElement
+  if(target.tagName === "BUTTON"){
+    document.querySelector('#checkout-container')?.classList.add('hide')
+    document.querySelector('#confirmation-container')?.classList.remove('hide')
+    document.querySelector('#buyBtn')?.classList.add('hide')
+  }
+})
+
 
 /*
 * POST order to API
@@ -344,6 +357,11 @@ document.getElementById('buyBtn')!.onclick = async () => {
     },
     body: JSON.stringify(orderInfo)
   });
+
+  if (!res.ok) {
+    throw new Error(`${res.status} ${res.statusText}`)
+  }
+
   console.log("Resultat av POST", res)
 
 }
@@ -365,7 +383,6 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
 ** Render productOrder so we can send it to the API
 */
 const renderOrder = () => {
-  console.log(productsOrder)
   productsOrder.forEach(prod => {
   totalOrder.push(
       {
@@ -376,7 +393,7 @@ const renderOrder = () => {
       }
   )
     })
-  console.log(totalOrder)  
+  console.log('This is the total order:', totalOrder)  
 }
 
 /*
