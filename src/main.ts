@@ -6,7 +6,6 @@ import './style.css'
 let products: [] = []
 let productsOrder: [] = []
 let totalSum = 0
-let input_total_sum: number[] = []
 
 
 /*
@@ -139,7 +138,7 @@ document.querySelector('#info-container')!.addEventListener('click', e => {
     }
     console.log('You have added the following product:', productsOrder)
     renderToCart()
-  getTotal()
+    getTotal()
 }
 })
 
@@ -310,8 +309,6 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   </p>
   </strong> 
   `
-
-  //input_total_sum.push(totalSum);
 })
 
 /*
@@ -421,10 +418,6 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
     document.querySelector('#buyBtn')?.classList.add('hide')
   }
 })
-
-
-
-
 
 /*
 * GET products when entering the website
