@@ -6,7 +6,7 @@ import './style.css'
 let products: [] = []
 let productsOrder: [] = []
 let totalPrice: number
-let totalOrder: [] = []
+let totalOrder: any [] = []
 
 /*
 * GET all products from API
@@ -28,11 +28,9 @@ const getProducts = async () => {
   renderProducts()
 }
 
-
 /*
 ** Function to sort our lists.
 */
-
 const sortProds = ( a, b ) => {
   if ( a.name < b.name ){
     return -1;
@@ -43,11 +41,9 @@ const sortProds = ( a, b ) => {
   return 0;
 }
 
-
 /*
 * RENDER all products to the dom
 */
-
 const renderProducts = () => {
   let prod = products.data
   prod.sort( sortProds )  
@@ -87,12 +83,9 @@ const renderProducts = () => {
 }
 })}
 
-
-
 /*
 * Add products to shopping cart
 */
-
 const addToCart = () => {
   const parentElement = document.querySelector('#product-container')!;
   parentElement.addEventListener('click', e => {
@@ -120,7 +113,6 @@ const addToCart = () => {
 /*
 **  Eventlistener to add product into cart from Info div.
 */
-
 document.querySelector('#info-container')!.addEventListener('click', e => {
   e.preventDefault()
   const target = e.target as HTMLElement
@@ -145,7 +137,6 @@ document.querySelector('#info-container')!.addEventListener('click', e => {
 /*
 * Show more information about a product
 */
-
 document.querySelector('#product-container')?.addEventListener('click', e => {
   e.preventDefault()
 
@@ -198,7 +189,6 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
 /*
 ** Info Btn
 */
-
 document.querySelector('#info-container')?.addEventListener('click', e => {
   e.preventDefault()
 
@@ -213,7 +203,6 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 /*
 * Render order to shopping cart
 */
-
 const renderToCart = () => {
   productsOrder.sort( sortProds )
   let filterOrder = productsOrder.filter(prods => prods.quantity !== 0)
@@ -247,7 +236,6 @@ const renderToCart = () => {
 /*
 ** Remove product from cart
 */
-
 document.querySelector('#render-cart')?.addEventListener('click', e =>{
   e.preventDefault()
   console.log(e)
@@ -284,17 +272,14 @@ const getTotal = () => {
   `
 }
 
-
 /*
 ** Go to order-form event
 */
 document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   e.preventDefault()
-/*   const target = e.target as HTMLElement
-  if(target.tagName === "BUTTON"){ */
-    document.querySelector('#number-of-products')?.classList.add('hide')
-    document.querySelector('#checkout-container')?.classList.remove('hide')
- /*  } */
+  document.querySelector('#number-of-products')?.classList.add('hide')
+  document.querySelector('#checkout-container')?.classList.remove('hide')
+
   renderSum()
   renderOrder()
   
@@ -359,35 +344,28 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
 /*
 * POST order to API
 */
-
 document.getElementById('buyBtn')!.onclick = async () => {
   
-  // First name
-  const input_first_name = (document.getElementById('inputFirstName') as HTMLInputElement).value
-  // Last name
-  const input_last_name = (document.getElementById('inputLastName') as HTMLInputElement).value
-  // Adress
-  const input_address = (document.getElementById('inputAddress') as HTMLInputElement).value
-  // Zipcode
-  const input_zip = (document.getElementById('inputZip') as HTMLInputElement).value
-  // City
-  const input_city = (document.getElementById('inputCity') as HTMLInputElement).value
-  // Phonenumber
-  const input_phone = (document.getElementById('inputPhone') as HTMLInputElement).value
-  // Email
-  const input_email = (document.getElementById('inputEmail') as HTMLInputElement).value
+  const inputFirstName = (document.getElementById('inputFirstName') as HTMLInputElement).value    // First name
+  const inputLastName = (document.getElementById('inputLastName') as HTMLInputElement).value      // Last name
+  const inputAdress = (document.getElementById('inputAddress') as HTMLInputElement).value         // Adress
+  const inputZip = (document.getElementById('inputZip') as HTMLInputElement).value                // Zipcode
+  const inputCity = (document.getElementById('inputCity') as HTMLInputElement).value              // City
+  const inputPhone = (document.getElementById('inputPhone') as HTMLInputElement).value            // Phonenumber
+  const inputEmail = (document.getElementById('inputEmail') as HTMLInputElement).value            // Email
 
   const orderInfo = {
-    customer_first_name: input_first_name,
-    customer_last_name: input_last_name,
-    customer_address: input_address,
-    customer_postcode: input_zip,
-    customer_city: input_city,
-    customer_phone: input_phone,
-    customer_email: input_email,
+    customer_first_name: inputFirstName,
+    customer_last_name: inputLastName,
+    customer_address: inputAdress,
+    customer_postcode: inputZip,
+    customer_city: inputCity,
+    customer_phone: inputPhone,
+    customer_email: inputEmail,
     order_total: totalPrice,
     order_items: totalOrder
   }
+
   const res = await fetch('https://www.bortakvall.se/api/orders', {
     method: 'POST',
     headers: {
@@ -415,8 +393,6 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
 /*
 ** Render productOrder so we can send it to the API
 */
-
-
 const renderOrder = () => {
   console.log(productsOrder)
   productsOrder.forEach(prod => {
@@ -431,7 +407,6 @@ const renderOrder = () => {
     })
   console.log(totalOrder)  
 }
-
 
 /*
 * GET products when entering the website
