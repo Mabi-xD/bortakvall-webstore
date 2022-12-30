@@ -5,12 +5,16 @@ import './style.css'
 
 let products: [] = []
 let productsOrder: [] = []
+let totalSum = 0
+let input_total_sum: number[] = []
+
 
 /*
 * GET all products from API
 */
 const getProducts = async () => {
-  products = await fetchProducts ()
+  products = await fetchProducts()
+  console.log(products)
   let prodQuant = products.data.map(prod => (prod.quantity = 0))
   let prod = products.data
   let instock = prod.filter(stock => stock.stock_status === "instock" )
@@ -84,6 +88,8 @@ const renderProducts = () => {
 }
 })}
 
+
+
 /*
 * Add products to shopping cart
 */
@@ -98,7 +104,7 @@ const addToCart = () => {
       const prod = products.data
       const findProd = prod.find(product => product.id === targetNr)
       const search = productsOrder.find(prod => prod.id === findProd.id)
-      
+      console.log(findProd)
       if(search === undefined){
         productsOrder.push(findProd)
         findProd.quantity = 1
@@ -261,12 +267,27 @@ const getTotal = () => {
 */
 document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   e.preventDefault()
-  const target = e.target as HTMLElement
-  if(target.tagName === "BUTTON"){
+/*   const target = e.target as HTMLElement
+  if(target.tagName === "BUTTON"){ */
     document.querySelector('#number-of-products')?.classList.add('hide')
     document.querySelector('#checkout-container')?.classList.remove('hide')
-  }
+ /*  } */
   renderSum()
+  
+
+  productsOrder.forEach(value => {
+    totalSum += value.price * value.quantity;
+  });
+  document.querySelector('#order-sum')!.innerHTML = `
+  <hr>
+  <strong> 
+  <p id="totala-summan">
+  Total summa: ${totalSum}
+  </p>
+  </strong> 
+  `
+
+  //input_total_sum.push(totalSum);
 })
 
 /*
@@ -310,6 +331,76 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
     document.querySelector('#buyBtn')?.classList.add('hide')
   }
 })
+
+
+/*
+* POST order to API
+*/
+// First name
+const input_first_name = (document.getElementById('inputFirstName') as HTMLInputElement).value
+// Last name
+const input_last_name = (document.getElementById('inputLastName') as HTMLInputElement).value
+// Adress
+const input_address = (document.getElementById('inputAddress') as HTMLInputElement).value
+// Zipcode
+const input_zip = (document.getElementById('inputZip') as HTMLInputElement).value
+// City
+const input_city = (document.getElementById('inputCity') as HTMLInputElement).value
+// Phonenumber
+const input_phone = (document.getElementById('inputPhone') as HTMLInputElement).value
+// Email
+const input_email = (document.getElementById('inputEmail') as HTMLInputElement).value
+
+
+
+document.getElementById('buyBtn')!.onclick = async () => {
+
+  // const form = document.getElementById('form-input');
+  const orderInfo = {
+    customer_first_name: input_first_name,
+    customer_last_name: input_last_name,
+    customer_address: input_address,
+    customer_postcode: input_zip,
+    customer_city: input_city,
+    customer_phone: input_phone,
+    customer_email: input_email,
+    order_total: totalSum,
+    order_items: [
+      {
+        product_id: "",
+        qty: "",
+        item_price: "",
+        item_total: "",
+      }
+    ]
+  }
+  const res = await fetch('https://www.bortakvall.se/api/orders', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(orderInfo)
+  });
+  console.log("Resultat av POST", res)
+
+}
+
+/*
+** Go to order confirmation event
+*/
+document.querySelector('#buyBtn')?.addEventListener('click', e => {
+  e.preventDefault()
+  const target = e.target as HTMLElement
+  if(target.tagName === "BUTTON"){
+    document.querySelector('#checkout-container')?.classList.add('hide')
+    document.querySelector('#confirmation-container')?.classList.remove('hide')
+    document.querySelector('#buyBtn')?.classList.add('hide')
+  }
+})
+
+
+
+
 
 /*
 * GET products when entering the website
