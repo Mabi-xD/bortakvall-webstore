@@ -6,6 +6,10 @@ import './style.css'
 let products: [] = []
 let productsOrder: [] = []
 let totalPrice: number
+let productId: number
+let productQty: number
+let productPrice: number
+let productTotal: number
 
 
 /*
@@ -390,10 +394,10 @@ document.getElementById('buyBtn')!.onclick = async () => {
     order_total: totalPrice,
     order_items: [
       {
-        product_id: "",
-        qty: "",
-        item_price: "",
-        item_total: "",
+        product_id: productId,
+        qty: productQty,
+        item_price: productPrice,
+        item_total: productTotal,
       }
     ]
   }
