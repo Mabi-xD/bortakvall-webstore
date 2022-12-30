@@ -6,11 +6,7 @@ import './style.css'
 let products: [] = []
 let productsOrder: [] = []
 let totalPrice: number
-let productId: number
-let productQty: number
-let productPrice: number
-let productTotal: number
-
+let totalOrder: [] = []
 
 /*
 * GET all products from API
@@ -300,6 +296,7 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
     document.querySelector('#checkout-container')?.classList.remove('hide')
  /*  } */
   renderSum()
+  renderOrder()
   
   totalPrice = 0
   productsOrder.forEach(value => {
@@ -363,9 +360,6 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
 * POST order to API
 */
 
-
-
-
 document.getElementById('buyBtn')!.onclick = async () => {
   
   // First name
@@ -392,14 +386,7 @@ document.getElementById('buyBtn')!.onclick = async () => {
     customer_phone: input_phone,
     customer_email: input_email,
     order_total: totalPrice,
-    order_items: [
-      {
-        product_id: productId,
-        qty: productQty,
-        item_price: productPrice,
-        item_total: productTotal,
-      }
-    ]
+    order_items: totalOrder
   }
   const res = await fetch('https://www.bortakvall.se/api/orders', {
     method: 'POST',
@@ -424,6 +411,27 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
     document.querySelector('#buyBtn')?.classList.add('hide')
   }
 })
+
+/*
+** Render productOrder so we can send it to the API
+*/
+
+
+const renderOrder = () => {
+  console.log(productsOrder)
+  productsOrder.forEach(prod => {
+  totalOrder.push(
+      {
+        product_id: prod.id,
+        qty: prod.quantity,
+        item_price: prod.price,
+        item_total: prod.price * prod.quantity,
+      }
+  )
+    })
+  console.log(totalOrder)  
+}
+
 
 /*
 * GET products when entering the website
