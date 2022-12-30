@@ -357,26 +357,27 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
 /*
 * POST order to API
 */
-// First name
-const input_first_name = (document.getElementById('inputFirstName') as HTMLInputElement).value
-// Last name
-const input_last_name = (document.getElementById('inputLastName') as HTMLInputElement).value
-// Adress
-const input_address = (document.getElementById('inputAddress') as HTMLInputElement).value
-// Zipcode
-const input_zip = (document.getElementById('inputZip') as HTMLInputElement).value
-// City
-const input_city = (document.getElementById('inputCity') as HTMLInputElement).value
-// Phonenumber
-const input_phone = (document.getElementById('inputPhone') as HTMLInputElement).value
-// Email
-const input_email = (document.getElementById('inputEmail') as HTMLInputElement).value
+
 
 
 
 document.getElementById('buyBtn')!.onclick = async () => {
+  
+  // First name
+  const input_first_name = (document.getElementById('inputFirstName') as HTMLInputElement).value
+  // Last name
+  const input_last_name = (document.getElementById('inputLastName') as HTMLInputElement).value
+  // Adress
+  const input_address = (document.getElementById('inputAddress') as HTMLInputElement).value
+  // Zipcode
+  const input_zip = (document.getElementById('inputZip') as HTMLInputElement).value
+  // City
+  const input_city = (document.getElementById('inputCity') as HTMLInputElement).value
+  // Phonenumber
+  const input_phone = (document.getElementById('inputPhone') as HTMLInputElement).value
+  // Email
+  const input_email = (document.getElementById('inputEmail') as HTMLInputElement).value
 
-  // const form = document.getElementById('form-input');
   const orderInfo = {
     customer_first_name: input_first_name,
     customer_last_name: input_last_name,
