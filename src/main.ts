@@ -310,7 +310,8 @@ document.querySelector('#checkout-container')?.addEventListener('click', e => {
 ** Render product sum
 */
 const renderSum = () => {
-  document.querySelector('#order-total')!.innerHTML = productsOrder
+  let filterOrder = productsOrder.filter(prods => prods.quantity !== 0)
+  document.querySelector('#order-total')!.innerHTML = filterOrder
     .map(productsOrder => ` 
   <p><strong>
   ${productsOrder.name}
