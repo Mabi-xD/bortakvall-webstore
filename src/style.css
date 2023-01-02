@@ -4,6 +4,7 @@
 * - Navigation
 * - Text
 * - Buttons
+* - Products info
 */
 
 /*
@@ -105,9 +106,20 @@ button {
   margin: 10px;
 }
 
+#info-btn {
+  margin-left: 4px;
+}
+
+/*
+* Products info
+*/
+
 #info-container {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
+}
 
+#product-card {
+  max-width: 250px;
 }
