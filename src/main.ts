@@ -163,7 +163,7 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
     console.log(findProd)
     if (findProd && findProd.stock_status === "instock"){
       document.querySelector('#info-container')!.innerHTML = `
-        <div class="col-6 col-md-4 col-lg-6">
+        <div class="col-8 col-md-6">
           <button id="backBtn" class="btn btn-dark btn-small">Tillbaka</button>
           <img class="img-fluid" src="https://www.bortakvall.se/${findProd.images.large}">
           <h2>
@@ -178,7 +178,7 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
       `
     } else {
       document.querySelector('#info-container')!.innerHTML = `
-      <div class="col-6 col-md-4 col-lg-6">
+      <div class="col-6 col-md-4 col-lg-3">
         <button id="backBtn" class="btn btn-dark btn-small">Tillbaka</button>
         <img class="img-fluid" src="https://www.bortakvall.se/${findProd.images.large}">
         <h2>
