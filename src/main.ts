@@ -3,8 +3,13 @@ import {fetchProducts} from './api'
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
 
+/*
+* Get JSON order from localStorage
+*/
+const jsonOrder = localStorage.getItem('order') ?? '[]'
+
 let products: [] = []
-let productsOrder: [] = []
+let productsOrder: [] = JSON.parse(jsonOrder) // Parse JSON order into an array of order information
 let totalPrice: number
 let totalOrder: any [] = []
 let orderResponse: [] = []
@@ -107,7 +112,9 @@ const addToCart = () => {
       }
       console.log('You have added the following product:', productsOrder)
   }
+
   renderToCart()
+
   getTotal()
 })
 }
@@ -251,8 +258,9 @@ document.querySelector('#render-cart')?.addEventListener('click', e =>{
     console.log(findProd)
     findProd.quantity = 0
   }
-renderToCart()
-getTotal()
+  renderToCart()
+
+  getTotal()
 })
 
 /*
@@ -380,7 +388,7 @@ document.getElementById('buyBtn')!.onclick = async () => {
   console.log(orderResponse)
 
   document.querySelector('#info-confirmation')!.innerHTML = `
-  Tack för din order! Din order nummer är: ${orderResponse.data.id}`
+  Tack för din order! Ditt order nummer är: ${orderResponse.data.id}`
 
 }
 
@@ -412,7 +420,25 @@ const renderOrder = () => {
       }
   )
     })
+
+  // Save render of shopping cart to localStorage
+  saveOrder()
+
   console.log(totalOrder)  
+}
+
+/*
+* Save order
+*/
+const saveOrder = () => {
+  // Convert products order to JSON
+  const jsonOrder = JSON.stringify(productsOrder)
+
+  // Save JSON to local storage
+  localStorage.setItem('order', jsonOrder)
+
+  // One liner
+  // localStorage.setItem('order', JSON.stringify(productsOrder))
 }
 
 /*
