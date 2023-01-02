@@ -68,6 +68,11 @@ main {
   width: 25%;
 }
 
+#remove-btn {
+  height: 38px;
+  line-height: 1;
+}
+
 /*
 * Text
 */

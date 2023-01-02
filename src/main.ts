@@ -236,7 +236,7 @@ const renderToCart = () => {
   <button type="button" class="btn btn-light">
   <i class="quantity-plus fa-solid fa-square-plus"></i>
   </button>
-  <button type="button" class ="btn btn-danger btn-sm" data-product-id="${productsOrder.id}">Ta bort</button>
+  <button type="button" class ="btn btn-danger btn-sm" data-product-id="${productsOrder.id}" id="remove-btn">Ta bort</button>
   </div>
   `)
     .join('')
