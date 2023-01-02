@@ -385,12 +385,18 @@ document.getElementById('buyBtn')!.onclick = async () => {
     },
     body: JSON.stringify(orderInfo)
   });
-  console.log("Resultat av POST", res)
+  console.log("Resultat 1 av POST", res)
   orderResponse = await res.json()
   console.log(orderResponse)
 
+  if (orderResponse.data.id === Number) {
   document.querySelector('#info-confirmation')!.innerHTML = `
   Tack för din order! Ditt order nummer är: ${orderResponse.data.id}`
+  } else {
+  alert(`${orderResponse.data.customer_address} ${orderResponse.data.customer_email}
+  ${orderResponse.data.customer_city} ${orderResponse.data.customer_first_name}
+  ${orderResponse.data.customer_last_name} ${orderResponse.data.customer_postcode}`)
+  } 
 }
 
 /*
