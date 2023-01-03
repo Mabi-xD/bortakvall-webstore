@@ -3,13 +3,8 @@ import {fetchProducts} from './api'
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
 
-/*
-* Get JSON order from localStorage
-*/
-const jsonOrder = localStorage.getItem('order') ?? '[]'
-
 let products: [] = []
-let productsOrder: [] = JSON.parse(jsonOrder) // Parse JSON order into an array of order information
+let productsOrder: [] = []
 let totalPrice: number
 let totalOrder: any [] = []
 let orderResponse: [] = []
@@ -22,7 +17,7 @@ const getProducts = async () => {
   console.log(products)
   let prodQuant = products.data.map(prod => (prod.quantity = 0))
   let prod = products.data
-  let instock = prod.filter(stock => stock.stock_status === "instock" )
+  let instock = prod.filter(stock => stock.stock_status === "instock")
   console.log(instock)
   document.querySelector('#number-of-products')!.innerHTML = `
   <div class="justify-content-center">
@@ -33,7 +28,6 @@ const getProducts = async () => {
   ` 
   renderProducts()
 }
-
 
 /*
 ** Function to sort our lists.
@@ -58,7 +52,7 @@ const renderProducts = () => {
   prod.forEach(prod => {
   if(prod.stock_status === "instock"){
     document.querySelector('#product-container')!.innerHTML += `
-    <div id="product-card" class="col-6 col-md-5 col-lg-3 shadow mb-2 m-2 bg-body rounded p-3">
+    <div class="col-6 col-md-5 col-lg-3 shadow mb-2 m-2 bg-body rounded p-3">
        <img class="img-fluid" src="https://www.bortakvall.se/${prod.images.thumbnail}">
        <h2>
        ${prod.name}
@@ -67,14 +61,14 @@ const renderProducts = () => {
        ${prod.price} kr
        </h3>
        <div class="d-flex justify-content-center">
-       <button class="btn btn-success" data-product-id="${prod.id}">Lägg i varukorgen</button>
-       <button class="btn btn-info" data-product-id="${prod.id}" id="info-btn">Info</button>
+       <button class="btn btn-success m-1" data-product-id="${prod.id}">Lägg i varukorgen</button>
+       <button class="btn btn-info m-1" data-product-id="${prod.id}">Info</button>
        </div>
     </div>
    `
   } else {
     document.querySelector('#product-container')!.innerHTML += `
-    <div id="product-card" class="col-6 col-md-5 col-lg-3 shadow mb-2 m-2 bg-body rounded p-3">
+    <div class="col-6 col-md-5 col-lg-3 shadow mb-2 m-2 bg-body rounded p-3">
        <img class="img-fluid" src="https://www.bortakvall.se/${prod.images.thumbnail}">
        <h2>
        ${prod.name}
@@ -83,8 +77,8 @@ const renderProducts = () => {
        ${prod.price} kr
        </h3>
        <div class="d-flex justify-content-center">
-       <button class="btn btn-danger " disabled data-product-id="${prod.id}">Lägg i varukorgen</button>
-       <button class="btn btn-info" data-product-id="${prod.id}" id="info-btn">Info</button>
+       <button class="btn btn-danger m-1" disabled data-product-id="${prod.id}">Lägg i varukorgen</button>
+       <button class="btn btn-info m-1" data-product-id="${prod.id}">Info</button>
        </div>
     </div>`  
 }
@@ -112,9 +106,7 @@ const addToCart = () => {
       }
       console.log('You have added the following product:', productsOrder)
   }
-
   renderToCart()
-
   getTotal()
 })
 }
@@ -163,7 +155,7 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
     console.log(findProd)
     if (findProd && findProd.stock_status === "instock"){
       document.querySelector('#info-container')!.innerHTML = `
-        <div class="col-8 col-md-6">
+        <div class="col-6 col-md-4 col-lg-6">
           <button id="backBtn" class="btn btn-dark btn-small">Tillbaka</button>
           <img class="img-fluid" src="https://www.bortakvall.se/${findProd.images.large}">
           <h2>
@@ -178,7 +170,7 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
       `
     } else {
       document.querySelector('#info-container')!.innerHTML = `
-      <div class="col-8 col-md-6">
+      <div class="col-6 col-md-4 col-lg-6">
         <button id="backBtn" class="btn btn-dark btn-small">Tillbaka</button>
         <img class="img-fluid" src="https://www.bortakvall.se/${findProd.images.large}">
         <h2>
@@ -236,7 +228,7 @@ const renderToCart = () => {
   <button type="button" class="btn btn-light">
   <i class="quantity-plus fa-solid fa-square-plus"></i>
   </button>
-  <button type="button" class ="btn btn-danger btn-sm" data-product-id="${productsOrder.id}" id="remove-btn">Ta bort</button>
+  <button type="button" class ="btn btn-danger btn-sm" data-product-id="${productsOrder.id}">Ta bort</button>
   </div>
   `)
     .join('')
@@ -258,9 +250,8 @@ document.querySelector('#render-cart')?.addEventListener('click', e =>{
     console.log(findProd)
     findProd.quantity = 0
   }
-  renderToCart()
-
-  getTotal()
+renderToCart()
+getTotal()
 })
 
 /*
@@ -289,7 +280,6 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   e.preventDefault()
   document.querySelector('#number-of-products')?.classList.add('hide')
   document.querySelector('#checkout-container')?.classList.remove('hide')
-  document.querySelector('#buyBtn')?.classList.remove('hide')
 
   renderSum()
   renderOrder()
@@ -318,7 +308,6 @@ document.querySelector('#checkout-container')?.addEventListener('click', e => {
     document.querySelector('#checkout-container')?.classList.add('hide')
     document.querySelector('#product-container')?.classList.remove('hide')
     document.querySelector('#cart')?.classList.remove('hide')
-    document.querySelector('#buyBtn')?.classList.remove('hide')
   }
 })
 
@@ -390,7 +379,8 @@ document.getElementById('buyBtn')!.onclick = async () => {
   console.log(orderResponse)
 
   document.querySelector('#info-confirmation')!.innerHTML = `
-  Tack för din order! Ditt order nummer är: ${orderResponse.data.id}`
+  Tack för din order! Ditt ordernummer är: ${orderResponse.data.id}`
+
 }
 
 /*
@@ -411,6 +401,7 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
 */
 const renderOrder = () => {
   console.log(productsOrder)
+  totalOrder = []
   productsOrder.forEach(prod => {
   totalOrder.push(
       {
@@ -421,25 +412,7 @@ const renderOrder = () => {
       }
   )
     })
-
-  // Save render of shopping cart to localStorage
-  saveOrder()
-
   console.log(totalOrder)  
-}
-
-/*
-* Save order
-*/
-const saveOrder = () => {
-  // Convert products order to JSON
-  const jsonOrder = JSON.stringify(productsOrder)
-
-  // Save JSON to local storage
-  localStorage.setItem('order', jsonOrder)
-
-  // One liner
-  // localStorage.setItem('order', JSON.stringify(productsOrder))
 }
 
 /*
