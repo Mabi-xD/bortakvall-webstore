@@ -62,8 +62,8 @@ const renderProducts = () => {
        ${prod.price} kr
        </h3>
        <div class="d-flex justify-content-center">
-       <button class="btn btn-success" data-product-id="${prod.id}">Lägg i varukorgen</button>
-       <button class="btn btn-info" data-product-id="${prod.id}" id="info-btn">ⓘ</button>
+       <button id="addToCartBtn" class="btn" data-product-id="${prod.id}">Lägg i varukorgen</button>
+       <button class="btn" data-product-id="${prod.id}" id="info-btn">ⓘ</button>
        </div>
     </div>
    `
@@ -79,7 +79,7 @@ const renderProducts = () => {
        </h3>
        <div class="d-flex justify-content-center">
        <button class="btn btn-danger" disabled data-product-id="${prod.id}">Lägg i varukorgen</button>
-       <button class="btn btn-info" data-product-id="${prod.id}" id="info-btn">ⓘ</button>
+       <button class="btn" data-product-id="${prod.id}" id="info-btn">ⓘ</button>
        </div>
     </div>`  
 }
@@ -174,7 +174,7 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
           ${findProd.price}kr
           </h3>
           ${findProd.description}
-          <button class="btn btn-success" data-product-id="${findProd.id}">Lägg i varukorgen</button>
+          <button id="addToCartBtn" class="btn" data-product-id="${findProd.id}">Lägg i varukorgen</button>
         </div>
       `
     } else {
@@ -289,7 +289,6 @@ const getTotal = () => {
 document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   e.preventDefault()
   document.querySelector('#info-confirmation')?.classList.add('hide')
-  document.querySelector('#number-of-products')?.classList.add('hide')
   document.querySelector('#checkout-container')?.classList.remove('hide')
   document.querySelector('#buyBtn')?.classList.remove('hide')
   
