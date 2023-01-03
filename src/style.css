@@ -22,10 +22,6 @@ body {
   display: none;
 }
 
-header {
-  position: relative;
-
-}
 
 main {
   padding-top: 100px;
@@ -39,6 +35,7 @@ main {
   width: 100%;
   padding: 20px 0px;
   position: fixed;
+  z-index: 999;
 }
 
 .fa-cart-shopping {
