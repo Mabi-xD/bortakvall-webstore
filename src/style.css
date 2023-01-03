@@ -15,7 +15,8 @@ body {
   height: 100vh;
   padding-right: 0;
   margin: 0;
-  background-image: url(images/background.jpg);
+  /* background-image: url(images/background.jpg); */
+  background-color: #e5bccb;
   font-family: 'Source Sans Pro', sans-serif;
 }
 
@@ -37,6 +38,7 @@ main {
   padding: 20px 0px;
   position: fixed;
   z-index: 999;
+  background-color: #4879a7;
 }
 
 .fa-cart-shopping {
@@ -107,6 +109,11 @@ button {
   padding: 5px;
   font-weight: 400;
   font-size: 24px;
+  background-color: #92b9c8;
+}
+
+#addToCartBtn {
+  background-color: #b9d7c8
 }
 
 #remove-btn {
