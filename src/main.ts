@@ -63,7 +63,7 @@ const renderProducts = () => {
        </h3>
        <div class="d-flex justify-content-center">
        <button class="btn btn-success m-1" data-product-id="${prod.id}">Lägg i varukorgen</button>
-       <button class="btn btn-info m-1" data-product-id="${prod.id}">Info</button>
+       <button class="btn btn-info m-1" data-product-id="${prod.id}">ⓘ</button>
        </div>
     </div>
    `
@@ -79,7 +79,7 @@ const renderProducts = () => {
        </h3>
        <div class="d-flex justify-content-center">
        <button class="btn btn-danger m-1" disabled data-product-id="${prod.id}">Lägg i varukorgen</button>
-       <button class="btn btn-info m-1" data-product-id="${prod.id}">Info</button>
+       <button class="btn btn-info m-1" data-product-id="${prod.id}">ⓘ</button>
        </div>
     </div>`  
 }
@@ -152,7 +152,7 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
 
   const target = e.target as HTMLElement
   
-  if(target.textContent === "Info"){
+  if(target.textContent === "ⓘ"){
     console.log(target.id)
     document.querySelector('#product-container')!.classList.add('hide')
     document.querySelector('#info-container')?.classList.remove('hide')
@@ -165,7 +165,7 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
     if (findProd && findProd.stock_status === "instock"){
       document.querySelector('#info-container')!.innerHTML = `
         <div class="col-6 col-md-4 col-lg-6">
-          <button id="backBtn" class="btn btn-dark btn-small">Tillbaka</button>
+          <button id="backBtn" class="btn btn-dark btn-small"><i class="fa-solid fa-arrow-left"></i></button>
           <img class="img-fluid" src="https://www.bortakvall.se/${findProd.images.large}">
           <h2>
           ${findProd.name}
@@ -180,7 +180,7 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
     } else {
       document.querySelector('#info-container')!.innerHTML = `
       <div class="col-6 col-md-4 col-lg-6">
-        <button id="backBtn" class="btn btn-dark btn-small">Tillbaka</button>
+        <button id="backBtn" class="btn btn-dark btn-small"><i class="fa-solid fa-arrow-left"></i></button>
         <img class="img-fluid" src="https://www.bortakvall.se/${findProd.images.large}">
         <h2>
         ${findProd.name}
@@ -204,7 +204,9 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 
   const target = e.target as HTMLElement
 
-  if(target.textContent === "Tillbaka"){
+  console.log(target)
+
+  if(target.id === "backBtn" || target.tagName === "I"){
   document.querySelector('#info-container')?.classList.add('hide')
   document.querySelector('#product-container')?.classList.remove('hide')
   }
@@ -307,20 +309,6 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   </strong> 
   `
 })
-
-/*
-** Go back from order-form
-*/
-// document.querySelector('#checkout-container')?.addEventListener('click', e => {
-//   e.preventDefault()
-//   const target = e.target as HTMLElement
-//   if(target.textContent === "Tillbaka"){
-//     document.querySelector('#checkout-container')?.classList.add('hide')
-//     document.querySelector('#product-container')?.classList.remove('hide')
-//     document.querySelector('#cart')?.classList.remove('hide')
-//     document.querySelector('#buyBtn')?.classList.remove('hide')
-//   }
-// })
 
 /*
 ** Render product sum
