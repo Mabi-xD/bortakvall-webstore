@@ -8,6 +8,7 @@ let productsOrder: [] = []
 let totalPrice: number
 let totalOrder: any [] = []
 let orderResponse: [] = []
+let filterOrder: any
 
 /*
 * GET all products from API
@@ -112,6 +113,14 @@ const addToCart = () => {
 }
 
 /*
+* Filter product quantity
+*/
+
+const filterProducts = () => {
+  filterOrder = productsOrder.filter(prods => prods.quantity !== 0)
+}
+
+/*
 **  Eventlistener to add product into cart from Info div.
 */
 document.querySelector('#info-container')!.addEventListener('click', e => {
@@ -206,8 +215,7 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
 */
 const renderToCart = () => {
   productsOrder.sort( sortProds )
-  let filterOrder = productsOrder.filter(prods => prods.quantity !== 0)
-  console.log(filterOrder)
+  filterProducts()
   document.querySelector('#render-cart')!.innerHTML = filterOrder
     .map(productsOrder => ` 
   <div class="product-list">
@@ -315,7 +323,7 @@ document.querySelector('#checkout-container')?.addEventListener('click', e => {
 ** Render product sum
 */
 const renderSum = () => {
-  let filterOrder = productsOrder.filter(prods => prods.quantity !== 0)
+  filterProducts()
   document.querySelector('#order-total')!.innerHTML = filterOrder
     .map(productsOrder => ` 
   <p><strong>
@@ -400,7 +408,7 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
 ** Render productOrder so we can send it to the API
 */
 const renderOrder = () => {
-  let filterOrder = productsOrder.filter(prods => prods.quantity !== 0)
+  filterProducts()
   totalOrder = []
   filterOrder.forEach(prod => {
   totalOrder.push(
