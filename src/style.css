@@ -67,10 +67,6 @@ main {
   width: 25%;
 }
 
-#remove-btn {
-  height: 38px;
-  line-height: 1;
-}
 
 /*
 * Text
@@ -107,6 +103,11 @@ button {
   margin-left: 4px;
 }
 
+#remove-btn {
+  height: 38px;
+  line-height: 1;
+}
+
 /*
 * Products info
 */
@@ -115,8 +116,14 @@ button {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
+
+}
+
+#info-product {
+  max-width: 80%;
 }
 
 #product-card {
   max-width: 250px;
+  min-width: 250px;
 }
