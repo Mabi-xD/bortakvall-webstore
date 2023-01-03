@@ -3,8 +3,13 @@ import {createOrder, fetchProducts} from './api'
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
 
+/*
+* Get JSON order from localStorage
+*/
+const jsonOrder = localStorage.getItem('order') ?? '[]'
+
 let products: [] = []
-let productsOrder: [] = []
+let productsOrder: [] = JSON.parse(jsonOrder) // Parse JSON order into an array of order information
 let totalPrice: number
 let totalOrder: any [] = []
 let orderResponse: [] = []
@@ -242,6 +247,9 @@ const renderToCart = () => {
   </div>
   `)
     .join('')
+
+  // Save previous cart
+  saveOrder()
 }
 
 /*
@@ -385,6 +393,9 @@ document.getElementById('buyBtn')!.onclick = async () => {
   } else if (orderResponse.data.customer_email !== undefined) {
     alert(`${orderResponse.data.customer_email}`)
   }
+
+    // Save previous order
+    saveOrder()
 }
 
 /*
@@ -420,6 +431,20 @@ const renderOrder = () => {
 }
 
 /*
+* Save order
+*/
+const saveOrder = () => {
+  // Convert products order to JSON
+  const jsonOrder = JSON.stringify(productsOrder)
+
+  // Save JSON to local storage
+  localStorage.setItem('order', jsonOrder)
+
+  // One liner
+  // localStorage.setItem('order', JSON.stringify(productsOrder))
+}
+
+/*
 * GET products when entering the website
 */
 getProducts()
@@ -428,3 +453,8 @@ getProducts()
 * ADD product to shopping cart
 */
 addToCart()
+
+/*
+* RENDER product to shopping cart
+*/
+renderToCart()
