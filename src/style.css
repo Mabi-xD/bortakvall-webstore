@@ -16,6 +16,7 @@ body {
   padding-right: 0;
   margin: 0;
   background-image: url(images/background.jpg);
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .hide {
@@ -73,12 +74,14 @@ main {
 */
 
 h2 {
-  font-size: 1.2rem;
+  font-size: 16px;
+  font-weight: bolder;
+  color: ;
   text-align: center;
 }
 
 h3 {
-  font-size: 1rem;
+  font-size: 16px;
   text-align: center;
 }
 
@@ -101,6 +104,9 @@ button {
 
 #info-btn {
   margin-left: 4px;
+  padding: 5px;
+  font-weight: 400;
+  font-size: 24px;
 }
 
 #remove-btn {
