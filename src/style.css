@@ -4,6 +4,7 @@
 * - Navigation
 * - Text
 * - Buttons
+* - Products info
 */
 
 /*
@@ -14,10 +15,18 @@ body {
   height: 100vh;
   padding-right: 0;
   margin: 0;
+  /* background-image: url(images/background.jpg); */
+  background-color: #e5bccb;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .hide {
   display: none;
+}
+
+
+main {
+  padding-top: 100px;
 }
 
 /*
@@ -25,7 +34,11 @@ body {
 */
 
 .navbar {
+  width: 100%;
   padding: 20px 0px;
+  position: fixed;
+  z-index: 999;
+  background-color: #4879a7;
 }
 
 .fa-cart-shopping {
@@ -57,17 +70,20 @@ body {
   width: 25%;
 }
 
+
 /*
 * Text
 */
 
 h2 {
-  font-size: 1.2rem;
+  font-size: 16px;
+  font-weight: bolder;
+  color: ;
   text-align: center;
 }
 
 h3 {
-  font-size: 1rem;
+  font-size: 16px;
   text-align: center;
 }
 
@@ -86,4 +102,41 @@ button {
 
 #checkout-btn {
   margin: 10px;
+}
+
+#info-btn {
+  margin-left: 4px;
+  padding: 5px;
+  font-weight: 400;
+  font-size: 24px;
+  background-color: #92b9c8;
+}
+
+#addToCartBtn {
+  background-color: #b9d7c8
+}
+
+#remove-btn {
+  height: 38px;
+  line-height: 1;
+}
+
+/*
+* Products info
+*/
+
+#info-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+
+}
+
+#info-product {
+  max-width: 80%;
+}
+
+#product-card {
+  max-width: 250px;
+  min-width: 250px;
 }
