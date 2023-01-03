@@ -386,9 +386,22 @@ document.getElementById('buyBtn')!.onclick = async () => {
   orderResponse = await res.json()
   console.log(orderResponse)
 
+  if (orderResponse.data.id !== undefined) {
   document.querySelector('#info-confirmation')!.innerHTML = `
   Tack för din order! Ditt ordernummer är: ${orderResponse.data.id}`
-
+  } else if (orderResponse.data.customer_first_name !== undefined) {
+    alert(`${orderResponse.data.customer_first_name}`)
+  } else if (orderResponse.data.customer_last_name !== undefined) {
+    alert(`${orderResponse.data.customer_last_name}`) 
+  } else if (orderResponse.data.customer_address !== undefined) {
+    alert(`${orderResponse.data.customer_address}`)
+  } else if (orderResponse.data.customer_city !== undefined) {
+    alert(`${orderResponse.data.customer_city}`)
+  } else if (orderResponse.data.customer_postcode !== undefined) {
+    alert(`${orderResponse.data.customer_postcode}`)
+  } else if (orderResponse.data.customer_email !== undefined) {
+    alert(`${orderResponse.data.customer_email}`)
+  }
 }
 
 /*
