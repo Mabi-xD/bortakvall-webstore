@@ -286,6 +286,7 @@ const getTotal = () => {
 */
 document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   e.preventDefault()
+  document.querySelector('#info-confirmation')?.classList.add('hide')
   document.querySelector('#number-of-products')?.classList.add('hide')
   document.querySelector('#checkout-container')?.classList.remove('hide')
   document.querySelector('#buyBtn')?.classList.remove('hide')
@@ -310,16 +311,16 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
 /*
 ** Go back from order-form
 */
-document.querySelector('#checkout-container')?.addEventListener('click', e => {
-  e.preventDefault()
-  const target = e.target as HTMLElement
-  if(target.textContent === "Tillbaka"){
-    document.querySelector('#checkout-container')?.classList.add('hide')
-    document.querySelector('#product-container')?.classList.remove('hide')
-    document.querySelector('#cart')?.classList.remove('hide')
-    document.querySelector('#buyBtn')?.classList.remove('hide')
-  }
-})
+// document.querySelector('#checkout-container')?.addEventListener('click', e => {
+//   e.preventDefault()
+//   const target = e.target as HTMLElement
+//   if(target.textContent === "Tillbaka"){
+//     document.querySelector('#checkout-container')?.classList.add('hide')
+//     document.querySelector('#product-container')?.classList.remove('hide')
+//     document.querySelector('#cart')?.classList.remove('hide')
+//     document.querySelector('#buyBtn')?.classList.remove('hide')
+//   }
+// })
 
 /*
 ** Render product sum
@@ -346,6 +347,7 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
   const target = e.target as HTMLElement
   if(target.tagName === "BUTTON"){
     document.querySelector('#checkout-container')?.classList.add('hide')
+    document.querySelector('#info-confirmation')?.classList.remove('hide')
     document.querySelector('#confirmation-container')?.classList.remove('hide')
     document.querySelector('#buyBtn')?.classList.add('hide')
   }
