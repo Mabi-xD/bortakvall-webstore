@@ -1,4 +1,4 @@
-import {fetchProducts} from './api'
+import {createOrder, fetchProducts} from './api'
 // import {IProduct} from './interfaces'
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
@@ -378,16 +378,8 @@ document.getElementById('buyBtn')!.onclick = async () => {
     order_total: totalPrice,
     order_items: totalOrder
   }
-
-  const res = await fetch('https://www.bortakvall.se/api/orders', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(orderInfo)
-  });
-  console.log("Resultat av POST", res)
-  orderResponse = await res.json()
+  
+  orderResponse = await createOrder(orderInfo)
   console.log(orderResponse)
 
   if (orderResponse.data.id !== undefined) {
