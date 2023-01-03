@@ -400,9 +400,9 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
 ** Render productOrder so we can send it to the API
 */
 const renderOrder = () => {
-  console.log(productsOrder)
+  let filterOrder = productsOrder.filter(prods => prods.quantity !== 0)
   totalOrder = []
-  productsOrder.forEach(prod => {
+  filterOrder.forEach(prod => {
   totalOrder.push(
       {
         product_id: prod.id,
