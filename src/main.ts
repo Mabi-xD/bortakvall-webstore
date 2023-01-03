@@ -286,9 +286,11 @@ const getTotal = () => {
 */
 document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   e.preventDefault()
+  document.querySelector('#info-confirmation')?.classList.add('hide')
   document.querySelector('#number-of-products')?.classList.add('hide')
   document.querySelector('#checkout-container')?.classList.remove('hide')
-
+  document.querySelector('#buyBtn')?.classList.remove('hide')
+  
   renderSum()
   renderOrder()
   
@@ -309,15 +311,16 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
 /*
 ** Go back from order-form
 */
-document.querySelector('#checkout-container')?.addEventListener('click', e => {
-  e.preventDefault()
-  const target = e.target as HTMLElement
-  if(target.textContent === "Tillbaka"){
-    document.querySelector('#checkout-container')?.classList.add('hide')
-    document.querySelector('#product-container')?.classList.remove('hide')
-    document.querySelector('#cart')?.classList.remove('hide')
-  }
-})
+// document.querySelector('#checkout-container')?.addEventListener('click', e => {
+//   e.preventDefault()
+//   const target = e.target as HTMLElement
+//   if(target.textContent === "Tillbaka"){
+//     document.querySelector('#checkout-container')?.classList.add('hide')
+//     document.querySelector('#product-container')?.classList.remove('hide')
+//     document.querySelector('#cart')?.classList.remove('hide')
+//     document.querySelector('#buyBtn')?.classList.remove('hide')
+//   }
+// })
 
 /*
 ** Render product sum
@@ -344,6 +347,7 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
   const target = e.target as HTMLElement
   if(target.tagName === "BUTTON"){
     document.querySelector('#checkout-container')?.classList.add('hide')
+    document.querySelector('#info-confirmation')?.classList.remove('hide')
     document.querySelector('#confirmation-container')?.classList.remove('hide')
     document.querySelector('#buyBtn')?.classList.add('hide')
   }
@@ -386,9 +390,22 @@ document.getElementById('buyBtn')!.onclick = async () => {
   orderResponse = await res.json()
   console.log(orderResponse)
 
+  if (orderResponse.data.id !== undefined) {
   document.querySelector('#info-confirmation')!.innerHTML = `
   Tack för din order! Ditt ordernummer är: ${orderResponse.data.id}`
-
+  } else if (orderResponse.data.customer_first_name !== undefined) {
+    alert(`${orderResponse.data.customer_first_name}`)
+  } else if (orderResponse.data.customer_last_name !== undefined) {
+    alert(`${orderResponse.data.customer_last_name}`) 
+  } else if (orderResponse.data.customer_address !== undefined) {
+    alert(`${orderResponse.data.customer_address}`)
+  } else if (orderResponse.data.customer_city !== undefined) {
+    alert(`${orderResponse.data.customer_city}`)
+  } else if (orderResponse.data.customer_postcode !== undefined) {
+    alert(`${orderResponse.data.customer_postcode}`)
+  } else if (orderResponse.data.customer_email !== undefined) {
+    alert(`${orderResponse.data.customer_email}`)
+  }
 }
 
 /*
