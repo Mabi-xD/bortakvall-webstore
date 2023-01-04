@@ -118,21 +118,6 @@ const filterProducts = () => {
 document.querySelector('#info-container')!.addEventListener('click', e => {
   e.preventDefault()
   const target = e.target as HTMLElement
-    if(target.textContent === "Lägg i varukorgen") {
-      const targetNr = Number(target.dataset.productId)
-      const prod = products.data
-      const findProd = prod.find(product => product.id === targetNr)
-      const search = productsOrder.find(prod => prod.id === findProd.id)
-      
-      if(search === undefined){
-        productsOrder.push(findProd)
-        findProd.quantity = 1
-      } else {
-        search.quantity += 1
-      }
-      renderToCart()
-      getTotal()
-  }
   if(target.textContent === "Lägg i varukorgen") {
     const targetNr = Number(target.dataset.productId)
     const prod = products.data
@@ -250,14 +235,6 @@ const renderToCart = () => {
 document.querySelector('#render-cart')?.addEventListener('click', e =>{
   e.preventDefault()
   const target = e.target as HTMLElement
-    if(target.textContent === "Ta bort") {
-      const targetNr = Number(target.dataset.productId)
-      const order = productsOrder
-      const findProd = order.find(product => product.id === targetNr)
-      findProd.quantity = 0
-    }
-  renderToCart()
-  getTotal()
   const targetNr = Number(target.dataset.productId)
   console.log(targetNr)
   const order = productsOrder
