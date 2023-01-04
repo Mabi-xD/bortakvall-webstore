@@ -27,12 +27,13 @@
 </head>
 
 <body>
+  <!-- Link on logo to website top -->
   <a id="top"></a>
+  <!-- Header -->
   <header>
     <!-- Navbar -->
     <nav id="navbar-container" class="navbar">
       <a href="#top"><img class="logo" src="images/bortakvall-logo.png" alt="bortakvall-logotyp"></a>
-
       <!-- Shopping cart -->
       <div id="cart" class="cart-container">
         <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
@@ -44,20 +45,17 @@
           </div>
           <div id="render-cart" class="offcanvas-body">
           </div>
-          <p id="total-sum" class="offcanvas-body"></p>
-
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-            id="checkout-btn">
-            Gå till kassan
-          </button>
+            <p id="total-sum" class="offcanvas-body"></p>
+            <!-- Go to cart button -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="checkout-btn">
+              Gå till kassan
+            </button>
         </div>
       </div>
-
     </nav>
   </header>
 
-  <!-- Modal -->
+  <!-- Pop up containers -->
   <div id="modal-container">
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
       aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -68,20 +66,18 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-
             <!-- Order confirmation -->
             <div id="confirmation-container" class="justify-content-center hide m-4">
               <div id="info-confirmation" class="col-10 p-4">
               </div>
             </div>
-
             <!-- Order form - checkout -->
             <div id="checkout-container" class="justify-content-center hide m-4">
               <div id="order-total" class="col-10 p-4">
-
+            <!-- Order form - sum -->
               </div>
               <div id="order-sum" class="col-10 p-4">
-
+            <!-- Order form - input fields -->
               </div>
               <div id="order-form" class="col-10 p-4">
                 <form class="row g-3">
@@ -116,7 +112,6 @@
                 </form>
               </div>
             </div>
-
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn" id="buyBtn">Köp</button>
@@ -126,21 +121,20 @@
     </div>
   </div>
 
-  <!-- Product container -->
+  <!-- Main -->
   <main class="container">
-
+    <!-- Number of all products -->
     <div id="number-of-products"></div>
-
+    <!-- Product container -->
     <div id="product-container" class="row justify-content-center"></div>
-
     <!-- Info container -->
     <div id="info-container" class="row justify-content-center hide"></div>
-
   </main>
 
+  <!-- Footer -->
   <footer id="footer-container"></footer>
 
+  <!-- Script -->
   <script type="module" src="/src/main.ts"></script>
 </body>
-
 </html>
