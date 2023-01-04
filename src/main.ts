@@ -17,9 +17,7 @@ let filterOrder: any
 // GET all products from API
 const getProducts = async () => {
   products = await fetchProducts()
-  let prodQuant = products.data.map((prod: { quantity: number }) => (prod.quantity = 0))
-  console.log(prodQuant)
-  let prod = products.data
+  let prod = products.data.map((prod: { quantity: number }) => (prod.quantity = 0))
   let instock = prod.filter((stock: { stock_status: string }) => stock.stock_status === "instock")
   document.querySelector('#number-of-products')!.innerHTML = `
   <div class="justify-content-center">
@@ -91,8 +89,7 @@ const addToCart = () => {
     const target = e.target as HTMLElement
     if(target.textContent === "Lägg i varukorgen") {
       const targetNr = Number(target.dataset.productId)
-      const prod = products.data
-      const findProd = prod.find((product: { id: number }) => product.id === targetNr)
+      const findProd = products.data.find((product: { id: number }) => product.id === targetNr)
       const search = productsOrder.find((prod: { id: any }) => prod.id === findProd.id)
       if(search === undefined){
         productsOrder.push(findProd)
@@ -118,8 +115,7 @@ document.querySelector('#info-container')!.addEventListener('click', e => {
   const target = e.target as HTMLElement
   if(target.textContent === "Lägg i varukorgen") {
     const targetNr = Number(target.dataset.productId)
-    const prod = products.data
-    const findProd = prod.find((product: { id: number }) => product.id === targetNr)
+    const findProd = products.data.find((product: { id: number }) => product.id === targetNr)
     const search = productsOrder.find((prod: { id: any }) => prod.id === findProd.id)
     
     if(search === undefined){
@@ -143,8 +139,7 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
     document.querySelector('#product-container')!.classList.add('hide')
     document.querySelector('#info-container')?.classList.remove('hide')
     const targetNr = Number(target.dataset.productId)
-    const prod = products.data
-    const findProd = prod.find((product: { id: number }) => product.id === targetNr)
+    const findProd = products.data.find((product: { id: number }) => product.id === targetNr)
     if (findProd && findProd.stock_status === "instock"){
       document.querySelector('#info-container')!.innerHTML = `
         <div id="info-product" class="col-6 col-md-6 col-lg-6">
@@ -228,8 +223,7 @@ document.querySelector('#render-cart')?.addEventListener('click', e =>{
   e.preventDefault()
   const target = e.target as HTMLElement
   const targetNr = Number(target.dataset.productId)
-  const order = productsOrder
-  const findProd = order.find((product: { id: number }) => product.id === targetNr)
+  const findProd = productsOrder.find((product: { id: number }) => product.id === targetNr)
   if(target.textContent === "Ta bort") {
     findProd.quantity = 0
   } else if (target.textContent === "\n  -\n  " ) {
