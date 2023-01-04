@@ -60,7 +60,7 @@ const renderProducts = () => {
        </h3>
        <div class="d-flex justify-content-center">
        <button id="addToCartBtn" class="btn" data-product-id="${prod.id}">Lägg i varukorgen</button>
-       <button class="btn" data-product-id="${prod.id}" id="info-btn">ⓘ</button>
+       <button class="btn" data-product-id="${prod.id}" id="info-btn">Info</button>
        </div>
        <p id="instock">${prod.stock_quantity} produkter i lager</p>
     </div>
@@ -77,7 +77,7 @@ const renderProducts = () => {
        </h3>
        <div class="d-flex justify-content-center">
        <button id="outOfStockBtn" class="btn" disabled data-product-id="${prod.id}">Lägg i varukorgen</button>
-       <button class="btn" data-product-id="${prod.id}" id="info-btn">ⓘ</button>
+       <button class="btn" data-product-id="${prod.id}" id="info-btn">Info</button>
        </div>
     </div>`  
     
@@ -142,7 +142,7 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
 
   const target = e.target as HTMLElement
   
-  if(target.textContent === "ⓘ"){
+  if(target.textContent === "Info"){
     console.log(target.id)
     document.querySelector('#product-container')!.classList.add('hide')
     document.querySelector('#info-container')?.classList.remove('hide')
