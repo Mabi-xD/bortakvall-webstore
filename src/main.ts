@@ -371,7 +371,12 @@ document.getElementById('buyBtn')!.onclick = async () => {
 
   if (orderResponse.data.id !== undefined) {
   document.querySelector('#info-confirmation')!.innerHTML = `
-  Tack för din order! Ditt ordernummer är: ${orderResponse.data.id}`
+  <img src="images/202-accepted-order.png" id="acceptedOrderImg" class="image image-fluid" alt="A 202 accepted cat">
+  <br>
+  <h3>
+  Tack för din order! Ditt ordernummer är: ${orderResponse.data.id}.
+  </h3>
+  `
   } else if (orderResponse.data.customer_first_name !== undefined) {
     alert(`${orderResponse.data.customer_first_name}`)
   } else if (orderResponse.data.customer_last_name !== undefined) {

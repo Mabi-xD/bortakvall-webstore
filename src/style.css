@@ -5,6 +5,7 @@
 * - Text
 * - Buttons
 * - Products info
+* - Order confirmation
 */
 
 /*
@@ -139,4 +140,17 @@ button {
 #product-card {
   max-width: 250px;
   min-width: 250px;
+}
+
+/*
+* Order confirmation
+*/
+
+#confirmation-container {
+  display: flex;
+}
+
+#info-confirmation {
+  display: flex;
+  flex-direction: column;
 }
