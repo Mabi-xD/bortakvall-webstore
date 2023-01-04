@@ -22,8 +22,8 @@ const getProducts = async () => {
   console.log(instock)
   document.querySelector('#number-of-products')!.innerHTML = `
   <div class="justify-content-center">
-    <p>Antal produkter:
-    ${products.data.length} och ${instock.length} finns i lager.
+    <p>
+    ${instock.length} av ${products.data.length} produkter finns i lager
     </p>
   </div>
   ` 
@@ -59,12 +59,13 @@ const renderProducts = () => {
        ${prod.name}
        <h2>
        <h3>
-       ${prod.price} kr
+       ${prod.price} kr 
        </h3>
        <div class="d-flex justify-content-center">
        <button id="addToCartBtn" class="btn" data-product-id="${prod.id}">Lägg i varukorgen</button>
        <button class="btn" data-product-id="${prod.id}" id="info-btn">ⓘ</button>
        </div>
+       <p id="instock">${prod.stock_quantity} produkter i lager</p>
     </div>
    `
   } else {
@@ -82,6 +83,7 @@ const renderProducts = () => {
        <button class="btn" data-product-id="${prod.id}" id="info-btn">ⓘ</button>
        </div>
     </div>`  
+    
 }
 })}
 
