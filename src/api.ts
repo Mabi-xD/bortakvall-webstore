@@ -1,13 +1,8 @@
 /*
-* API FUNCTIONS FOR EXPORTING
+* API async functions for exporting
 */
 
-// import { IProduct } from "./interfaces"
-
-/*
-* FETCH all products from Bortakvall API
-*/
-
+// FETCH all products from Bortakvall API
 export const fetchProducts = async () => {
     const res = await fetch ('https://www.bortakvall.se/api/products')
     if (!res.ok) {
@@ -16,6 +11,7 @@ export const fetchProducts = async () => {
     return await res.json()
 } 
 
+// POST order to API
 export const createOrder = async (orderInfo: []) => {
     const res = await fetch('https://www.bortakvall.se/api/orders', {
         method: 'POST',

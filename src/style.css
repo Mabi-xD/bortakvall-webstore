@@ -5,6 +5,7 @@
 * - Text
 * - Buttons
 * - Products info
+* - Order confirmation
 */
 
 /*
@@ -16,8 +17,8 @@ body {
   padding-right: 0;
   margin: 0;
   /* background-image: url(images/background.jpg); */
-  background-color: #e5bccb;
-  font-family: 'Source Sans Pro', sans-serif;
+  background-color: #ccc5b9;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 .hide {
@@ -26,7 +27,7 @@ body {
 
 
 main {
-  padding-top: 100px;
+  padding-top: 80px;
 }
 
 /*
@@ -38,11 +39,11 @@ main {
   padding: 20px 0px;
   position: fixed;
   z-index: 999;
-  background-color: #4879a7;
+  background-color: #252422;
 }
 
 .fa-cart-shopping {
-  color: white;
+  color: #fffcf2;
   font-size: 1.5rem;
   margin-right: 10px;
 }
@@ -78,8 +79,8 @@ main {
 h2 {
   font-size: 16px;
   font-weight: bolder;
-  color: ;
   text-align: center;
+  height: 15px;
 }
 
 h3 {
@@ -88,8 +89,14 @@ h3 {
 }
 
 #number-of-products {
-  padding-top: 10px;
   text-align: center;
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+#instock {
+  text-align: center;
+  font-size: 12px;
 }
 
 /*
@@ -100,7 +107,16 @@ button {
   margin-bottom: 10px;
 }
 
+#buyBtn {
+  background-color: #eb5e28;
+}
+
+#backBtn {
+  background-color: #252422;
+}
+
 #checkout-btn {
+  background-color: #E04E15;
   margin: 10px;
 }
 
@@ -109,16 +125,24 @@ button {
   padding: 5px;
   font-weight: 400;
   font-size: 24px;
-  background-color: #92b9c8;
+  background-color: #EC6632;
+  color: white;
 }
 
 #addToCartBtn {
-  background-color: #b9d7c8
+  background-color: #EC6632;
+  color: white;
+}
+
+#outOfStockBtn {
+  background-color: #EF8257;
+  color: white;
 }
 
 #remove-btn {
   height: 38px;
   line-height: 1;
+  background-color: #252422;
 }
 
 /*
@@ -126,7 +150,7 @@ button {
 */
 
 #info-container {
-  background-color: white;
+  background-color: #fffcf2;
   padding: 20px;
   border-radius: 10px;
 
@@ -139,4 +163,26 @@ button {
 #product-card {
   max-width: 250px;
   min-width: 250px;
+}
+
+/*
+* Order confirmation
+*/
+
+#confirmation-container {
+  display: flex;
+  flex-direction: row;
+}
+
+/* #info-confirmation {
+
+} */
+
+#acceptedOrderImg {
+  max-width: 100%;
+}
+
+h4 {
+  font-size: 24px;
+  text-align: center;
 }
