@@ -332,8 +332,6 @@ document.getElementById('buyBtn')!.onclick = async () => {
 
   if (orderResponse.data.id !== undefined) {
   document.querySelector('#info-confirmation')!.innerHTML = `
-  <br>
-  <br>
   <h4>
   Tack för din order!
   <br>
