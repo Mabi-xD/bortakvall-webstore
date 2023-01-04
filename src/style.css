@@ -17,7 +17,7 @@ body {
   padding-right: 0;
   margin: 0;
   /* background-image: url(images/background.jpg); */
-  background-color: #E0DFD5;
+  background-color: #F8BDAE;
   font-family: 'Roboto Condensed', sans-serif;
 }
 
@@ -109,6 +109,8 @@ button {
 
 #buyBtn {
   background-color: #F06543;
+  border: 0px;
+  color: white;
 }
 
 #backBtn {
@@ -118,6 +120,7 @@ button {
 #checkout-btn {
   background-color: #F06543;
   margin: 10px;
+  border: 0;
 }
 
 #info-btn {
