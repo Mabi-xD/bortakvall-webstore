@@ -161,7 +161,7 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
           ${findProd.name}
           <h2>
           <h3>
-          ${findProd.price}kr
+          ${findProd.price} kr
           </h3>
           ${findProd.description}
           <button id="addToCartBtn" class="btn" data-product-id="${findProd.id}">Lägg i varukorgen</button>
@@ -176,7 +176,7 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
         ${findProd.name}
         <h2>
         <h3>
-        ${findProd.price}kr
+        ${findProd.price} kr
         </h3>
         ${findProd.description}
         <button id="outOfStockBtn" class="btn" disabled data-product-id="${findProd.id}">Lägg i varukorgen</button>
@@ -353,7 +353,9 @@ document.getElementById('buyBtn')!.onclick = async () => {
   <br>
   <br>
   <h4>
-  Tack för din order! Ditt ordernummer är: ${orderResponse.data.id}
+  Tack för din order!
+  <br>
+  Ditt ordernummer är: ${orderResponse.data.id}
   </h4>
   `
   } else if (orderResponse.data.customer_first_name !== undefined) {
