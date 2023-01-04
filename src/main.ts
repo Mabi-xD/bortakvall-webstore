@@ -1,30 +1,26 @@
 import {createOrder, fetchProducts} from './api'
-// import {IProduct} from './interfaces'
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
 
-/*
-* Get JSON order from localStorage
-*/
+
+//Get JSON order from localStorage
 const jsonOrder = localStorage.getItem('order') ?? '[]'
 
+// Parse JSON order into an array of order information
+let productsOrder: [] = JSON.parse(jsonOrder) 
+
 let products: [] = []
-let productsOrder: [] = JSON.parse(jsonOrder) // Parse JSON order into an array of order information
 let totalPrice: number
 let totalOrder: any [] = []
 let orderResponse: [] = []
 let filterOrder: any
 
-/*
-* GET all products from API
-*/
+// GET all products from API
 const getProducts = async () => {
   products = await fetchProducts()
-  console.log(products)
   let prodQuant = products.data.map(prod => (prod.quantity = 0))
   let prod = products.data
   let instock = prod.filter(stock => stock.stock_status === "instock")
-  console.log(instock)
   document.querySelector('#number-of-products')!.innerHTML = `
   <div class="justify-content-center">
     <p>Antal produkter:
@@ -35,9 +31,7 @@ const getProducts = async () => {
   renderProducts()
 }
 
-/*
-** Function to sort our lists.
-*/
+// Function to sort product list
 const sortProds = ( a, b ) => {
   if ( a.name < b.name ){
     return -1;
@@ -48,9 +42,7 @@ const sortProds = ( a, b ) => {
   return 0;
 }
 
-/*
-* RENDER all products to the dom
-*/
+// RENDER all products to the dom
 const renderProducts = () => {
   let prod = products.data
   prod.sort( sortProds )  
@@ -90,9 +82,7 @@ const renderProducts = () => {
 }
 })}
 
-/*
-* Add products to shopping cart
-*/
+// Add products to shopping cart
 const addToCart = () => {
   const parentElement = document.querySelector('#product-container')!;
   parentElement.addEventListener('click', e => {
@@ -117,41 +107,33 @@ const addToCart = () => {
 })
 }
 
-/*
-* Filter product quantity
-*/
-
+// Filter product quantity
 const filterProducts = () => {
   filterOrder = productsOrder.filter(prods => prods.quantity !== 0)
 }
 
-/*
-**  Eventlistener to add product into cart from Info div.
-*/
+// Eventlistener to add product into cart from the information div
 document.querySelector('#info-container')!.addEventListener('click', e => {
   e.preventDefault()
   const target = e.target as HTMLElement
-  if(target.textContent === "Lägg i varukorgen") {
-    const targetNr = Number(target.dataset.productId)
-    const prod = products.data
-    const findProd = prod.find(product => product.id === targetNr)
-    const search = productsOrder.find(prod => prod.id === findProd.id)
-    
-    if(search === undefined){
-      productsOrder.push(findProd)
-      findProd.quantity = 1
-    } else {
-      search.quantity += 1
-    }
-    console.log('You have added the following product:', productsOrder)
-    renderToCart()
-    getTotal()
-}
+    if(target.textContent === "Lägg i varukorgen") {
+      const targetNr = Number(target.dataset.productId)
+      const prod = products.data
+      const findProd = prod.find(product => product.id === targetNr)
+      const search = productsOrder.find(prod => prod.id === findProd.id)
+      
+      if(search === undefined){
+        productsOrder.push(findProd)
+        findProd.quantity = 1
+      } else {
+        search.quantity += 1
+      }
+      renderToCart()
+      getTotal()
+  }
 })
 
-/*
-* Show more information about a product
-*/
+// Show more information about a product
 document.querySelector('#product-container')?.addEventListener('click', e => {
   e.preventDefault()
 
@@ -201,15 +183,11 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
   }
 })
 
-/*
-** Info Btn
-*/
+// Info button
 document.querySelector('#info-container')?.addEventListener('click', e => {
   e.preventDefault()
 
   const target = e.target as HTMLElement
-
-  console.log(target)
 
   if(target.id === "backBtn" || target.tagName === "I"){
   document.querySelector('#info-container')?.classList.add('hide')
@@ -217,9 +195,7 @@ document.querySelector('#info-container')?.addEventListener('click', e => {
   }
 })
 
-/*
-* Render order to shopping cart
-*/
+// Render order to shopping cart
 const renderToCart = () => {
   productsOrder.sort( sortProds )
   filterProducts()
@@ -252,35 +228,26 @@ const renderToCart = () => {
   saveOrder()
 }
 
-/*
-** Remove product from cart
-*/
+// Remove product from cart
 document.querySelector('#render-cart')?.addEventListener('click', e =>{
   e.preventDefault()
-  console.log(e)
   const target = e.target as HTMLElement
-  if(target.textContent === "Ta bort") {
-    const targetNr = Number(target.dataset.productId)
-    console.log(targetNr)
-    const order = productsOrder
-    console.log(order)
-    const findProd = order.find(product => product.id === targetNr)
-    console.log(findProd)
-    findProd.quantity = 0
-  }
-renderToCart()
-getTotal()
+    if(target.textContent === "Ta bort") {
+      const targetNr = Number(target.dataset.productId)
+      const order = productsOrder
+      const findProd = order.find(product => product.id === targetNr)
+      findProd.quantity = 0
+    }
+  renderToCart()
+  getTotal()
 })
 
-/*
-** Displaying the total sum of product order
-*/
+// Displaying the total sum of product order
 const getTotal = () => {
   totalPrice = 0
   productsOrder.forEach(value => {
     totalPrice += value.price * value.quantity;
   });
-  console.log(totalPrice)
   document.querySelector('#total-sum')!.innerHTML = `
   <hr>
   <strong> 
@@ -291,9 +258,7 @@ const getTotal = () => {
   `
 }
 
-/*
-** Go to order-form event
-*/
+// Go to order-form event
 document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   e.preventDefault()
   document.querySelector('#info-confirmation')?.classList.add('hide')
@@ -307,6 +272,7 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   productsOrder.forEach(value => {
     totalPrice += value.price * value.quantity;
   });
+
   document.querySelector('#order-sum')!.innerHTML = `
   <hr>
   <strong> 
@@ -317,9 +283,7 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   `
 })
 
-/*
-** Render product sum
-*/
+// Render product sum
 const renderSum = () => {
   filterProducts()
   document.querySelector('#order-total')!.innerHTML = filterOrder
@@ -334,9 +298,7 @@ const renderSum = () => {
     .join('')
 }
 
-/*
-** Go to order confirmation event
-*/
+// Go to order confirmation event
 document.querySelector('#buyBtn')?.addEventListener('click', e => {
   e.preventDefault()
   const target = e.target as HTMLElement
@@ -349,9 +311,7 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
 })
 
 
-/*
-* POST order to API
-*/
+// Handle order form, POST and error messages
 document.getElementById('buyBtn')!.onclick = async () => {
   
   const inputFirstName = (document.getElementById('inputFirstName') as HTMLInputElement).value    // First name
@@ -375,7 +335,6 @@ document.getElementById('buyBtn')!.onclick = async () => {
   }
   
   orderResponse = await createOrder(orderInfo)
-  console.log(orderResponse)
 
   if (orderResponse.data.id !== undefined) {
   document.querySelector('#info-confirmation')!.innerHTML = `
@@ -404,9 +363,7 @@ document.getElementById('buyBtn')!.onclick = async () => {
     saveOrder()
 }
 
-/*
-** Go to order confirmation event
-*/
+// Go to order confirmation event
 document.querySelector('#buyBtn')?.addEventListener('click', e => {
   e.preventDefault()
   const target = e.target as HTMLElement
@@ -417,9 +374,7 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
   }
 })
 
-/*
-** Render productOrder so we can send it to the API
-*/
+// Render productOrder so we can send it to the API
 const renderOrder = () => {
   filterProducts()
   totalOrder = []
@@ -436,9 +391,7 @@ const renderOrder = () => {
   console.log(totalOrder)  
 }
 
-/*
-* Save order
-*/
+// Save order
 const saveOrder = () => {
   // Convert products order to JSON
   const jsonOrder = JSON.stringify(productsOrder)
@@ -450,17 +403,11 @@ const saveOrder = () => {
   // localStorage.setItem('order', JSON.stringify(productsOrder))
 }
 
-/*
-* GET products when entering the website
-*/
+// GET products when entering the website
 getProducts()
 
-/*
-* ADD product to shopping cart
-*/
+// ADD product to shopping cart
 addToCart()
 
-/*
-* RENDER product to shopping cart
-*/
+// RENDER product to shopping cart
 renderToCart()
