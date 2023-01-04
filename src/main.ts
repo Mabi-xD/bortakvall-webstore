@@ -2,7 +2,6 @@ import {createOrder, fetchProducts} from './api'
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
 
-
 //Get JSON order from localStorage
 const jsonOrder = localStorage.getItem('order') ?? '[]'
 
@@ -47,7 +46,6 @@ const sortProds = ( a: any, b: any ) => {
 const renderProducts = () => {
   let prod = products.data
   prod.sort( sortProds )  
-  console.log(prod)
   prod.forEach((prod: { stock_status: string; images: { thumbnail: any }; name: any; price: any; id: any; stock_quantity: any }) => {
   if(prod.stock_status === "instock"){
     document.querySelector('#product-container')!.innerHTML += `
@@ -96,18 +94,17 @@ const addToCart = () => {
       const prod = products.data
       const findProd = prod.find((product: { id: number }) => product.id === targetNr)
       const search = productsOrder.find((prod: { id: any }) => prod.id === findProd.id)
-      console.log(findProd)
       if(search === undefined){
         productsOrder.push(findProd)
         findProd.quantity = 1
       } else if (search.quantity < search.stock_quantity) {
         search.quantity += 1
       }
-      console.log('You have added the following product:', productsOrder)
   }
+
   renderToCart()
   getTotal()
-})
+  })
 }
 
 // Filter product quantity
@@ -131,7 +128,7 @@ document.querySelector('#info-container')!.addEventListener('click', e => {
     } else if (search.quantity < search.stock_quantity) {
       search.quantity += 1
     }
-    console.log('You have added the following product:', productsOrder)
+
     renderToCart()
     getTotal()
 }
@@ -140,19 +137,14 @@ document.querySelector('#info-container')!.addEventListener('click', e => {
 // Show more information about a product
 document.querySelector('#product-container')?.addEventListener('click', e => {
   e.preventDefault()
-
   const target = e.target as HTMLElement
   
   if(target.textContent === "Info"){
-    console.log(target.id)
     document.querySelector('#product-container')!.classList.add('hide')
     document.querySelector('#info-container')?.classList.remove('hide')
     const targetNr = Number(target.dataset.productId)
-    console.log(targetNr)
     const prod = products.data
-    console.log(prod)
     const findProd = prod.find((product: { id: number }) => product.id === targetNr)
-    console.log(findProd)
     if (findProd && findProd.stock_status === "instock"){
       document.querySelector('#info-container')!.innerHTML = `
         <div id="info-product" class="col-6 col-md-6 col-lg-6">
@@ -190,7 +182,6 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
 // Info button
 document.querySelector('#info-container')?.addEventListener('click', e => {
   e.preventDefault()
-
   const target = e.target as HTMLElement
 
   if(target.id === "backBtn" || target.tagName === "I"){
@@ -204,7 +195,7 @@ const renderToCart = () => {
   productsOrder.sort( sortProds )
   filterProducts()
   document.querySelector('#render-cart')!.innerHTML = filterOrder
-    .map((productsOrder: { id: any; name: any; price: number; quantity: number }) => ` 
+  .map((productsOrder: { id: any; name: any; price: number; quantity: number }) => ` 
   <div class="product-list" data-product-id="${productsOrder.id}">
   <p><strong>
   ${productsOrder.name}
@@ -226,7 +217,7 @@ const renderToCart = () => {
   <button type="button" class ="btn btn-danger btn-sm" data-product-id="${productsOrder.id}"  id="remove-btn">Ta bort</button>
   </div>
   `)
-    .join('')
+  .join('')
 
   // Save previous cart
   saveOrder()
@@ -237,11 +228,8 @@ document.querySelector('#render-cart')?.addEventListener('click', e =>{
   e.preventDefault()
   const target = e.target as HTMLElement
   const targetNr = Number(target.dataset.productId)
-  console.log(targetNr)
   const order = productsOrder
-  console.log(order)
   const findProd = order.find((product: { id: number }) => product.id === targetNr)
-  console.log(findProd)
   if(target.textContent === "Ta bort") {
     findProd.quantity = 0
   } else if (target.textContent === "\n  -\n  " ) {
@@ -250,8 +238,8 @@ document.querySelector('#render-cart')?.addEventListener('click', e =>{
     findProd.quantity += +1
   }
 
-renderToCart()
-getTotal()
+  renderToCart()
+  getTotal()
 })
 
 // Displaying the total sum of product order
@@ -307,7 +295,7 @@ const renderSum = () => {
   Summa: ${productsOrder.price * productsOrder.quantity} kr
   </p>
   `)
-    .join('')
+  .join('')
 }
 
 // Go to order confirmation event
@@ -373,8 +361,8 @@ document.getElementById('buyBtn')!.onclick = async () => {
     alert(`${orderResponse.data.customer_email}`)
   }
 
-    // Save previous order
-    saveOrder()
+  // Save previous order
+  saveOrder()
 }
 
 // Go to order confirmation event
@@ -401,20 +389,13 @@ const renderOrder = () => {
         item_total: prod.price * prod.quantity,
       }
   )
-    })
-  console.log(totalOrder)  
+    }) 
 }
 
 // Save order
 const saveOrder = () => {
-  // Convert products order to JSON
-  const jsonOrder = JSON.stringify(productsOrder)
-
-  // Save JSON to local storage
-  localStorage.setItem('order', jsonOrder)
-
-  // One liner
-  // localStorage.setItem('order', JSON.stringify(productsOrder))
+  // Convert products order to JSON and save JSON to local storage
+  localStorage.setItem('order', JSON.stringify(productsOrder))
 }
 
 // GET products when entering the website
