@@ -102,7 +102,7 @@ const addToCart = () => {
       if(search === undefined){
         productsOrder.push(findProd)
         findProd.quantity = 1
-      } else {
+      } else if (search.quantity < search.stock_quantity) {
         search.quantity += 1
       }
       console.log('You have added the following product:', productsOrder)
@@ -135,7 +135,7 @@ document.querySelector('#info-container')!.addEventListener('click', e => {
     if(search === undefined){
       productsOrder.push(findProd)
       findProd.quantity = 1
-    } else {
+    } else if (search.quantity < search.stock_quantity) {
       search.quantity += 1
     }
     console.log('You have added the following product:', productsOrder)
