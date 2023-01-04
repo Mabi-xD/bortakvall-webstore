@@ -332,7 +332,7 @@ document.getElementById('buyBtn')!.onclick = async () => {
 
   if (orderResponse.data.id !== undefined) {
   document.querySelector('#info-confirmation')!.innerHTML = `
-  <img src="public/202-accepted-order.png" id="acceptedOrderImg" class="image image-fluid" alt="202 accepted cat">
+  <img class="img-fluid" src="/public/202-accepted-order.png" id="acceptedOrderImg" alt="202 accepted cat">
   <br>
   <br>
   <h4>
