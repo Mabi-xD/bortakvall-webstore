@@ -77,7 +77,7 @@ const renderProducts = () => {
        ${prod.price} kr
        </h3>
        <div class="d-flex justify-content-center">
-       <button id="outOfStockBtn" class="btn" disabled data-product-id="${prod.id}">Lägg i varukorgen</button>
+       <button id="outOfStockBtn" class="btn" disabled data-product-id="${prod.id}">Slut i lager</button>
        <button class="btn" data-product-id="${prod.id}" id="info-btn">Info</button>
        </div>
     </div>`  
