@@ -331,7 +331,6 @@ document.getElementById('buyBtn')!.onclick = async () => {
   orderResponse = await createOrder(orderInfo)
 
   if (orderResponse.data.id !== undefined) {
-  document.getElementById('202Cat')?.classList.remove('hide')
   document.querySelector('#info-confirmation')!.innerHTML = `
   <br>
   <br>
