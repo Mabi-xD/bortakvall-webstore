@@ -134,7 +134,7 @@ button {
 
 #info-btn {
   margin-left: 4px;
-  background-color: #F06543;
+  background-color: #4a4e69;
   color: white;
 }
 
@@ -160,7 +160,7 @@ button {
 */
 
 #info-container {
-  background-color: #E8E9EB;
+  background-color: white;
   padding: 20px;
   border-radius: 10px;
 }
