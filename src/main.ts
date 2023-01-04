@@ -7,20 +7,21 @@ import './style.css'
 const jsonOrder = localStorage.getItem('order') ?? '[]'
 
 // Parse JSON order into an array of order information
-let productsOrder: [] = JSON.parse(jsonOrder) 
+let productsOrder: any = JSON.parse(jsonOrder) 
 
-let products: [] = []
+let products: any
 let totalPrice: number
-let totalOrder: any [] = []
-let orderResponse: [] = []
+let totalOrder: any 
+let orderResponse: any 
 let filterOrder: any
 
 // GET all products from API
 const getProducts = async () => {
   products = await fetchProducts()
-  let prodQuant = products.data.map(prod => (prod.quantity = 0))
+  let prodQuant = products.data.map((prod: { quantity: number }) => (prod.quantity = 0))
+  console.log(prodQuant)
   let prod = products.data
-  let instock = prod.filter(stock => stock.stock_status === "instock")
+  let instock = prod.filter((stock: { stock_status: string }) => stock.stock_status === "instock")
   document.querySelector('#number-of-products')!.innerHTML = `
   <div class="justify-content-center">
     <p>
@@ -32,7 +33,7 @@ const getProducts = async () => {
 }
 
 // Function to sort product list
-const sortProds = ( a, b ) => {
+const sortProds = ( a: any, b: any ) => {
   if ( a.name < b.name ){
     return -1;
   }
@@ -47,7 +48,7 @@ const renderProducts = () => {
   let prod = products.data
   prod.sort( sortProds )  
   console.log(prod)
-  prod.forEach(prod => {
+  prod.forEach((prod: { stock_status: string; images: { thumbnail: any }; name: any; price: any; id: any; stock_quantity: any }) => {
   if(prod.stock_status === "instock"){
     document.querySelector('#product-container')!.innerHTML += `
     <div id="product-card" class="col-6 col-md-5 col-lg-3 shadow mb-2 m-2 bg-body rounded p-3">
@@ -93,8 +94,8 @@ const addToCart = () => {
     if(target.textContent === "Lägg i varukorgen") {
       const targetNr = Number(target.dataset.productId)
       const prod = products.data
-      const findProd = prod.find(product => product.id === targetNr)
-      const search = productsOrder.find(prod => prod.id === findProd.id)
+      const findProd = prod.find((product: { id: number }) => product.id === targetNr)
+      const search = productsOrder.find((prod: { id: any }) => prod.id === findProd.id)
       console.log(findProd)
       if(search === undefined){
         productsOrder.push(findProd)
@@ -111,7 +112,7 @@ const addToCart = () => {
 
 // Filter product quantity
 const filterProducts = () => {
-  filterOrder = productsOrder.filter(prods => prods.quantity !== 0)
+  filterOrder = productsOrder.filter((prods: { quantity: number }) => prods.quantity !== 0)
 }
 
 // Eventlistener to add product into cart from the information div
@@ -121,8 +122,8 @@ document.querySelector('#info-container')!.addEventListener('click', e => {
   if(target.textContent === "Lägg i varukorgen") {
     const targetNr = Number(target.dataset.productId)
     const prod = products.data
-    const findProd = prod.find(product => product.id === targetNr)
-    const search = productsOrder.find(prod => prod.id === findProd.id)
+    const findProd = prod.find((product: { id: number }) => product.id === targetNr)
+    const search = productsOrder.find((prod: { id: any }) => prod.id === findProd.id)
     
     if(search === undefined){
       productsOrder.push(findProd)
@@ -150,7 +151,7 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
     console.log(targetNr)
     const prod = products.data
     console.log(prod)
-    const findProd = prod.find(product => product.id === targetNr)
+    const findProd = prod.find((product: { id: number }) => product.id === targetNr)
     console.log(findProd)
     if (findProd && findProd.stock_status === "instock"){
       document.querySelector('#info-container')!.innerHTML = `
@@ -203,7 +204,7 @@ const renderToCart = () => {
   productsOrder.sort( sortProds )
   filterProducts()
   document.querySelector('#render-cart')!.innerHTML = filterOrder
-    .map(productsOrder => ` 
+    .map((productsOrder: { id: any; name: any; price: number; quantity: number }) => ` 
   <div class="product-list" data-product-id="${productsOrder.id}">
   <p><strong>
   ${productsOrder.name}
@@ -239,7 +240,7 @@ document.querySelector('#render-cart')?.addEventListener('click', e =>{
   console.log(targetNr)
   const order = productsOrder
   console.log(order)
-  const findProd = order.find(product => product.id === targetNr)
+  const findProd = order.find((product: { id: number }) => product.id === targetNr)
   console.log(findProd)
   if(target.textContent === "Ta bort") {
     findProd.quantity = 0
@@ -256,7 +257,7 @@ getTotal()
 // Displaying the total sum of product order
 const getTotal = () => {
   totalPrice = 0
-  productsOrder.forEach(value => {
+  productsOrder.forEach((value: { price: number; quantity: number }) => {
     totalPrice += value.price * value.quantity;
   });
   document.querySelector('#total-sum')!.innerHTML = `
@@ -280,7 +281,7 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   renderOrder()
   
   totalPrice = 0
-  productsOrder.forEach(value => {
+  productsOrder.forEach((value: { price: number; quantity: number }) => {
     totalPrice += value.price * value.quantity;
   });
 
@@ -298,7 +299,7 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
 const renderSum = () => {
   filterProducts()
   document.querySelector('#order-total')!.innerHTML = filterOrder
-    .map(productsOrder => ` 
+    .map((productsOrder: { name: any; price: number; quantity: number }) => ` 
   <p><strong>
   ${productsOrder.name}
   </strong><br>
@@ -333,7 +334,7 @@ document.getElementById('buyBtn')!.onclick = async () => {
   const inputPhone = (document.getElementById('inputPhone') as HTMLInputElement).value            // Phonenumber
   const inputEmail = (document.getElementById('inputEmail') as HTMLInputElement).value            // Email
 
-  const orderInfo = {
+  const orderInfo: any = {
     customer_first_name: inputFirstName,
     customer_last_name: inputLastName,
     customer_address: inputAdress,
@@ -391,7 +392,7 @@ document.querySelector('#buyBtn')?.addEventListener('click', e => {
 const renderOrder = () => {
   filterProducts()
   totalOrder = []
-  filterOrder.forEach(prod => {
+  filterOrder.forEach((prod: { id: any; quantity: number; price: number }) => {
   totalOrder.push(
       {
         product_id: prod.id,
