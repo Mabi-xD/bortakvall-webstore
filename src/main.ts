@@ -271,7 +271,7 @@ document.querySelector('#checkout-btn')?.addEventListener('click', e => {
   <hr>
   <strong> 
   <p id="totala-summan">
-  Total summa: ${totalPrice}
+  Total summa: ${totalPrice} kr
   </p>
   </strong> 
   `
