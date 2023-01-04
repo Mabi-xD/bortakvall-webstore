@@ -17,8 +17,8 @@ let filterOrder: any
 // GET all products from API
 const getProducts = async () => {
   products = await fetchProducts()
-  let prod = products.data.map((prod: { quantity: number }) => (prod.quantity = 0))
-  let instock = prod.filter((stock: { stock_status: string }) => stock.stock_status === "instock")
+  products.data.map((prod: { quantity: number }) => (prod.quantity = 0))
+  let instock = products.data.filter((stock: { stock_status: string }) => stock.stock_status === "instock")
   document.querySelector('#number-of-products')!.innerHTML = `
   <div class="justify-content-center">
     <p>
