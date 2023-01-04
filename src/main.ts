@@ -75,7 +75,7 @@ const renderProducts = () => {
        ${prod.price} kr
        </h3>
        <div class="d-flex justify-content-center">
-       <button class="btn btn-danger" disabled data-product-id="${prod.id}">Lägg i varukorgen</button>
+       <button id="outOfStockBtn" class="btn" disabled data-product-id="${prod.id}">Lägg i varukorgen</button>
        <button class="btn" data-product-id="${prod.id}" id="info-btn">ⓘ</button>
        </div>
     </div>`  
@@ -176,7 +176,7 @@ document.querySelector('#product-container')?.addEventListener('click', e => {
         ${findProd.price}kr
         </h3>
         ${findProd.description}
-        <button class="btn btn-danger" disabled data-product-id="${findProd.id}">Lägg i varukorgen</button>
+        <button id="outOfStockBtn" class="btn" disabled data-product-id="${findProd.id}">Lägg i varukorgen</button>
       </div>
     `
     }
