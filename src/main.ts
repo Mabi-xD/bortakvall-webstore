@@ -330,11 +330,9 @@ document.getElementById('buyBtn')!.onclick = async () => {
   
   orderResponse = await createOrder(orderInfo)
 
-  const orderCat = document.getElementById('202Cat')
-
   if (orderResponse.data.id !== undefined) {
+  document.getElementById('202Cat')?.classList.remove('hide')
   document.querySelector('#info-confirmation')!.innerHTML = `
-  <img class="img-fluid" src="${orderCat}" id="acceptedOrderImg" alt="202 accepted cat">
   <br>
   <br>
   <h4>
