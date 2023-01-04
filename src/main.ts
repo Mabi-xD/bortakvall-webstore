@@ -220,7 +220,7 @@ const renderToCart = () => {
   filterProducts()
   document.querySelector('#render-cart')!.innerHTML = filterOrder
     .map(productsOrder => ` 
-  <div class="product-list">
+  <div class="product-list" data-product-id="${productsOrder.id}">
   <p><strong>
   ${productsOrder.name}
   </strong> 
@@ -231,12 +231,12 @@ const renderToCart = () => {
   </p>
   </div>
   <div class="quantity-list">
-  <button type="button" class="btn btn-light">
-  <i class="quantity-minus fa-solid fa-square-minus"></i>
+  <button type="button" class="btn btn-light" data-product-id="${productsOrder.id}">
+  -
   </button>
   <p>${productsOrder.quantity}</p>
-  <button type="button" class="btn btn-light">
-  <i class="quantity-plus fa-solid fa-square-plus"></i>
+  <button type="button" class="btn btn-light" data-product-id="${productsOrder.id}">
+  +
   </button>
   <button type="button" class ="btn btn-danger btn-sm" data-product-id="${productsOrder.id}"  id="remove-btn">Ta bort</button>
   </div>
@@ -251,15 +251,20 @@ document.querySelector('#render-cart')?.addEventListener('click', e =>{
   e.preventDefault()
   console.log(e)
   const target = e.target as HTMLElement
+  const targetNr = Number(target.dataset.productId)
+  console.log(targetNr)
+  const order = productsOrder
+  console.log(order)
+  const findProd = order.find(product => product.id === targetNr)
+  console.log(findProd)
   if(target.textContent === "Ta bort") {
-    const targetNr = Number(target.dataset.productId)
-    console.log(targetNr)
-    const order = productsOrder
-    console.log(order)
-    const findProd = order.find(product => product.id === targetNr)
-    console.log(findProd)
     findProd.quantity = 0
+  } else if (target.textContent === "\n  -\n  " ) {
+    findProd.quantity += -1 
+  } else if (target.textContent === "\n  +\n  " && findProd.quantity < findProd.stock_quantity) {
+    findProd.quantity += +1
   }
+
 renderToCart()
 getTotal()
 })
