@@ -1,7 +1,7 @@
 # A Medieinstitutet school project "Bortakväll"
 ## Making a webstore
 ### This project is made by three front end developer students at Medieinstitutet in Malmö: 
-Helga Börjesson (Helga's <a href="https://github.com/helgaborje" target="_blank">GitHub</a>),
+Helga Börjesson (Helga's <a href="https://github.com/helgaborje" target="_blank">GitHub</a> <a href="https://www.linkedin.com/in/helga-b%C3%B6rjesson-8342a8128/" target="_blank">LinkedIn</a>)),
 Marcus Birgersson (Marcus's <a href="https://github.com/Mabi-xD" target="_blank">GitHub</a>) and
 Eli Ennab (Eli's <a href="https://github.com/eli-ennab?tab=repositories" target="_blank">GitHub</a> and <a href="https://www.linkedin.com/in/elina-ennab-13ba57249/?originalSubdomain=se" target="_blank">LinkedIn</a>)
 #### url to the project: https://bortakvallwebstore.netlify.app/
